@@ -37,7 +37,7 @@ const routes = [
     name: 'Employees', // name that appear in Sidebar
   },
   {
-    path: '/app/leads', // url
+    path: '/app/attendance', // url
     icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
     name: 'Attendance', // name that appear in Sidebar
   },
