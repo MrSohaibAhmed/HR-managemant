@@ -19,7 +19,6 @@ import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
 import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon'
-// import UsersIcon from '@heroicons/react/24/outline/UserIcon'
 import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
