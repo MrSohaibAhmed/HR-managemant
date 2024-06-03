@@ -18,7 +18,8 @@ import InboxArrowDownIcon from '@heroicons/react/24/outline/InboxArrowDownIcon'
 import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
-
+import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon'
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/app/employees', // url
     icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
     name: 'Employees', // name that appear in Sidebar
+  },
+  {
+    path: '/app/leads', // url
+    icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
+    name: 'Attendance', // name that appear in Sidebar
   },
   {
     path: '/app/leads', // url
@@ -62,7 +68,7 @@ const routes = [
   },
 
   {
-    path: '', //no url needed as this has submenu
+    path: '/app/integration', //no url needed as this has submenu
     icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />, // icon component
     name: 'Announcement', // name that appear in Sidebar
     // submenu: [
@@ -95,7 +101,7 @@ const routes = [
   },
   {
     path: '', //no url needed as this has submenu
-    icon: <Cog6ToothIcon className={`${iconClasses} inline`} />, // icon component
+    icon: <EnvelopeIcon className={`${iconClasses} inline`} />, // icon component
     name: 'Chat', // name that appear in Sidebar
     // submenu: [
     //   {

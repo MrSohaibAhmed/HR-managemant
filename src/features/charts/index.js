@@ -42,10 +42,10 @@ function Charts(){
             </div>
 
         
-            <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
+            {/* <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
                 <DoughnutChart />
                 <PieChart />
-            </div>
+            </div> */}
 
             <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
                 <ScatterChart />
