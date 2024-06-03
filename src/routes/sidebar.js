@@ -32,7 +32,7 @@ const routes = [
   },
 
   {
-    path: '/app/leads', // url
+    path: '/app/employees', // url
     icon: <UserGroupIcon className={iconClasses} />, // icon component
     name: 'Employees', // name that appear in Sidebar
   },

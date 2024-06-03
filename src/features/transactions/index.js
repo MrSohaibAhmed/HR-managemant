@@ -77,7 +77,7 @@ function Transactions(){
     return(
         <>
             
-            <TitleCard title="Recent Transactions" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
+            <TitleCard title="Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
 
                 {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
@@ -86,8 +86,10 @@ function Transactions(){
                     <tr>
                         <th>Name</th>
                         <th>Email Id</th>
-                        <th>Location</th>
-                        <th>Amount</th>
+                      {/**  <th>Location</th> */}
+                        <th>Total Salary</th>
+                        <th>Deduction</th>
+                        <th>Remaining Salary</th>
                         <th>Transaction Date</th>
                     </tr>
                     </thead>
@@ -109,8 +111,10 @@ function Transactions(){
                                         </div>
                                     </td>
                                     <td>{l.email}</td>
-                                    <td>{l.location}</td>
+                                 {/**   <td>{l.location}</td>*/} 
                                     <td>${l.amount}</td>
+                                    <td>1000</td>
+                                    <td>20000</td>
                                     <td>{moment(l.date).format("D MMM")}</td>
                                     </tr>
                                 )
