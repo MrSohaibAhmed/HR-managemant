@@ -50,7 +50,7 @@ import {
         };
   
       return(
-        <TitleCard title={"Sales"} topMargin="mt-2">
+        <TitleCard title={"Total Employees"} topMargin="mt-2">
               <Bar options={options} data={data} />
         </TitleCard>
   

@@ -45,7 +45,7 @@ import {
         };
   
       return(
-          <TitleCard title={"No of Orders by month (in k)"}>
+          <TitleCard title={"No of Projects Running"}>
                   <Scatter options={options} data={data} />
           </TitleCard>
       )
