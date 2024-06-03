@@ -27,7 +27,13 @@ const routes = [
   {
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
-    name: 'Employess',
+    name: 'Dashboard',
+  },
+
+  {
+    path: '/app/leads', // url
+    icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
+    name: 'Employees', // name that appear in Sidebar
   },
   {
     path: '/app/leads', // url
