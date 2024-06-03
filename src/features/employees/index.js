@@ -35,11 +35,11 @@ function Employees() {
 
 
     const getDummyStatus = (index) => {
-        if (index % 5 === 0) return <div className="badge">Not Interested</div>
-        else if (index % 5 === 1) return <div className="badge badge-primary">In Progress</div>
-        else if (index % 5 === 2) return <div className="badge badge-secondary">Sold</div>
-        else if (index % 5 === 3) return <div className="badge badge-accent">Need Followup</div>
-        else return <div className="badge badge-ghost">Open</div>
+        if (index % 5 === 0) return <div className="badge">Active</div>
+        else if (index % 5 === 1) return <div className="badge badge-primary">Active</div>
+        else if (index % 5 === 2) return <div className="badge badge-secondary">Active</div>
+        else if (index % 5 === 3) return <div className="badge badge-accent">Active</div>
+        else return <div className="badge badge-ghost">Active</div>
     }
 
     const deleteCurrentLead = (index) => {
