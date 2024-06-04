@@ -62,7 +62,7 @@ function Employees() {
                                 <th>Joining Date</th>
                                 <th>Status</th>
                                 <th>Designation</th>
-                             {/**  <th>Assigned To</th>*/}
+                                {/**  <th>Assigned To</th>*/}
                                 <th></th>
                             </tr>
                         </thead>
@@ -88,7 +88,7 @@ function Employees() {
                                             <td>{moment(new Date()).add(-5 * (k + 2), 'days').format("DD MMM YY")}</td>
                                             <td>{getDummyStatus(k)}</td>
                                             <td>Frontend Developer</td>
-                                           {/** <td>{l.last_name}</td>  */}
+                                            {/** <td>{l.last_name}</td>  */}
                                             <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button></td>
                                         </tr>
                                     )

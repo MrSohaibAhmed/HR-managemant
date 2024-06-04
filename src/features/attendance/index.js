@@ -51,7 +51,7 @@ function Attendance() {
 
     return (
         <>
-            <TitleCard title="Employees" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+            <TitleCard title="Attendance" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
