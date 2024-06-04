@@ -7,6 +7,7 @@ import InputText from '../../../components/Input/InputText'
 import TextAreaInput from '../../../components/Input/TextAreaInput'
 import ToogleInput from '../../../components/Input/ToogleInput'
 import MultiSelect from "../../../components/Input/SelectedItem"
+import SelectBox from "../../../components/Input/SelectBox"
 
 
 
@@ -33,9 +34,22 @@ function ProjectsForm() {
     }
 
     const updateFormValue = ({ updateType, value }) => {
-        console.log(updateType)
+        console.log("update type is =>>",updateType)
+        console.log("value typ is =>>",value)
     }
+     const options = [
+        {
+            name:"Active"
+        },
+        {
+            name:"Pending"
+        },
+        {
+            name:"Complete"
+        },
+        ]
 
+     
     return (
         <>
 
@@ -46,17 +60,12 @@ function ProjectsForm() {
                     <InputText labelTitle="Team Lead" defaultValue="Sohaib" updateFormValue={updateFormValue} />
                     <InputText labelTitle="Starting Date" defaultValue="03-05-2024" updateFormValue={updateFormValue} />
                     <InputText labelTitle="Deadlines" defaultValue="03-05-2025" updateFormValue={updateFormValue} />
-                    <InputText labelTitle="Status" defaultValue="Active" updateFormValue={updateFormValue} />
+                    {/* <InputText labelTitle="Status" defaultValue="Active" updateFormValue={updateFormValue} /> */}
+                    <SelectBox labelTitle="Status" options={options} updateFormValue={updateFormValue} />
                     <MultiSelect/>
-                    {/* <InputText labelTitle="Members" defaultValue="5" updateFormValue={updateFormValue}/> */}
+                    {/* <InputText labelTitle="Members" defaultValue="5" /> */}
                 </div>
-                {/* <div className="divider" ></div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue}/>
-                    <ToogleInput updateType="syncData" labelTitle="Sync Data" defaultValue={true} updateFormValue={updateFormValue}/>
-                </div> */}
+                
 
                 <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Save</button></div>
             </TitleCard>
