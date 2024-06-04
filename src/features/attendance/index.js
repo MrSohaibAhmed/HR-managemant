@@ -24,6 +24,7 @@ const TopSideButtons = () => {
 }
 
 function Attendance() {
+    const [todayDate, setTodayDate] = useState('');
 
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
@@ -57,10 +58,23 @@ function Attendance() {
             [leadId]: value,
         }));
     };
+    useEffect(() => {
+        const today = new Date();
+
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const formattedToday = yyyy + '-' + mm + '-' + dd;
+        setTodayDate(formattedToday);
+    }, []);
 
     return (
         <>
             <TitleCard title="Attendance" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+                <div>
+                    <input type="date" value={todayDate} />
+                </div>
+                <br />
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">

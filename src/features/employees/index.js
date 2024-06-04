@@ -13,7 +13,7 @@ const TopSideButtons = () => {
     const dispatch = useDispatch()
 
     const openAddNewLeadModal = () => {
-        dispatch(openModal({ title: "Add New Lead", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
+        dispatch(openModal({ title: "Add New Employee", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
     }
 
     return (
