@@ -20,6 +20,7 @@ import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
 import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon'
 import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
+import FaceFrownIcon from '@heroicons/react/24/solid/FaceFrownIcon'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
@@ -63,8 +64,13 @@ const routes = [
   // },
   {
     path: '/app/calendar', // url
-    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
+    icon: <FaceFrownIcon className={iconClasses} />, // icon component
     name: 'Leaves', // name that appear in Sidebar
+  },
+  {
+    path: '/app/calendar', // url
+    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
+    name: 'Meeting Calendar', // name that appear in Sidebar
   },
 
   {
