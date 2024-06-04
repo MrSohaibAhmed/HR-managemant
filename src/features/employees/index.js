@@ -75,6 +75,8 @@ function Employees() {
         navigate('/app/add-employees', { state: data });
     }
 
+    
+
     return (
         <>
             <TitleCard title="Employees" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
