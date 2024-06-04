@@ -7,6 +7,9 @@ import { deleteLead, getLeadsContent } from "./leadSlice"
 import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../utils/globalConstantUtil'
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
+import EditIcon from "../../icons/edit"
+import ViewIcon from "../../icons/view"
+
 
 const TopSideButtons = () => {
 
@@ -87,7 +90,12 @@ function Leads() {
                                             <td>{moment(new Date()).add(-5 * (k + 2), 'days').format("DD MMM YY")}</td>
                                             <td>{getDummyStatus(k)}</td>
                                             <td>{l.last_name}</td>
-                                            <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button></td>
+                                            <td>
+                                                <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button>
+                                                <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><EditIcon className="w-5" /></button>
+                                                <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><ViewIcon className="w-5" /></button>
+                                                
+                                            </td>
                                         </tr>
                                     )
                                 })
