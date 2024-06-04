@@ -71,6 +71,7 @@ function Employees() {
         <>
             <TitleCard title="Employees" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
+                {employees.length >0 &&
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
                         <thead>
@@ -121,6 +122,12 @@ function Employees() {
                         </tbody>
                     </table>
                 </div>
+                }
+                {
+                    employees.length ==0 && <div>
+                        <p>No Records Founds</p>
+                    </div>
+                }
             </TitleCard>
         </>
     )

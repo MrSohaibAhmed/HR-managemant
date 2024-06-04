@@ -26,10 +26,15 @@ function ProjectsForm(){
             <TitleCard title="Add Projects" topMargin="mt-2">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Name" defaultValue="HR Management System" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Start Date" defaultValue="03-05-2024" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="End Date" defaultValue="03-05-2025" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Members" defaultValue="5" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Project Name" defaultValue="HR Management System" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Team Lead" defaultValue="Sohaib" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Starting Date" defaultValue="03-05-2024" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Deadlines" defaultValue="03-05-2025" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Status" defaultValue="Active" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Team Members" defaultValue="5" updateFormValue={updateFormValue}/>
+                    
+
+                    {/* <InputText labelTitle="Members" defaultValue="5" updateFormValue={updateFormValue}/> */}
                 </div>
                 {/* <div className="divider" ></div>
 

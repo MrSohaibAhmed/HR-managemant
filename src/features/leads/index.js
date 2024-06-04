@@ -67,11 +67,12 @@ function Leads() {
                     <table className="table w-full">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Email Id</th>
-                                <th>Created At</th>
+                                <th>Project Name</th>
+                                <th>Team Lead</th>
+                                <th>Starting Date</th>
+                                <th>Deadline</th>
                                 <th>Status</th>
-                                <th>Assigned To</th>
+                                <th>Team Members</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -93,10 +94,11 @@ function Leads() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{l.email}</td>
+                                            <td>{l.first_name}</td>
                                             <td>{moment(new Date()).add(-5 * (k + 2), 'days').format("DD MMM YY")}</td>
+                                            <td>10-02-2030</td>
                                             <td>{getDummyStatus(k)}</td>
-                                            <td>{l.last_name}</td>
+                                            <td>Ali , Ahmad , Sohaib </td>
                                             <td>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><EditIcon className="w-5" /></button>
