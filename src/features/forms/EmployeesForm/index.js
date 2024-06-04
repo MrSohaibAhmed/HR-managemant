@@ -1,42 +1,74 @@
-import moment from "moment"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import TitleCard from "../../../components/Cards/TitleCard"
-import { showNotification } from '../../common/headerSlice'
-import InputText from '../../../components/Input/InputText'
-import TextAreaInput from '../../../components/Input/TextAreaInput'
-import ToogleInput from '../../../components/Input/ToogleInput'
-import { addEmployee } from "../../../hooks/useEmployee"
-import { useNavigate } from "react-router-dom"
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import TitleCard from "../../../components/Cards/TitleCard";
+import { showNotification } from "../../common/headerSlice";
+import InputText from "../../../components/Input/InputText";
+import TextAreaInput from "../../../components/Input/TextAreaInput";
+import ToogleInput from "../../../components/Input/ToogleInput";
+import { addEmployee, editEmployee } from "../../../hooks/useEmployee";
+import { useNavigate, useLocation } from "react-router-dom";
+
 function EmployeesForm() {
     const navi = useNavigate();
-    const dispatch = useDispatch()
-    const [formData, setFormData] = useState({
-        employeeName: "",
-        employeeEmail: "",
-        designation: "",
-        joiningDate: "",
-        place: "",
-        about: "",
-        status: "active"
+    const location = useLocation();
+    const { state: data } = location;
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState(() => {
+        if (data) {
+            return {
+                employeeName: data.employeeName || "",
+                employeeEmail: data.employeeEmail || "",
+                designation: data.designation || "",
+                joiningDate: data.joiningDate || "",
+                place: data.place || "",
+                about: data.about || "",
+                status: data.status || "active",
+            };
+        } else {
+            return {
+                employeeName: "",
+                employeeEmail: "",
+                designation: "",
+                joiningDate: "",
+                place: "",
+                about: "",
+                status: "active",
+            };
+        }
     });
 
-    const updateProfile = async () => {
-        console.log(formData);
-        try {
-            const formattedJoiningDate = moment(formData.joiningDate).format('DD-M-YYYY');
-            const updatedFormData = {
-                ...formData,
-                joiningDate: formattedJoiningDate
-            };
-
-            await addEmployee(updatedFormData);
-            dispatch(showNotification({ message: "Employee Added", status: 1 }));
-            navi("/app/employees")
-        } catch (error) {
-            dispatch(showNotification({ message: "Error in Adding Employee", status: 0 }));
-            console.error("Error adding employee:", error);
-            navi("/app/employees")
+    const handleProfile = async () => {
+        if (data) {
+            try {
+                const formattedJoiningDate = moment(formData.joiningDate, "YYYY-MM-DD").format('DD-M-YYYY');
+                const updatedFormData = {
+                    ...formData,
+                    joiningDate: formattedJoiningDate
+                };
+                await editEmployee(updatedFormData , data);
+                dispatch(showNotification({ message: "Employee Data Updated", status: 1 }));
+                navi("/app/employees")
+            } catch (error) {
+                dispatch(showNotification({ message: "Error in Updating Employee", status: 0 }));
+                console.error("Error adding employee:", error);
+                navi("/app/employees")
+            }
+        } else {
+            try {
+                const formattedJoiningDate = moment(formData.joiningDate, "YYYY-MM-DD").format('DD-M-YYYY');
+                const updatedFormData = {
+                    ...formData,
+                    joiningDate: formattedJoiningDate
+                };
+                await addEmployee(updatedFormData );
+                dispatch(showNotification({ message: "Employee Added", status: 1 }));
+                navi("/app/employees")
+            } catch (error) {
+                dispatch(showNotification({ message: "Error in Adding Employee", status: 0 }));
+                console.error("Error adding employee:", error);
+                navi("/app/employees")
+            }
         }
     };
 
@@ -56,7 +88,7 @@ function EmployeesForm() {
 
     return (
         <>
-            <TitleCard title="Add Employees" topMargin="mt-2">
+            <TitleCard title={data ? "Edit Employee" : "Add Employee"} topMargin="mt-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <InputText labelTitle="Name" defaultValue={formData.employeeName} updateFormValue={updateFormValue} updateType="employeeName" />
                     <InputText labelTitle="Email Id" defaultValue={formData.employeeEmail} updateFormValue={updateFormValue} updateType="employeeEmail" />
@@ -65,14 +97,14 @@ function EmployeesForm() {
                     <InputText labelTitle="Joining Date" type="date" defaultValue={formData.joiningDate} updateFormValue={updateFormValue} updateType="joiningDate" />
                     <InputText labelTitle="Place" defaultValue={formData.place} updateFormValue={updateFormValue} updateType="place" />
                     <TextAreaInput labelTitle="About" defaultValue={formData.about} updateFormValue={updateFormValue} updateType="about" />
-                    <ToogleInput labelTitle="Active" defaultValue={true} updateFormValue={updateFormValue} updateType="active" />
+                    <ToogleInput labelTitle="Active" defaultValue={formData.status === "active"} updateFormValue={updateFormValue} updateType="active" />
                 </div>
                 <div className="mt-16">
-                    <button className="btn btn-primary float-right" onClick={() => updateProfile()}>Add</button>
+                    <button className="btn btn-primary float-right" onClick={() => handleProfile()}>{data ? "Update Employee" : "Add Employee"}</button>
                 </div>
             </TitleCard>
         </>
-    )
+    );
 }
 
 export default EmployeesForm;
