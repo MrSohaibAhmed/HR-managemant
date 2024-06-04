@@ -15,6 +15,8 @@ function SelectBox(props){
     const updateValue = (newValue) =>{
         updateFormValue({updateType, value : newValue})
         setValue(newValue)
+        console.log("value is=>>" , newValue);
+        console.log("update is=>>" , updateType);
     }
 
 
