@@ -39,6 +39,23 @@ function EmployeesForm() {
     });
 
     const handleProfile = async () => {
+        const requiredFields = ["employeeName", "employeeEmail", "designation" , "joiningDate"];
+
+        // Check for empty required fields
+        for (const field of requiredFields) {
+            if (!formData[field].trim()) {
+                const message = `Please enter ${field}`;
+                dispatch(showNotification({ message, status: 0 }));
+                return; // Exit if any required field is empty
+            }
+        }
+
+        // Email validation with @ symbol check
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.employeeEmail.trim())) {
+            dispatch(showNotification({ message: "Please enter a valid email address", status: 0 }));
+            return; // Exit if email is invalid
+        }
+
         if (data) {
             try {
                 const formattedJoiningDate = moment(formData.joiningDate, "YYYY-MM-DD").format('DD-M-YYYY');
@@ -69,8 +86,10 @@ function EmployeesForm() {
                 console.error("Error adding employee:", error);
                 navi("/app/employees")
             }
-        }
-    };
+    
+        }}
+
+    
 
     const updateFormValue = ({ updateType, value }) => {
         if (updateType === "active") {
