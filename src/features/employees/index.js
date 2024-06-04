@@ -1,5 +1,5 @@
 import moment from "moment"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { openModal } from "../common/modalSlice"
@@ -9,7 +9,8 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import EditIcon from "../../icons/edit"
 import ViewIcon from "../../icons/view"
-
+import { getEmployees } from "../../hooks/useEmployee"
+import ToogleInput from "../../components/Input/ToogleInput"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -26,14 +27,22 @@ const TopSideButtons = () => {
 }
 
 function Employees() {
-
-    const { leads } = useSelector(state => state.lead)
-    const dispatch = useDispatch()
+    const [employees, setEmployees] = useState([]);
+    // const { leads } = useSelector(state => state.lead)
+    // const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getLeadsContent())
-    }, [])
+        const fetchData = async () => {
+            try {
+                const employeesData = await getEmployees();
+                setEmployees(employeesData);
+            } catch (error) {
 
+            }
+        };
+
+        fetchData();
+    }, []);
 
 
     const getDummyStatus = (index) => {
@@ -45,10 +54,10 @@ function Employees() {
     }
 
     const deleteCurrentLead = (index) => {
-        dispatch(openModal({
-            title: "Confirmation", bodyType: MODAL_BODY_TYPES.CONFIRMATION,
-            extraObject: { message: `Are you sure you want to delete this lead?`, type: CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index }
-        }))
+        // dispatch(openModal({
+        //     title: "Confirmation", bodyType: MODAL_BODY_TYPES.CONFIRMATION,
+        //     extraObject: { message: `Are you sure you want to delete this lead?`, type: CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index }
+        // }))
     }
 
     return (
@@ -70,26 +79,28 @@ function Employees() {
                         </thead>
                         <tbody>
                             {
-                                leads.map((l, k) => {
+                                employees.map((l, k) => {
                                     return (
                                         <tr key={k}>
                                             <td>
                                                 <div className="flex items-center space-x-3">
                                                     <div className="avatar">
                                                         <div className="mask mask-squircle w-12 h-12">
-                                                            <img src={l.avatar} alt="Avatar" />
+                                                            {/* <img src={l?.avatar} alt="pic" /> */}
+                                                            <img src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg" alt="pic" />
+
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div className="font-bold">{l.first_name}</div>
-                                                        <div className="text-sm opacity-50">{l.last_name}</div>
+                                                        <div className="font-bold">{l?.employeeName}</div>
+                                                        {/* <div className="text-sm opacity-50">{l?.last_name}</div> */}
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{l.email}</td>
-                                            <td>{moment(new Date()).add(-5 * (k + 2), 'days').format("DD MMM YY")}</td>
-                                            <td>{getDummyStatus(k)}</td>
-                                            <td>Frontend Developer</td>
+                                            <td>{l?.employeeEmail}</td>
+                                            <td>{l?.joiningDate}</td>
+                                            <td>{l?.status}</td>
+                                            <td>{l?.designation}</td>
                                             {/** <td>{l.last_name}</td>  */}
                                             <td>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button>
