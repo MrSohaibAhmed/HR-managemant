@@ -1,5 +1,5 @@
 import moment from "moment"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { openModal } from "../common/modalSlice"
@@ -16,17 +16,19 @@ const TopSideButtons = () => {
         dispatch(openModal({ title: "Add New Lead", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
     }
 
-    return (
-        <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
-        </div>
-    )
+    // return (
+    //     <div className="inline-block float-right">
+    //         <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
+    //     </div>
+    // )
 }
 
 function Attendance() {
 
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
+
+    const [attendance, setAttendance] = useState();
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -49,6 +51,13 @@ function Attendance() {
         }))
     }
 
+    const handleAttendanceChange = (leadId, value) => {
+        setAttendance((prevAttendance) => ({
+            ...prevAttendance,
+            [leadId]: value,
+        }));
+    };
+
     return (
         <>
             <TitleCard title="Employees" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
@@ -58,13 +67,9 @@ function Attendance() {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Attendance</th>
-
-                              {/**  <th>Email Id</th>
-                                <th>Joining Date</th>
-                                <th>Status</th>
-                                <th>Designation</th>
-                               <th>Assigned To</th>*/}
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Leave</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -86,32 +91,52 @@ function Attendance() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            {/** <td>{l.email}</td>
-                                            <td>{moment(new Date()).add(-5 * (k + 2), 'days').format("DD MMM YY")}</td>
-                                            <td>{getDummyStatus(k)}</td>
-                                            <td>Frontend Developer</td>
-                                           <td>{l.last_name}</td>  
-                                            <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button></td>*/}
-                                          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                            <option selected>Status</option>
-                                            <option value="1">Present</option>
-                                            <option value="2">Absent</option>
-                                            <option value="3">Leave</option>
-                                          </select>
-                                          
-                                       {/*** <td>
-                                         Present <input type="checkbox" name={`present-${k}`} value="present" />
-                                        Absent  <input type="checkbox" name={`absent-${k}`} value="absent" />
-                                       Leave   <input type="checkbox" name={`leave-${k}`} value="leave" />
-                                      </td>
-                                       */}
-                                      
+
+                                            <td className="py-2 px-4 border-b ">
+                                                <input
+                                                    style={{ width: "20px", height: "20px" }}
+                                                    type="radio"
+                                                    name={`attendance-${l.id}`}
+                                                    value="present"
+                                                    // checked={attendance[l.id] === 'present'}
+                                                    onChange={() => handleAttendanceChange(l.id, 'present')}
+                                                    className="form-radio"
+                                                />
+                                            </td>
+                                            <td className="py-2 px-4 border-b ">
+                                                <input
+                                                    style={{ width: "20px", height: "20px" }}
+                                                    type="radio"
+                                                    name={`attendance-${l.id}`}
+                                                    value="absent"
+                                                    // checked={attendance[l.id] === 'absent'}
+                                                    onChange={() => handleAttendanceChange(l.id, 'absent')}
+                                                    className="form-radio"
+                                                />
+                                            </td>
+                                            <td className="py-2 px-4 border-b ">
+                                                <input
+                                                    style={{ width: "20px", height: "20px" }}
+                                                    type="radio"
+                                                    name={`attendance-${l.id}`}
+                                                    value="leave"
+                                                    // checked={attendance[l.id] === 'leave'}
+                                                    onChange={() => handleAttendanceChange(l.id, 'leave')}
+                                                    className="form-radio"
+                                                />
+                                            </td>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
                     </table>
+                </div>
+                <div className=" flex justify-end items-baseline pt-5">
+                    {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
+                        Save
+                    </button>
                 </div>
             </TitleCard>
         </>
