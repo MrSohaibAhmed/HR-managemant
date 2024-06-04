@@ -13,7 +13,7 @@ function LandingIntro() {
             {/* <img src="/logo192.png" className="w-12 inline-block mr-2 mask mask-circle" alt="dashwind-logo" /> */}
             P-TECH FUSION</h1>
 
-          <div className="text-center mt-12"><img src="./intro.png" alt="Dashwind Admin Template" className="w-48 inline-block"></img></div>
+          <div className="text-center mt-12"><img height="500" width="500" src="./fulllogo.png" className="w-48 inline-block"></img></div>
 
           {/* Importing pointers component */}
           <TemplatePointers />
