@@ -16,6 +16,8 @@ const Team = lazy(() => import('../pages/protected/Team'))
 const Transactions = lazy(() => import('../pages/protected/Transactions'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
 const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
+const EmployeesForm = lazy(() => import('../pages/protected/EmployeesForm'))
+const ProjectForm = lazy(() => import('../pages/protected/ProjectForm'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
@@ -59,6 +61,14 @@ const routes = [
     component: ProfileSettings,
   },
   {
+    path: '/add-employees',
+    component: EmployeesForm,
+  },
+  {
+    path: '/add-projects',
+    component: ProjectForm,
+  },
+  {
     path: '/settings-billing',
     component: Bills,
   },
@@ -66,6 +76,7 @@ const routes = [
     path: '/getting-started',
     component: GettingStarted,
   },
+  
   {
     path: '/features',
     component: DocFeatures,

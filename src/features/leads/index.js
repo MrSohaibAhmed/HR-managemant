@@ -9,19 +9,26 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import EditIcon from "../../icons/edit"
 import ViewIcon from "../../icons/view"
+import { useNavigate } from "react-router-dom"
 
 
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
-    const openAddNewLeadModal = () => {
-        dispatch(openModal({ title: "Add New Lead", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
+    // const openAddNewLeadModal = () => {
+    //     dispatch(openModal({ title: "Add New Lead", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
+    // }
+
+    const clickHandler = () =>{
+        navigate('/app/add-projects')
     }
 
     return (
         <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
+            {/* <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button> */}
+            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => clickHandler()}>Add New</button>
         </div>
     )
 }
@@ -54,7 +61,7 @@ function Leads() {
 
     return (
         <>
-            <TitleCard title="Current Leads" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+            <TitleCard title="Projects" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">

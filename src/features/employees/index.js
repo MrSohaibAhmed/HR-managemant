@@ -9,18 +9,24 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import EditIcon from "../../icons/edit"
 import ViewIcon from "../../icons/view"
+import { useNavigate } from "react-router-dom"
 
 const TopSideButtons = () => {
-
+const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const openAddNewLeadModal = () => {
-        dispatch(openModal({ title: "Add New Employee", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
+    // const openAddNewLeadModal = () => {
+    //     dispatch(openModal({ title: "Add New Employee", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
+    // }
+
+    const clickHanlder = ()=>{
+        navigate('/app/add-employees')
     }
 
     return (
         <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
+            {/* <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button> */}
+            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => clickHanlder()}>Add New</button>
         </div>
     )
 }
