@@ -6,47 +6,73 @@ import { showNotification } from '../../common/headerSlice'
 import InputText from '../../../components/Input/InputText'
 import TextAreaInput from '../../../components/Input/TextAreaInput'
 import ToogleInput from '../../../components/Input/ToogleInput'
-
-function EmployeesForm(){
-
-
+import { addEmployee } from "../../../hooks/useEmployee"
+import { useNavigate } from "react-router-dom"
+function EmployeesForm() {
+    const navi = useNavigate();
     const dispatch = useDispatch()
+    const [formData, setFormData] = useState({
+        employeeName: "",
+        employeeEmail: "",
+        designation: "",
+        joiningDate: "",
+        place: "",
+        about: "",
+        status: "active"
+    });
 
-    // Call API to update profile settings changes
-    const updateProfile = () => {
-        dispatch(showNotification({message : "Profile Updated", status : 1}))    
-    }
+    const updateProfile = async () => {
+        console.log(formData);
+        try {
+            const formattedJoiningDate = moment(formData.joiningDate).format('DD-M-YYYY');
+            const updatedFormData = {
+                ...formData,
+                joiningDate: formattedJoiningDate
+            };
 
-    const updateFormValue = ({updateType, value}) => {
-        console.log(updateType)
-    }
+            await addEmployee(updatedFormData);
+            dispatch(showNotification({ message: "Employee Added", status: 1 }));
+            navi("/app/employees")
+        } catch (error) {
+            dispatch(showNotification({ message: "Error in Adding Employee", status: 0 }));
+            console.error("Error adding employee:", error);
+            navi("/app/employees")
+        }
+    };
 
-    return(
+    const updateFormValue = ({ updateType, value }) => {
+        if (updateType === "active") {
+            setFormData(prevState => ({
+                ...prevState,
+                status: value ? "active" : "inactive"
+            }));
+        } else {
+            setFormData(prevState => ({
+                ...prevState,
+                [updateType]: value
+            }));
+        }
+    };
+
+    return (
         <>
-            
             <TitleCard title="Add Employees" topMargin="mt-2">
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Name" defaultValue="Alex" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Email Id" defaultValue="alex@dashwind.com" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Designation" defaultValue="UI/UX Designer" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Joining Date" defaultValue="03-05-2024" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Place" defaultValue="Lahore" updateFormValue={updateFormValue}/>
-                    <TextAreaInput labelTitle="About" defaultValue="Doing what I love, part time traveller" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Name" defaultValue={formData.employeeName} updateFormValue={updateFormValue} updateType="employeeName" />
+                    <InputText labelTitle="Email Id" defaultValue={formData.employeeEmail} updateFormValue={updateFormValue} updateType="employeeEmail" />
+                    <InputText labelTitle="Designation" defaultValue={formData.designation} updateFormValue={updateFormValue} updateType="designation" />
+                    {/* Use type="date" for the Joining Date input */}
+                    <InputText labelTitle="Joining Date" type="date" defaultValue={formData.joiningDate} updateFormValue={updateFormValue} updateType="joiningDate" />
+                    <InputText labelTitle="Place" defaultValue={formData.place} updateFormValue={updateFormValue} updateType="place" />
+                    <TextAreaInput labelTitle="About" defaultValue={formData.about} updateFormValue={updateFormValue} updateType="about" />
+                    <ToogleInput labelTitle="Active" defaultValue={true} updateFormValue={updateFormValue} updateType="active" />
                 </div>
-                {/* <div className="divider" ></div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue}/>
-                    <ToogleInput updateType="syncData" labelTitle="Sync Data" defaultValue={true} updateFormValue={updateFormValue}/>
-                </div> */}
-
-                <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Save</button></div>
+                <div className="mt-16">
+                    <button className="btn btn-primary float-right" onClick={() => updateProfile()}>Add</button>
+                </div>
             </TitleCard>
         </>
     )
 }
 
-
-export default EmployeesForm
+export default EmployeesForm;
