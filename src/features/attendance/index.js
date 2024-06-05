@@ -153,8 +153,8 @@ function Attendance() {
                                                     className="form-radio"
                                                 />
                                             </td>
-                                            <td><input type="time"/></td>
-                                            <td><input type="time"/></td>
+                                            <td><input type="time" /></td>
+                                            <td><input type="time" /></td>
                                         </tr>
                                     )
                                 })
