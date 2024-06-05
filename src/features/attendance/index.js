@@ -84,7 +84,8 @@ function Attendance() {
                                 <th>Present</th>
                                 <th>Absent</th>
                                 <th>Leave</th>
-                                <th></th>
+                                <th>Check in</th>
+                                <th>Check out</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +107,7 @@ function Attendance() {
                                                 </div>
                                             </td>
 
-                                            <td className="py-2 px-4 border-b ">
+                                            <td className="py-2 px-4  ">
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
@@ -117,7 +118,7 @@ function Attendance() {
                                                     className="form-radio"
                                                 />
                                             </td>
-                                            <td className="py-2 px-4 border-b ">
+                                            <td className="py-2 px-4  ">
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
@@ -128,7 +129,7 @@ function Attendance() {
                                                     className="form-radio"
                                                 />
                                             </td>
-                                            <td className="py-2 px-4 border-b ">
+                                            <td className="py-2 px-4 ">
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
@@ -139,6 +140,8 @@ function Attendance() {
                                                     className="form-radio"
                                                 />
                                             </td>
+                                            <td><input type="time"/></td>
+                                            <td><input type="time"/></td>
                                         </tr>
                                     )
                                 })
