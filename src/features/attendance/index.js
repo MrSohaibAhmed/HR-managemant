@@ -7,7 +7,7 @@ import { deleteLead, getLeadsContent } from "./leadSlice"
 import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../utils/globalConstantUtil'
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
-
+import { getEmployees } from "../../hooks/useEmployee"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -24,6 +24,8 @@ const TopSideButtons = () => {
 }
 
 function Attendance() {
+    const [employees, setEmployees] = useState([]);
+
     const [todayDate, setTodayDate] = useState('');
 
     const { leads } = useSelector(state => state.lead)
@@ -34,7 +36,18 @@ function Attendance() {
     useEffect(() => {
         dispatch(getLeadsContent())
     }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const employeesData = await getEmployees();
+                setEmployees(employeesData);
+            } catch (error) {
 
+            }
+        };
+
+        fetchData();
+    }, []);
 
 
     const getDummyStatus = (index) => {
@@ -89,19 +102,19 @@ function Attendance() {
                         </thead>
                         <tbody>
                             {
-                                leads.map((l, k) => {
+                                employees.map((l, k) => {
                                     return (
                                         <tr key={k}>
                                             <td>
                                                 <div className="flex items-center space-x-3">
                                                     <div className="avatar">
                                                         <div className="mask mask-squircle w-12 h-12">
-                                                            <img src={l.avatar} alt="Avatar" />
+                                                            <img src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg" alt="pic" />
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div className="font-bold">{l.first_name}</div>
-                                                        <div className="text-sm opacity-50">{l.last_name}</div>
+                                                        <div className="font-bold">{l.employeeName}</div>
+                                                        {/* <div className="text-sm opacity-50">{l.last_name}</div> */}
                                                     </div>
                                                 </div>
                                             </td>
@@ -110,10 +123,10 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l.id}`}
+                                                    name={`attendance-${l._id}`}
                                                     value="present"
                                                     // checked={attendance[l.id] === 'present'}
-                                                    onChange={() => handleAttendanceChange(l.id, 'present')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'present')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -121,10 +134,10 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l.id}`}
+                                                    name={`attendance-${l._id}`}
                                                     value="absent"
                                                     // checked={attendance[l.id] === 'absent'}
-                                                    onChange={() => handleAttendanceChange(l.id, 'absent')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'absent')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -132,10 +145,10 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l.id}`}
+                                                    name={`attendance-${l._id}`}
                                                     value="leave"
                                                     // checked={attendance[l.id] === 'leave'}
-                                                    onChange={() => handleAttendanceChange(l.id, 'leave')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'leave')}
                                                     className="form-radio"
                                                 />
                                             </td>

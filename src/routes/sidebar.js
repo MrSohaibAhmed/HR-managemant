@@ -34,48 +34,48 @@ const routes = [
 
   {
     path: '/app/employees', // url
-    icon: <UserGroupIcon className={iconClasses} />, // icon component
+    icon: <UserGroupIcon className={iconClasses} />,
     name: 'Employees', // name that appear in Sidebar
   },
   {
     path: '/app/attendance', // url
-    icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
+    icon: <InboxArrowDownIcon className={iconClasses} />,
     name: 'Attendance', // name that appear in Sidebar
   },
   {
     path: '/app/leads', // url
-    icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
+    icon: <InboxArrowDownIcon className={iconClasses} />,
     name: 'Projects', // name that appear in Sidebar
   },
   {
     path: '/app/transactions', // url
-    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+    icon: <CurrencyDollarIcon className={iconClasses} />,
     name: 'Salary', // name that appear in Sidebar
   },
   {
     path: '/app/charts', // url
-    icon: <ChartBarIcon className={iconClasses} />, // icon component
+    icon: <ChartBarIcon className={iconClasses} />,
     name: 'Analytics', // name that appear in Sidebar
   },
   // {
   //   path: '/app/integration', // url
-  //   icon: <BoltIcon className={iconClasses} />, // icon component
+  //   icon: <BoltIcon className={iconClasses} />, 
   //   name: 'Integration', // name that appear in Sidebar
   // },
   {
     path: '/app/calendar', // url
-    icon: <FaceFrownIcon className={iconClasses} />, // icon component
+    icon: <FaceFrownIcon className={iconClasses} />,
     name: 'Leaves', // name that appear in Sidebar
   },
   {
     path: '/app/calendar', // url
-    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
+    icon: <CalendarDaysIcon className={iconClasses} />,
     name: 'Meeting Calendar', // name that appear in Sidebar
   },
 
   {
     path: '/app/integration', //no url needed as this has submenu
-    icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />, // icon component
+    icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
     name: 'Announcement', // name that appear in Sidebar
     // submenu: [
     //   {
@@ -85,7 +85,7 @@ const routes = [
     //   },
     //   {
     //     path: '/register', //url
-    //     icon: <UserIcon className={submenuIconClasses} />, // icon component
+    //     icon: <UserIcon className={submenuIconClasses} />, 
     //     name: 'Register', // name that appear in Sidebar
     //   },
     //   {
@@ -107,12 +107,12 @@ const routes = [
   },
   {
     path: '', //no url needed as this has submenu
-    icon: <EnvelopeIcon className={`${iconClasses} inline`} />, // icon component
+    icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
     name: 'Chat', // name that appear in Sidebar
     // submenu: [
     //   {
     //     path: '/app/settings-profile', //url
-    //     icon: <UserIcon className={submenuIconClasses} />, // icon component
+    //     icon: <UserIcon className={submenuIconClasses} />, 
     //     name: 'Profile', // name that appear in Sidebar
     //   },
     //   {
@@ -122,19 +122,19 @@ const routes = [
     //   },
     //   {
     //     path: '/app/settings-team', // url
-    //     icon: <UsersIcon className={submenuIconClasses} />, // icon component
+    //     icon: <UsersIcon className={submenuIconClasses} />, 
     //     name: 'Team Members', // name that appear in Sidebar
     //   },
     // ]
   },
   {
     path: '', //no url needed as this has submenu
-    icon: <DocumentTextIcon className={`${iconClasses} inline`} />, // icon component
+    icon: <DocumentTextIcon className={`${iconClasses} inline`} />,
     name: 'Noticeboard', // name that appear in Sidebar
     // submenu: [
     //   {
     //     path: '/app/getting-started', // url
-    //     icon: <DocumentTextIcon className={submenuIconClasses} />, // icon component
+    //     icon: <DocumentTextIcon className={submenuIconClasses} />, 
     //     name: 'Getting Started', // name that appear in Sidebar
     //   },
     //   {
