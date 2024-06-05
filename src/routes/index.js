@@ -14,10 +14,12 @@ const Integration = lazy(() => import('../pages/protected/Integration'))
 const Calendar = lazy(() => import('../pages/protected/Calendar'))
 const Team = lazy(() => import('../pages/protected/Team'))
 const Transactions = lazy(() => import('../pages/protected/Transactions'))
+const AssignSalary = lazy(() => import('../pages/protected/AssignSalary'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
 const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
 const EmployeesForm = lazy(() => import('../pages/protected/EmployeesForm'))
 const ProjectForm = lazy(() => import('../pages/protected/ProjectForm'))
+const AssignSalaryForm = lazy(() => import('../pages/protected/AssignSalaryForm'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
@@ -57,6 +59,10 @@ const routes = [
     component: Transactions,
   },
   {
+    path: '/assign-salary',
+    component: AssignSalary,
+  },
+  {
     path: '/settings-profile',
     component: ProfileSettings,
   },
@@ -67,6 +73,10 @@ const routes = [
   {
     path: '/add-projects',
     component: ProjectForm,
+  },
+  {
+    path: '/add-employees',
+    component: AssignSalaryForm,
   },
   {
     path: '/settings-billing',

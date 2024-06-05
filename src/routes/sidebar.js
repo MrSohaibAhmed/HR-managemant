@@ -21,6 +21,8 @@ import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicate
 import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon'
 import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
 import FaceFrownIcon from '@heroicons/react/24/solid/FaceFrownIcon'
+import MoneyIcon from '../icons/money'
+import CreditIcon from '../icons/credit'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
@@ -49,8 +51,20 @@ const routes = [
   },
   {
     path: '/app/transactions', // url
-    icon: <CurrencyDollarIcon className={iconClasses} />,
+    icon: <CurrencyDollarIcon className={`${iconClasses} inline`}/>,
     name: 'Salary', // name that appear in Sidebar
+    submenu: [
+      {
+        path: '/app/transactions',
+        icon: <CreditIcon className={submenuIconClasses} />,
+        name: 'View Summary',
+      },  
+      {
+        path: '/app/assign-salary',
+        icon: <MoneyIcon className={submenuIconClasses} />,
+        name: 'Assign Salary',
+      },  
+  ]
   },
   {
     path: '/app/charts', // url

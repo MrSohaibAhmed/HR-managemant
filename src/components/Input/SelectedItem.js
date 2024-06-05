@@ -4,21 +4,18 @@ import './selectItem.css'
 
 
 
-export default function MultiSelect({ options }) {
+export default function MultiSelect({ options, value, updateFormValue }) {
     return (
-        <div className="container  ">
+        <div className="container">
             <p>Members</p>
             <Select
-                // defaultValue={[options[1], options[4]]}
-                // defaultValue={}
-
                 isMulti
-                name="colors"
+                name="teamMembers"
                 options={options}
+                value={value}
+                onChange={selectedOptions => updateFormValue(selectedOptions.map(option => option.value))}
                 className="w-full h-7 mt-3 selectClass"
                 classNamePrefix="select"
-              
-                // styles={{ color: "red" }}
             />
         </div>
     );
