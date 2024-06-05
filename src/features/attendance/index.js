@@ -30,25 +30,34 @@ function Attendance() {
 
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
+    const [attendanceData, setAttendanceData] = useState([]);
 
-    const [attendance, setAttendance] = useState();
 
     useEffect(() => {
         dispatch(getLeadsContent())
     }, [])
+    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const employeesData = await getEmployees();
                 setEmployees(employeesData);
+                // Initialize attendance data with employee IDs
+                const initialAttendanceData = employeesData.map(employee => ({
+                    employeeId: employee._id,
+                    status: '',
+                    checkIn: '',
+                    checkOut: ''
+                }));
+                setAttendanceData(initialAttendanceData);
             } catch (error) {
-
+                console.error("Error fetching employees:", error);
             }
         };
 
         fetchData();
     }, []);
-
 
     const getDummyStatus = (index) => {
         if (index % 5 === 0) return <div className="badge">Not Interested</div>
@@ -65,11 +74,34 @@ function Attendance() {
         }))
     }
 
-    const handleAttendanceChange = (leadId, value) => {
-        setAttendance((prevAttendance) => ({
-            ...prevAttendance,
-            [leadId]: value,
-        }));
+    
+    const handleAttendanceChange = (employeeId, field, value) => {
+        setAttendanceData(prevData => {
+            const updatedData = prevData.map(item => {
+                if (item.employeeId === employeeId) {
+                    if (field === 'status' && value !== 'present') {
+                        return { ...item, status: value, checkIn: '', checkOut: '' };
+                    }
+                    return { ...item, [field]: value };
+                }
+                return item;
+            });
+            return updatedData;
+        });
+    };
+    const handleSave = () => {
+        console.log("Collected attendance data:", attendanceData);
+        // Here you can send the data to your backend or handle it as needed
+        // Example:
+        // fetch('/api/save-attendance', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(attendanceData)
+        // }).then(response => response.json())
+        // .then(data => console.log(data))
+        // .catch(error => console.error('Error:', error));
     };
     useEffect(() => {
         const today = new Date();
@@ -127,7 +159,7 @@ function Attendance() {
                                                     name={`attendance-${l._id}`}
                                                     value="present"
                                                     // checked={attendance[l.id] === 'present'}
-                                                    onChange={() => handleAttendanceChange(l._id, 'present')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'present')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -138,7 +170,7 @@ function Attendance() {
                                                     name={`attendance-${l._id}`}
                                                     value="absent"
                                                     // checked={attendance[l.id] === 'absent'}
-                                                    onChange={() => handleAttendanceChange(l._id, 'absent')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'absent')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -149,12 +181,27 @@ function Attendance() {
                                                     name={`attendance-${l._id}`}
                                                     value="leave"
                                                     // checked={attendance[l.id] === 'leave'}
-                                                    onChange={() => handleAttendanceChange(l._id, 'leave')}
+                                                    // onChange={() => handleAttendanceChange(l._id, 'leave')}
+                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'leave')}
                                                     className="form-radio"
                                                 />
                                             </td>
-                                            <td><input type="time" /></td>
-                                            <td><input type="time" /></td>
+                                            <td>
+                                                <input
+                                                    type="time"
+                                                    value={attendanceData.find(item => item.employeeId === l._id)?.checkIn || ''}
+                                                    onChange={(e) => handleAttendanceChange(l._id, 'checkIn', e.target.value)}
+                                                    disabled={attendanceData.find(item => item.employeeId === l._id)?.status !== 'present'}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="time"
+                                                    value={attendanceData.find(item => item.employeeId === l._id)?.checkOut || ''}
+                                                    onChange={(e) => handleAttendanceChange(l._id, 'checkOut', e.target.value)}
+                                                    disabled={attendanceData.find(item => item.employeeId === l._id)?.status !== 'present'}
+                                                />
+                                            </td>
                                         </tr>
                                     )
                                 })
@@ -164,7 +211,7 @@ function Attendance() {
                 </div>
                 <div className=" flex justify-end items-baseline pt-5">
                     {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
+                    <button onClick={handleSave} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
                         Save
                     </button>
                 </div>
