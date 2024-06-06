@@ -27,7 +27,7 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
         setSearchText("")
     }
     const clickHanlder = () => {
-        navigate('/app/add-employees')
+        navigate('/app/add-salary')
     }
 
     useEffect(() => {
@@ -105,7 +105,7 @@ function AssignSalary(){
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Salary</th>
+                        <th>Salary in Rupees</th>
                       
                     </tr>
                     </thead>
@@ -128,7 +128,7 @@ function AssignSalary(){
                                     </td> */}
                                     <td>{l.name}</td>
                                  {/**   <td>{l.location}</td>*/} 
-                                    <td>${l.amount}</td>
+                                    <td>{l.amount}</td>
                                     {/* <td>1000</td>
                                     <td>20000</td>
                                     <td>{moment(l.date).format("D MMM")}</td> */}

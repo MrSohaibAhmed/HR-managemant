@@ -75,7 +75,7 @@ const routes = [
     component: ProjectForm,
   },
   {
-    path: '/add-employees',
+    path: '/add-salary',
     component: AssignSalaryForm,
   },
   {
