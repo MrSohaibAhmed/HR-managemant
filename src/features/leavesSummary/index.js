@@ -55,15 +55,10 @@ function LeavesSummary() {
     }
 
 
-    const filteredEmployees = employees.filter(employee => {
-        const matchesEmployee = selectedEmployee === 'All' || employee.employeeName === selectedEmployee;
-        const matchesDate = !selectedDate || moment(employee.joiningDate).isSame(moment(selectedDate, 'MM-DD-YYYY'), 'day');
-        return matchesEmployee || matchesDate;
-    });
 
-    // const filteredEmployees = selectedEmployee === 'All' 
-    //     ? employees 
-    //     : employees.filter(employee => employee.employeeName === selectedEmployee);
+    const filteredEmployees = selectedEmployee === 'All' 
+        ? employees 
+        : employees.filter(employee => employee.employeeName === selectedEmployee);
 
     return (
         <>
@@ -102,7 +97,7 @@ function LeavesSummary() {
                                     <td>{employee.joiningDate}</td>
                                     
                                     <td>{employee.employeeName}</td>
-                                    <td>accepted</td>
+                                    <td> <span className="text-white bg-green-600 p-2">accepted</span></td>
                                 </tr>
 
                             ))}

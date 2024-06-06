@@ -154,7 +154,7 @@ const routes = [
     // ]
   },
   {
-    path: '', //no url needed as this has submenu
+    path: '/app/noticeboard', //no url needed as this has submenu
     icon: <DocumentTextIcon className={`${iconClasses} inline`} />,
     name: 'Noticeboard', // name that appear in Sidebar
     // submenu: [

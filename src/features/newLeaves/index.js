@@ -64,7 +64,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
 
 function Tabs() {
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTab] = useState('new');
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
