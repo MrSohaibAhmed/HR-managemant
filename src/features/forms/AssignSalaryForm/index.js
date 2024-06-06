@@ -1,15 +1,10 @@
 
-
-import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import TitleCard from "../../../components/Cards/TitleCard";
-import { showNotification } from '../../common/headerSlice';
 import InputText from '../../../components/Input/InputText';
-import MultiSelect from "../../../components/Input/SelectedItem";
 import SelectBox from "../../../components/Input/SelectBox";
 import { getEmployees } from "../../../hooks/useEmployee";
-import { addProject } from "../../../hooks/useProjects";
 
 function AssignSalaryForm() {
     const dispatch = useDispatch();
@@ -59,9 +54,10 @@ function AssignSalaryForm() {
                     {/* <SelectBox labelTitle="Employees" options={["Test", "Test2", "Test3"]} value={options} updateFormValue={updateFormValue} updateType="employees" />
                     <InputText labelTitle="Salary in Rupees" value={value} updateFormValue={updateFormValue} updateType="salary" /> */}
 
-                    <SelectBox labelTitle="Employees" options={employees} value={salaryData.employees} updateFormValue={updateFormValue} updateType="employees" />
+                    <SelectBox labelTitle="Employees" options={employees.map((employees)=> employees.employeeName)} value={salaryData.employees} updateFormValue={updateFormValue} updateType="employees" />
                     {/* Corrected value prop */}
-                    <InputText labelTitle="Salary in Rupees" value={salaryData.salary} updateFormValue={updateFormValue} updateType="salary" />
+                     <InputText labelTitle="Salary in Rupees" value={20000} updateFormValue={updateFormValue} updateType="salary" /> 
+                    
 
 
                 </div>

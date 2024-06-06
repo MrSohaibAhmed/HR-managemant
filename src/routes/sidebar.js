@@ -87,7 +87,7 @@ const routes = [
         name: 'New Leaves',
       },
       {
-        path: '/app/calendar',
+        path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',
       },
