@@ -36,7 +36,7 @@ function Attendance() {
     useEffect(() => {
         dispatch(getLeadsContent())
     }, [])
-    
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,7 +74,7 @@ function Attendance() {
         }))
     }
 
-    
+
     const handleAttendanceChange = (employeeId, field, value) => {
         setAttendanceData(prevData => {
             const updatedData = prevData.map(item => {

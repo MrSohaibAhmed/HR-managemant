@@ -23,6 +23,7 @@ const AssignSalaryForm = lazy(() => import('../pages/protected/AssignSalaryForm'
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
+const NewLeaves = lazy(() => import('../pages/protected/Leaves'))
 
 
 const routes = [
@@ -86,7 +87,7 @@ const routes = [
     path: '/getting-started',
     component: GettingStarted,
   },
-  
+
   {
     path: '/features',
     component: DocFeatures,
@@ -110,6 +111,10 @@ const routes = [
   {
     path: '/blank',
     component: Blank,
+  },
+  {
+    path: '/new-leaves',
+    component: NewLeaves,
   },
 ]
 

@@ -51,20 +51,20 @@ const routes = [
   },
   {
     path: '/app/transactions', // url
-    icon: <CurrencyDollarIcon className={`${iconClasses} inline`}/>,
+    icon: <CurrencyDollarIcon className={`${iconClasses} inline`} />,
     name: 'Salary', // name that appear in Sidebar
     submenu: [
       {
         path: '/app/transactions',
         icon: <CreditIcon className={submenuIconClasses} />,
         name: 'View Summary',
-      },  
+      },
       {
         path: '/app/assign-salary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Assign Salary',
-      },  
-  ]
+      },
+    ]
   },
   {
     path: '/app/charts', // url
@@ -78,8 +78,20 @@ const routes = [
   // },
   {
     path: '/app/calendar', // url
-    icon: <FaceFrownIcon className={iconClasses} />,
+    icon: <FaceFrownIcon className={`${iconClasses} inline`} />,
     name: 'Leaves', // name that appear in Sidebar
+    submenu: [
+      {
+        path: '/app/new-leaves',
+        icon: <CreditIcon className={submenuIconClasses} />,
+        name: 'New Leaves',
+      },
+      {
+        path: '/app/calendar',
+        icon: <MoneyIcon className={submenuIconClasses} />,
+        name: 'Leaves Summary',
+      },
+    ]
   },
   {
     path: '/app/calendar', // url
