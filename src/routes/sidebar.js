@@ -132,7 +132,7 @@ const routes = [
     // ]
   },
   {
-    path: '', //no url needed as this has submenu
+    path: '/app/chats', //no url needed as this has submenu
     icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
     name: 'Chat', // name that appear in Sidebar
     // submenu: [
