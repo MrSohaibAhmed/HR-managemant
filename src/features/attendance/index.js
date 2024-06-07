@@ -93,6 +93,7 @@ function Attendance() {
     const handleSave = async () => {
         console.log("Collected attendance data:", attendanceData);
         const attendaceResponse = await addAttendance(attendanceData);
+        dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
         console.log(attendaceResponse);
     };
     useEffect(() => {
