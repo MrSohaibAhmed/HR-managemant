@@ -27,6 +27,7 @@ const NewLeaves = lazy(() => import('../pages/protected/Leaves'))
 const LeaveSummary = lazy(() => import('../pages/protected/LeavesSummary'))
 const Noticeboard = lazy(() => import('../pages/protected/Noticeboard'))
 const Chats = lazy(() => import('../pages/protected/Chat'))
+const EmployeeDetail = lazy(() => import('../pages/protected/EmployeeDetail'))
 
 
 
@@ -132,6 +133,12 @@ const routes = [
     path: '/chats',
     component: Chats,
   },
+  {
+    path: '/employee-detail',
+    component: EmployeeDetail,
+  },
+  
+
 ]
 
 export default routes
