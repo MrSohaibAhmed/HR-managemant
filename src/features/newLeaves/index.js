@@ -43,7 +43,6 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
     return (
         <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => clickHanlder()}>Add New</button>
             {/* <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText}/> */}
             {/* {filterParam != "" && <button onClick={() => removeAppliedFilter()} className="btn btn-xs mr-2 btn-active btn-ghost normal-case">{filterParam}<XMarkIcon className="w-4 ml-2"/></button>} */}
             {/* <div className="dropdown dropdown-bottom dropdown-end">
@@ -160,9 +159,7 @@ function NewLeaves() {
         <>
 
             <TitleCard title="New Leaves" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} />}>
-
                 <Tabs />
-        
             </TitleCard>
         </>
     )

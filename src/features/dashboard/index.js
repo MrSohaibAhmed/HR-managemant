@@ -16,10 +16,10 @@ import DoughnutChart from './components/DoughnutChart'
 import { useState } from 'react'
 
 const statsData = [
-    {title : "Total Employess", value : "20", icon : <UserGroupIcon className='w-8 h-8'/>, description : "↗︎ 2300 (22%)"},
-    {title : "Total Projects", value : "30", icon : <CreditCardIcon className='w-8 h-8'/>, description : "Current month"},
-    {title : "Today Attendence", value : "20", icon : <CircleStackIcon className='w-8 h-8'/>, description : "50 in hot leads"},
-    {title : "Total Leave", value : "5", icon : <UsersIcon className='w-8 h-8'/>, description : "↙ 300 (18%)"},
+    {title : "Total Employess", value : "20", icon : <UserGroupIcon className='w-8 h-8'/>, description : ""},
+    {title : "Total Projects", value : "30", icon : <CreditCardIcon className='w-8 h-8'/>, description : ""},
+    {title : "Today Attendence", value : "20", icon : <CircleStackIcon className='w-8 h-8'/>, description : ""},
+    {title : "Total Leave", value : "5", icon : <UsersIcon className='w-8 h-8'/>, description : ""},
 ]
 
 
@@ -71,6 +71,7 @@ function Dashboard(){
               {/**  <UserChannels /> */}
               {/**   <DoughnutChart />*/}
             </div>
+            
         </>
     )
 }
