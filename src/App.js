@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { themeChange } from 'theme-change'
 import checkAuth from './app/auth';
 import initializeApp from './app/init';
+import { AppProvider } from './app/context/AppProvider';
 
 // Importing pages
 const Layout = lazy(() => import('./containers/Layout'))
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <>
+    <AppProvider>
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -45,6 +47,7 @@ function App() {
 
         </Routes>
       </Router>
+      </AppProvider>
     </>
   )
 }
