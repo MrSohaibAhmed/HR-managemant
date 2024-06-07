@@ -75,10 +75,10 @@ function Employees() {
         navigate('/app/add-employees', { state: data });
     }
 
-    const showEmployeeDetail = ()=>{
+    const showEmployeeDetail = () => {
         navigate('/app/employee-detail')
     }
-    
+
 
     return (
         <>

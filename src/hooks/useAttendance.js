@@ -20,7 +20,7 @@ export async function getAttendance() {
 }
 
 export async function addAttendance(AttendanceData) {
-    return await makeRequest('post', 'markattendance', AttendanceData);
+    return await makeRequest('post', 'markAttendance', AttendanceData);
 }
 
 export async function deleteAttendance(AttendanceId) {

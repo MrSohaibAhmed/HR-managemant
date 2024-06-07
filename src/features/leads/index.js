@@ -10,7 +10,9 @@ import { showNotification } from '../common/headerSlice'
 import EditIcon from "../../icons/edit"
 import ViewIcon from "../../icons/view"
 import { useNavigate } from "react-router-dom"
-import { getProjects } from "../../hooks/useProjects"
+import { getProjects, deleteProject } from "../../hooks/useProjects"
+import Modal from "../../containers/Modal"
+
 
 const TopSideButtons = () => {
 
@@ -35,7 +37,8 @@ const TopSideButtons = () => {
 
 function Leads() {
     const navigate = useNavigate()
-
+    const [showModal, setShowModal] = useState(false);
+    const [selectedLeadIndex, setSelectedLeadIndex] = useState(null);
     const [projects, setProjects] = useState([]);
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
@@ -72,6 +75,21 @@ function Leads() {
         // }))
     }
 
+    const showDeleteModal = (entry) => {
+        setSelectedLeadIndex(entry._id);
+        setShowModal(true);
+    };
+    const employeeDelete = async (id) => {
+        try {
+            const employesAfterDelete = await deleteProject(id);
+            setProjects(employesAfterDelete?.allProjects);
+            dispatch(showNotification({ message: "Project Deleted Successfully", status: 1 }));
+
+        } catch (error) {
+            dispatch(showNotification({ message: "Error In Deleting Project", status: 0 }));
+        }
+
+    }
     const editData = (data) => {
         navigate('/app/add-projects', { state: data });
     }
@@ -79,6 +97,7 @@ function Leads() {
     return (
         <>
             <TitleCard title="Projects" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+                <Modal open={showModal} setOpen={setShowModal} selectedLeadIndex={selectedLeadIndex} employeeDelete={employeeDelete} />
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
@@ -117,7 +136,7 @@ function Leads() {
                                             <td>{l?.status}</td>
                                             <td>{l?.teamMembers}</td>
                                             <td>
-                                                <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button>
+                                                <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(l)}><TrashIcon className="w-5" /></button>
                                                 <button className="btn btn-square btn-ghost" onClick={() => editData(l)}><EditIcon className="w-5" /></button>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><ViewIcon className="w-5" /></button>
 
