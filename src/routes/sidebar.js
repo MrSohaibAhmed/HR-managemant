@@ -87,7 +87,7 @@ const routes = [
         name: 'New Leaves',
       },
       {
-        path: '/app/calendar',
+        path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',
       },
@@ -154,7 +154,7 @@ const routes = [
     // ]
   },
   {
-    path: '', //no url needed as this has submenu
+    path: '/app/noticeboard', //no url needed as this has submenu
     icon: <DocumentTextIcon className={`${iconClasses} inline`} />,
     name: 'Noticeboard', // name that appear in Sidebar
     // submenu: [

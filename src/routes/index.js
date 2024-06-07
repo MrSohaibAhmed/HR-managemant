@@ -24,6 +24,8 @@ const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
 const NewLeaves = lazy(() => import('../pages/protected/Leaves'))
+const LeaveSummary = lazy(() => import('../pages/protected/LeavesSummary'))
+const Noticeboard = lazy(() => import('../pages/protected/Noticeboard'))
 
 
 const routes = [
@@ -115,6 +117,14 @@ const routes = [
   {
     path: '/new-leaves',
     component: NewLeaves,
+  },
+  {
+    path: '/leaves-summary',
+    component: LeaveSummary,
+  },
+  {
+    path: '/noticeboard',
+    component: Noticeboard,
   },
 ]
 

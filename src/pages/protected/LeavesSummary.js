@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPageTitle } from '../../features/common/headerSlice'
-import NewLeaves from '../../features/newLeaves'
+import LeavesSummary from '../../features/leavesSummary'
 
 function InternalPage() {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ function InternalPage() {
 
 
     return (
-        <NewLeaves />
+        <LeavesSummary />
     )
 }
 

@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPageTitle } from '../../features/common/headerSlice'
-import NewLeaves from '../../features/newLeaves'
+import Noticeboard from '../../features/noticeboard/Noticeboard'
 
 function InternalPage() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setPageTitle({ title: "Leaves" }))
+        dispatch(setPageTitle({ title: "Noticeboard" }))
     }, [])
 
 
     return (
-        <NewLeaves />
+        <Noticeboard />
     )
 }
 

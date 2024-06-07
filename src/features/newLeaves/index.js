@@ -8,6 +8,9 @@ import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon'
 import SearchBar from "../../components/Input/SearchBar"
 import { useNavigate } from "react-router-dom"
+import NewApplication from "../../components/LeavesTable/NewApplication"
+import UpcommingApp from "../../components/LeavesTable/UpcommingApp"
+import CurrentApp from "../../components/LeavesTable/CurrentApp"
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
@@ -61,7 +64,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
 
 function Tabs() {
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTab] = useState('new');
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -103,16 +106,17 @@ function Tabs() {
 
             <div id="tabContent">
                 <div className={`tab-content ${activeTab === 'new' ? '' : 'hidden'}`}>
-                    <p>Profile Content</p>
-                    {/* Add profile content here */}
+                   
+                    <NewApplication/>
+                    
                 </div>
                 <div className={`tab-content ${activeTab === 'upcoming' ? '' : 'hidden'}`}>
-                    <p>Dashboard Content</p>
-                    {/* Add dashboard content here */}
+                 
+                    <UpcommingApp/>
                 </div>
                 <div className={`tab-content ${activeTab === 'current' ? '' : 'hidden'}`}>
-                    <p>Current Content</p>
-                    {/* Add dashboard content here */}
+                    
+                    <CurrentApp/>
                 </div>
             </div>
         </div>
@@ -157,50 +161,8 @@ function NewLeaves() {
 
             <TitleCard title="New Leaves" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} />}>
 
-
                 <Tabs />
-
-                <br />
-                {/* Team Member list in table format loaded constant */}
-                <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Salary</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                trans.map((l, k) => {
-                                    return (
-                                        <tr key={k}>
-                                            {/* <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-circle w-12 h-12">
-                                                    <img src={l.avatar} alt="Avatar" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold">{l.name}</div>
-                                            </div>
-                                        </div>
-                                    </td> */}
-                                            <td>{l.name}</td>
-                                            {/**   <td>{l.location}</td>*/}
-                                            <td>${l.amount}</td>
-                                            {/* <td>1000</td>
-                                    <td>20000</td>
-                                    <td>{moment(l.date).format("D MMM")}</td> */}
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
+        
             </TitleCard>
         </>
     )
