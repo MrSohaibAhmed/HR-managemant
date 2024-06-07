@@ -8,6 +8,7 @@ import TextAreaInput from "../../../components/Input/TextAreaInput";
 import ToogleInput from "../../../components/Input/ToogleInput";
 import { addEmployee, editEmployee } from "../../../hooks/useEmployee";
 import { useNavigate, useLocation } from "react-router-dom";
+import SelectBox from "../../../components/Input/SelectBox";
 
 function EmployeesForm() {
     const navi = useNavigate();
@@ -23,6 +24,7 @@ function EmployeesForm() {
                 joiningDate: data.joiningDate || "",
                 place: data.place || "",
                 about: data.about || "",
+                role:data.role || " ",
                 status: data.status || "active",
             };
         } else {
@@ -33,6 +35,7 @@ function EmployeesForm() {
                 joiningDate: "",
                 place: "",
                 about: "",
+                role:"",
                 status: "active",
             };
         }
@@ -115,6 +118,7 @@ function EmployeesForm() {
                     {/* Use type="date" for the Joining Date input */}
                     <InputText labelTitle="Joining Date" type="date" defaultValue={formData.joiningDate} updateFormValue={updateFormValue} updateType="joiningDate" />
                     <InputText labelTitle="Place" defaultValue={formData.place} updateFormValue={updateFormValue} updateType="place" />
+                    <SelectBox labelTitle="Role" options={["HR", "User", "Admin"]} value={formData.role} updateFormValue={updateFormValue} updateType="role" />
                     <TextAreaInput labelTitle="About" defaultValue={formData.about} updateFormValue={updateFormValue} updateType="about" />
                     <ToogleInput labelTitle="Active" defaultValue={formData.status === "active"} updateFormValue={updateFormValue} updateType="active" />
                 </div>
