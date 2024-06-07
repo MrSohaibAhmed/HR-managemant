@@ -8,6 +8,7 @@ import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../utils/gl
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import { getEmployees } from "../../hooks/useEmployee"
+import { addAttendance } from "../../hooks/useAttendance"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -89,19 +90,10 @@ function Attendance() {
             return updatedData;
         });
     };
-    const handleSave = () => {
+    const handleSave = async () => {
         console.log("Collected attendance data:", attendanceData);
-        // Here you can send the data to your backend or handle it as needed
-        // Example:
-        // fetch('/api/save-attendance', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(attendanceData)
-        // }).then(response => response.json())
-        // .then(data => console.log(data))
-        // .catch(error => console.error('Error:', error));
+        const attendaceResponse = await addAttendance(attendanceData);
+        console.log(attendaceResponse);
     };
     useEffect(() => {
         const today = new Date();
