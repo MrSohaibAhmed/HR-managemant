@@ -16,6 +16,7 @@ function ProjectsForm() {
     const location = useLocation();
     const { state: data } = location;
 
+
     const [projectData, setProjectData] = useState(() => {
         if (data) {
             return {
@@ -131,11 +132,11 @@ function ProjectsForm() {
         <>
             <TitleCard title="Add Projects" topMargin="mt-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Project Name" value={projectData.projectName} updateFormValue={updateFormValue} updateType="projectName" />
-                    <InputText labelTitle="Team Lead" value={projectData.teamLead} updateFormValue={updateFormValue} updateType="teamLead" />
-                    <InputText labelTitle="Starting Date" type="date" value={moment(projectData.startingDate).format("YYYY-MM-DD")} updateFormValue={updateFormValue} updateType="startingDate" />
-                    <InputText labelTitle="Deadlines" type="date" value={moment(projectData.deadline).format("YYYY-MM-DD")} updateFormValue={updateFormValue} updateType="deadline" />
-                    <SelectBox labelTitle="Status" options={["In Progress", "Pending", "Complete"]} value={projectData.status} updateFormValue={updateFormValue} updateType="status" />
+                    <InputText labelTitle="Project Name" defaultValue={projectData.projectName} updateFormValue={updateFormValue} updateType="projectName" />
+                    <InputText labelTitle="Team Lead" defaultValue={projectData.teamLead} updateFormValue={updateFormValue} updateType="teamLead" />
+                    <InputText labelTitle="Starting Date" type="date" defaultValue={moment(projectData.startingDate).format("YYYY-MM-DD")} updateFormValue={updateFormValue} updateType="startingDate" />
+                    <InputText labelTitle="Deadlines" type="date" defaultValue={moment(projectData.deadline).format("YYYY-MM-DD")} updateFormValue={updateFormValue} updateType="deadline" />
+                    <SelectBox labelTitle="Status" options={["In Progress", "Pending", "Complete"]} defaultValue={projectData.status} updateFormValue={updateFormValue} updateType="status" />
                     {/* <MultiSelect labelTitle="Team Members" options={employees.map(employee => ({ value: employee._id, label: employee.employeeName }))} value={projectData.teamMembers} updateFormValue={updateFormValue} updateType="teamMembers" /> */}
                     <MultiSelect
                         labelTitle="Team Members"

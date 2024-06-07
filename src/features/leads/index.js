@@ -93,7 +93,6 @@ function Leads() {
     const editData = (data) => {
         navigate('/app/add-projects', { state: data });
     }
-
     return (
         <>
             <TitleCard title="Projects" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
