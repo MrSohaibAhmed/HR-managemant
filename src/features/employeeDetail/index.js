@@ -6,33 +6,6 @@ import { useNavigate } from "react-router-dom"
 import { getEmployees } from "../../hooks/useEmployee"
 import MonthlyAttendenceDetail from "./EmployeeAttendenceDetail";
 
-
-const data = [
-    { date: '2024-06-01', status: 'Present' },
-    { date: '2024-06-02', status: 'Absent' },
-    { date: '2024-06-03', status: 'Leave' },
-    { date: '2024-06-04', status: 'Present' },
-    { date: '2024-06-05', status: 'Absent' },
-    { date: '2024-06-06', status: 'Present' },
-    { date: '2024-06-07', status: 'Present' },
-    { date: '2024-06-08', status: 'Absent' },
-    { date: '2024-06-09', status: 'Present' },
-    { date: '2024-06-10', status: 'Present' },
-    { date: '2024-06-11', status: 'Leave' },
-    { date: '2024-06-12', status: 'Present' },
-    { date: '2024-06-05', status: 'Absent' },
-    { date: '2024-06-06', status: 'Present' },
-    { date: '2024-06-07', status: 'Present' },
-    { date: '2024-06-08', status: 'Absent' },
-    { date: '2024-06-09', status: 'Present' },
-    { date: '2024-06-10', status: 'Present' },
-    { date: '2024-06-11', status: 'Leave' },
-    { date: '2024-06-12', status: 'Present' },
-
-];
-
-
-
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -75,19 +48,19 @@ function EmployeeDetail() {
                         <tbody>
 
                             <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Name:</td>
+                                <td className="border border-gray-300 px-4 py-2 font-bold">Name</td>
                                 <td className="border border-gray-300 px-4 py-2">Sohaib</td>
                             </tr>
                             <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Email: :</td>
+                                <td className="border border-gray-300 px-4 py-2 font-bold">Email</td>
                                 <td className="border border-gray-300 px-4 py-2">Sohaib@gmail.com</td>
                             </tr>
                             <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Designation :</td>
+                                <td className="border border-gray-300 px-4 py-2 font-bold">Designation</td>
                                 <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
                             </tr>
                             <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Joining Date :</td>
+                                <td className="border border-gray-300 px-4 py-2 font-bold">Joining Date</td>
                                 <td className="border border-gray-300 px-4 py-2">05-05-2022</td>
                             </tr>
 

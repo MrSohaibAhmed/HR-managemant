@@ -25,6 +25,7 @@ function EmployeesForm() {
                 place: data.place || "",
                 about: data.about || "",
                 role:data.role || " ",
+                password:data.password || " ",
                 status: data.status || "active",
             };
         } else {
@@ -36,13 +37,14 @@ function EmployeesForm() {
                 place: "",
                 about: "",
                 role:"",
+                password:"",
                 status: "active",
             };
         }
     });
 
     const handleProfile = async () => {
-        const requiredFields = ["employeeName", "employeeEmail", "designation" , "joiningDate"];
+        const requiredFields = ["employeeName", "employeeEmail", "designation" , "joiningDate" ,"password" ];
 
         // Check for empty required fields
         for (const field of requiredFields) {
@@ -115,10 +117,11 @@ function EmployeesForm() {
                     <InputText labelTitle="Name" defaultValue={formData.employeeName} updateFormValue={updateFormValue} updateType="employeeName" />
                     <InputText labelTitle="Email Id" defaultValue={formData.employeeEmail} updateFormValue={updateFormValue} updateType="employeeEmail" />
                     <InputText labelTitle="Designation" defaultValue={formData.designation} updateFormValue={updateFormValue} updateType="designation" />
+                    <SelectBox labelTitle="Role" options={["HR", "User", "Admin"]} value={formData.role} updateFormValue={updateFormValue} updateType="role" />
+                    <InputText labelTitle="Password" defaultValue={formData.password} updateFormValue={updateFormValue} updateType="password" />
                     {/* Use type="date" for the Joining Date input */}
                     <InputText labelTitle="Joining Date" type="date" defaultValue={formData.joiningDate} updateFormValue={updateFormValue} updateType="joiningDate" />
                     <InputText labelTitle="Place" defaultValue={formData.place} updateFormValue={updateFormValue} updateType="place" />
-                    <SelectBox labelTitle="Role" options={["HR", "User", "Admin"]} value={formData.role} updateFormValue={updateFormValue} updateType="role" />
                     <TextAreaInput labelTitle="About" defaultValue={formData.about} updateFormValue={updateFormValue} updateType="about" />
                     <ToogleInput labelTitle="Active" defaultValue={formData.status === "active"} updateFormValue={updateFormValue} updateType="active" />
                 </div>
