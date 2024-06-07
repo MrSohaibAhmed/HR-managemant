@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import AppContext from "./appContext";
 
 export const AppProvider = ({ children }) => {
@@ -17,8 +18,6 @@ export const AppProvider = ({ children }) => {
                 error,
                 token,
                 userData,
-                login,
-                logout,
                 role,
                 setRole,
                 setIsLoggedIn,
