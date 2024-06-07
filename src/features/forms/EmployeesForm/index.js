@@ -1,6 +1,5 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import TitleCard from "../../../components/Cards/TitleCard";
 import { showNotification } from "../../common/headerSlice";
 import InputText from "../../../components/Input/InputText";
@@ -9,12 +8,13 @@ import ToogleInput from "../../../components/Input/ToogleInput";
 import { addEmployee, editEmployee } from "../../../hooks/useEmployee";
 import { useNavigate, useLocation } from "react-router-dom";
 import SelectBox from "../../../components/Input/SelectBox";
+import { useDispatch } from "react-redux";
 
 function EmployeesForm() {
     const navi = useNavigate();
     const location = useLocation();
-    const { state: data } = location;
     const dispatch = useDispatch();
+    const { state: data } = location;
     const [formData, setFormData] = useState(() => {
         if (data) {
             return {
