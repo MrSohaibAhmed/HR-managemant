@@ -19,8 +19,8 @@ export async function getEmployees() {
     return await makeRequest('get', 'Getemployees');
 }
 
-export async function addEmployee(employeeData) {
-    return await makeRequest('post', 'Addemployees', employeeData);
+export async function login(data) {
+    return await makeRequest('post', 'logIn', data);
 }
 
 export async function deleteEmployee(employeeId) {
