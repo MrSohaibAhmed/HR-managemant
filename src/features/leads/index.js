@@ -34,6 +34,8 @@ const TopSideButtons = () => {
 }
 
 function Leads() {
+    const navigate = useNavigate()
+
     const [projects, setProjects] = useState([]);
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
@@ -68,6 +70,10 @@ function Leads() {
         //     title: "Confirmation", bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         //     extraObject: { message: `Are you sure you want to delete this lead?`, type: CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index }
         // }))
+    }
+
+    const editData = (data) => {
+        navigate('/app/add-projects', { state: data });
     }
 
     return (
@@ -112,7 +118,7 @@ function Leads() {
                                             <td>{l?.teamMembers}</td>
                                             <td>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5" /></button>
-                                                <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><EditIcon className="w-5" /></button>
+                                                <button className="btn btn-square btn-ghost" onClick={() => editData(l)}><EditIcon className="w-5" /></button>
                                                 <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><ViewIcon className="w-5" /></button>
 
                                             </td>

@@ -24,14 +24,14 @@ export async function addProject(employeeData) {
 }
 
 export async function deleteProject(employeeId) {
-    return await makeRequest('delete', `deleteEmployee/${employeeId}`);
+    return await makeRequest('delete', `deleteProject/${employeeId}`);
 }
 
 export async function editProject(updatedData, data) {
     const editdata = {
         ...updatedData,
-        employeeId: data._id
+        projectId: data._id
     }
     debugger
-    return await makeRequest('put', `Editemployees`, editdata);
+    return await makeRequest('put', `editProject`, editdata);
 }

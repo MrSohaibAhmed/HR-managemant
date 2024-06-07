@@ -7,20 +7,36 @@ import InputText from '../../../components/Input/InputText';
 import MultiSelect from "../../../components/Input/SelectedItem";
 import SelectBox from "../../../components/Input/SelectBox";
 import { getEmployees } from "../../../hooks/useEmployee";
-import { addProject } from "../../../hooks/useProjects";
-import { useNavigate } from "react-router-dom";
+import { addProject , editProject } from "../../../hooks/useProjects";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function ProjectsForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const { state: data } = location;
 
-    const [projectData, setProjectData] = useState({
-        projectName: "",
-        teamLead: "",
-        startingDate: moment("").toDate(),
-        deadline: moment("").toDate(),
-        status: "",
-        teamMembers: []
+    const [projectData, setProjectData] = useState(() => {
+        if (data) {
+            return {
+                projectName: data.projectName || "",
+                teamLead: data.teamLead || "",
+                startingDate: moment(data.startingDate).toDate(),
+                deadline: moment(data.deadline).toDate(),
+                status: data.status || "",
+                teamMembers: data.teamMembers || []
+            }
+        } else {
+            return {
+                projectName: "",
+                teamLead: "",
+                startingDate: moment("").toDate(),
+                deadline: moment("").toDate(),
+                status: "",
+                teamMembers: []
+            }
+        }
+
     });
 
     const [employees, setEmployees] = useState([]);
@@ -39,7 +55,7 @@ function ProjectsForm() {
     }, []);
 
     const updateFormValue = ({ updateType, value }) => {
-        console.log("selected team members =>>" , value);
+        console.log("selected team members =>>", value);
         setProjectData(prevData => ({
             ...prevData,
             [updateType]: value
@@ -48,7 +64,7 @@ function ProjectsForm() {
 
     const saveProject = async () => {
         // Make sure to convert startingDate and deadline to string format
-        const requiredFields = ["projectName", "teamLead", "startingDate" , "deadline" ,"status" ,"teamMembers"];
+        const requiredFields = ["projectName", "teamLead", "startingDate", "deadline", "status", "teamMembers"];
 
         // for (const field of requiredFields) {
         //     if (!projectData[field].trim()) {
@@ -80,19 +96,35 @@ function ProjectsForm() {
             startingDate: moment(projectData.startingDate).format("YYYY-MM-DD"),
             deadline: moment(projectData.deadline).format("YYYY-MM-DD")
         };
+        if (data) {
+            try {
+                const formattedProjectData = {
+                    ...projectData,
+                    startingDate: moment(projectData.startingDate).format("YYYY-MM-DD"),
+                    deadline: moment(projectData.deadline).format("YYYY-MM-DD")
+                };
+                await editProject(formattedProjectData, data);
+                dispatch(showNotification({ message: "Project Data Updated", status: 1 }));
+                navigate('/app/leads');
+            } catch (error) {
+                console.error("Error updating project:", error);
+                dispatch(showNotification({ message: "Error on Updating Project", status: 0 }));
+                navigate('/app/leads');
+            }
+        } else {
+            try {
+                await addProject(formattedProjectData);
+                dispatch(showNotification({ message: "New Project Added", status: 1 }));
+                navigate('/app/leads');
+            } catch (error) {
+                console.error("Error adding project:", error);
+                dispatch(showNotification({ message: "Error on Adding Project", status: 0 }));
+                navigate('/app/leads');
 
-        try {
-            await addProject(formattedProjectData);
-            dispatch(showNotification({ message: "New Project Added", status: 1 }));
-            navigate('/app/leads');
-        } catch (error) {
-            console.error("Error adding project:", error);
-            dispatch(showNotification({ message: "Error on Adding Project", status: 0 }));
-
-            navigate('/app/leads');
-
-            // Handle error here, show error message or dispatch an action
+            }
         }
+
+
     };
 
     return (
@@ -105,13 +137,13 @@ function ProjectsForm() {
                     <InputText labelTitle="Deadlines" type="date" value={moment(projectData.deadline).format("YYYY-MM-DD")} updateFormValue={updateFormValue} updateType="deadline" />
                     <SelectBox labelTitle="Status" options={["In Progress", "Pending", "Complete"]} value={projectData.status} updateFormValue={updateFormValue} updateType="status" />
                     {/* <MultiSelect labelTitle="Team Members" options={employees.map(employee => ({ value: employee._id, label: employee.employeeName }))} value={projectData.teamMembers} updateFormValue={updateFormValue} updateType="teamMembers" /> */}
-                    <MultiSelect 
-                        labelTitle="Team Members" 
-                        options={employees.map(employee => ({ value: employee.employeeName, label: employee.employeeName }))} 
+                    <MultiSelect
+                        labelTitle="Team Members"
+                        options={employees.map(employee => ({ value: employee.employeeName, label: employee.employeeName }))}
                         value={employees.filter(employee => projectData.teamMembers.includes(employee.employeeName)).map(employee => ({ value: employee.employeeName, label: employee.employeeName }))}
-                        updateFormValue={value => updateFormValue({ updateType: "teamMembers", value })} 
+                        updateFormValue={value => updateFormValue({ updateType: "teamMembers", value })}
                     />
-               
+
                 </div>
                 <div className="mt-16"><button className="btn btn-primary float-right" onClick={saveProject}>Save</button></div>
             </TitleCard>
