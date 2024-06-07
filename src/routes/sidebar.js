@@ -176,6 +176,13 @@ const routes = [
     // ]
   },
 
+  {
+    path: '/app/file-storage', // url
+    icon: <CalendarDaysIcon className={iconClasses} />,
+    name: 'File Storage', // name that appear in Sidebar
+  },
+
+
 ]
 
 export default routes
