@@ -46,23 +46,23 @@ function ApplicationLeavesForm() {
                 <div className="w-full">
                     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
                         <div className="mb-4 flex justify-between items-center ">
-                            <div className="flex items-center">
-                                <label className="block text-gray-700 text-sm font-bold mb-2 w-20" htmlFor="to">
-                                    To :
+                            <div className="flex items-center border">
+                                <label className="block text-gray-700 text-sm font-bold  border-r px-2" htmlFor="to">
+                                    To 
                                 </label>
 
-                                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="to"
                                     type="email"
                                     placeholder="Email"
                                     onChange={handleChange} />
                             </div>
-                            <div className="flex items-center">
-                                <label className="block text-gray-700 text-sm font-bold mb-2 w-20" htmlFor="to">
-                                    Date :
+                            <div className="flex items-center border">
+                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
+                                    Date
                                 </label>
 
-                                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="date"
                                     type="date"
                                     placeholder="Email"
@@ -71,11 +71,11 @@ function ApplicationLeavesForm() {
                             </div>
 
                         </div>
-                        <div className="mb-4 flex items-center max-w-xs">
-                            <label className="block text-gray-700 text-sm font-bold mb-2 w-20" htmlFor="subject">
-                                Subject :
+                        <div className="mb-4 flex items-center max-w-xs border">
+                            <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="subject">
+                                Subject
                             </label>
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="subject"
                                 type="text"
                                 placeholder="Subject"
