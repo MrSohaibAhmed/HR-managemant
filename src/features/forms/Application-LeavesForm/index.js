@@ -7,8 +7,10 @@ import { showNotification } from "../../common/headerSlice";
 import { useContext } from "react";
 import AppContext from "../../../app/context/appContext";
 function ApplicationLeavesForm() {
-    const { role } = useContext(AppContext);
-    console.log(role, "I am Context")
+    const { isLoggedIn } = useContext(AppContext);
+    
+    debugger
+    console.log(isLoggedIn, "I am Context")
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         to: "",
@@ -44,7 +46,7 @@ function ApplicationLeavesForm() {
         <>
             <TitleCard title="Application for Leave" topMargin="mt-2">
                 <div className="w-full">
-                    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
+                    <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
                         <div className="mb-4 flex justify-between items-center ">
                             <div className="flex items-center border">
                                 <label className="block text-gray-700 text-sm font-bold  border-r px-2" htmlFor="to">
