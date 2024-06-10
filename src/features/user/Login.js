@@ -12,9 +12,9 @@ function Login() {
         password: "",
         employeeEmail: ""
     }
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
-    const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ)
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
     const [showError, setShowError] = useState(false);
 
     // const submitForm = async (e) => {
@@ -50,11 +50,12 @@ function Login() {
         if (loginObj.password.trim() === "") return setErrorMessage("Password is required! (use any value)")
         else {
             const response = await login(loginObj)
+            debugger
             console.log(response);
             setLoading(true)
-            localStorage.setItem("role", response?.role)
+            localStorage.setItem("role", response?.role?.role)
+            localStorage.setItem("userId", response?.role?.userId)
             localStorage.setItem("token", 1)
-
             setRole(response?.role)
             setLoading(false)
             window.location.href = '/app/welcome'
@@ -66,9 +67,12 @@ function Login() {
 
         setLoading(true);
         try {
+            debugger
             const response = await login(loginObj);
+            debugger
             setErrorMessage("Login failed. Please check your credentials.");
             setLoading(false);
+            debugger
             // if(response){
             //     setShowError(false)
             // }
@@ -97,7 +101,7 @@ function Login() {
                         <LandingIntro />
                     </div>
                     <div className='py-24 px-10'>
-                       {showError &&  <p className='text-white bg-red-600 p-2 text-center'> invalid credential </p>}
+                        {showError && <p className='text-white bg-red-600 p-2 text-center'> invalid credential </p>}
                         <h2 className='text-2xl font-semibold mb-2 text-center'>Login</h2>
                         <form onSubmit={(e) => submitForm(e)}>
 

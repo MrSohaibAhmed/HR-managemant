@@ -1,19 +1,37 @@
 
 import { useState } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
-
+import { addApplication } from "../../../hooks/useLeaves";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../common/headerSlice";
+import { useContext } from "react";
+import AppContext from "../../../app/context/appContext";
 function ApplicationLeavesForm() {
-
+    const { role } = useContext(AppContext);
+    console.log(role, "I am Context")
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         to: "",
         subject: "",
         date: "",
-        body: ""
+        body: "",
+        userId: localStorage.getItem("userId")
     });
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("Form Data is", formData);
+        try {
+            const response = await addApplication(formData);
+            console.log("Form Data is", formData);
+            dispatch(showNotification({ message: "Application Submitted", status: 1 }));
+
+
+        } catch (error) {
+            dispatch(showNotification({ message: "Failed to Submit Application , Try Again", status: 1 }));
+
+
+        }
+
     }
 
     const handleChange = (e) => {
