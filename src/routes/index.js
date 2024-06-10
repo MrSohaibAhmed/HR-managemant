@@ -18,6 +18,7 @@ const AssignSalary = lazy(() => import('../pages/protected/AssignSalary'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
 const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
 const EmployeesForm = lazy(() => import('../pages/protected/EmployeesForm'))
+const AnnouncementForm = lazy(() => import('../pages/protected/AnnouncementForm'))
 const ProjectForm = lazy(() => import('../pages/protected/ProjectForm'))
 const AssignSalaryForm = lazy(() => import('../pages/protected/AssignSalaryForm'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
@@ -78,6 +79,10 @@ const routes = [
   {
     path: '/add-employees',
     component: EmployeesForm,
+  },
+  {
+    path: '/add-announcement',
+    component: AnnouncementForm,
   },
   {
     path: '/add-projects',

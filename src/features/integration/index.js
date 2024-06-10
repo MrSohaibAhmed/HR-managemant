@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { showNotification } from "../common/headerSlice"
 import { getannouncements } from "../../hooks/useAnnouncements"
+import { useNavigate } from "react-router-dom"
 
 const INITIAL_INTEGRATION_LIST = [
     { name: "Slack", icon: "https://cdn-icons-png.flaticon.com/512/2111/2111615.png", isActive: true, description: "Slack is an instant messaging program designed by Slack Technologies and owned by Salesforce." },
@@ -16,6 +17,7 @@ const INITIAL_INTEGRATION_LIST = [
 
 function Integration() {
     const [announcementsData, setAnnouncementsData] = useState([])
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -30,6 +32,11 @@ function Integration() {
         }))
         dispatch(showNotification({ message: `${integration.name} ${integration.isActive ? "disabled" : "enabled"}`, status: 1 }))
     }
+
+    const handleClick = ()=>{
+        navigate('/app/add-announcement')
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await getannouncements()
@@ -45,6 +52,7 @@ function Integration() {
             <section class="bg-white dark:bg-gray-900">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                     <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+                        <button onClick={handleClick} className="btn px-6 btn-sm normal-case btn-primary mb-5">Add New</button>
                         <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Anouncements</h2>
                         <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">All announcements are posted after the Acceptance of CEO</p>
                     </div>
