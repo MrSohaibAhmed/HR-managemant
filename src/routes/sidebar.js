@@ -87,6 +87,11 @@ const routes = [
         name: 'New Leaves',
       },
       {
+        path: '/app/application-leaves',
+        icon: <CreditIcon className={submenuIconClasses} />,
+        name: 'Application',
+      },
+      {
         path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',

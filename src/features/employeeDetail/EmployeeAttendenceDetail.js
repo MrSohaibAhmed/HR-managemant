@@ -54,6 +54,7 @@ function MonthlyAttendenceDetail() {
   const year = 2024;
   const month = 6; // June
   const daysInCurrentMonth = daysInMonth(month, year);
+  console.log("Days in month is =>>" , daysInCurrentMonth);
   const firstDayIndex = firstDayOfMonth(month, year);
 
   const getStatusColor = (status) => {
@@ -88,9 +89,9 @@ function MonthlyAttendenceDetail() {
   };
 
   return (
-    <div className=" bg-white-400">
-      <header className="bg-white lg:w-2/4 w-full m-auto">
-        <h1 className="text-xl font-bold mb-6"><input type='date'/></h1>
+    <div className=" bg-transparent-400">
+      <header className="bg-transparent lg:w-2/4 w-full m-auto">
+        <h1 className="text-xl font-bold mb-6"><input className=' bg-transparent' type='date'/></h1>
         <div className="grid grid-cols-7 gap-1">
           <div className="font-bold">Sun</div>
           <div className="font-bold">Mon</div>
