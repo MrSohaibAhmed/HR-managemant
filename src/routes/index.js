@@ -26,6 +26,7 @@ const DocComponents = lazy(() => import('../pages/DocComponents'))
 const NewLeaves = lazy(() => import('../pages/protected/Leaves'))
 const LeaveSummary = lazy(() => import('../pages/protected/LeavesSummary'))
 const ApplicationLeaves = lazy(() => import('../pages/protected/ApplicationLeaves'))
+const ApplicationSummary = lazy(() => import('../pages/protected/ApplicationSummary'))
 const Noticeboard = lazy(() => import('../pages/protected/Noticeboard'))
 const Chats = lazy(() => import('../pages/protected/Chat'))
 const EmployeeDetail = lazy(() => import('../pages/protected/EmployeeDetail'))
@@ -130,6 +131,10 @@ const routes = [
   {
     path: '/application-leaves',
     component: ApplicationLeaves,
+  },
+  {
+    path: '/application-summary',
+    component: ApplicationSummary,
   },
   {
     path: '/noticeboard',
