@@ -26,6 +26,7 @@ import CreditIcon from '../icons/credit'
 
 import { useContext } from 'react'
 import AppContext from '../app/context/appContext'
+import ApplicationIcon from '../icons/applicationIcon'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
@@ -103,20 +104,30 @@ const routes = [
         role: ['admin'],
 
       },
-      {
-        path: '/app/application-leaves',
-        icon: <CreditIcon className={submenuIconClasses} />,
-        name: 'Application',
-      },
+      
       {
         path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',
         role: ['admin'],
+        
 
       },
     ]
   },
+ 
+
+  {
+    path: '/app/application-summary', // url
+    icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
+    name: 'Application', // name that appear in Sidebar
+    role: ['admin', 'User'],
+  },
+
+
+
+
+
   {
     path: '/app/calendar', // url
     icon: <CalendarDaysIcon className={iconClasses} />,
