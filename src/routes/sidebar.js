@@ -23,46 +23,61 @@ import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
 import FaceFrownIcon from '@heroicons/react/24/solid/FaceFrownIcon'
 import MoneyIcon from '../icons/money'
 import CreditIcon from '../icons/credit'
+
+import { useContext } from 'react'
+import AppContext from '../app/context/appContext'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
 const routes = [
-
   {
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
     name: 'Dashboard',
+    role: ['admin', 'User'],
   },
 
   {
     path: '/app/employees', // url
     icon: <UserGroupIcon className={iconClasses} />,
     name: 'Employees', // name that appear in Sidebar
+    role: ['admin',],
+
   },
   {
     path: '/app/attendance', // url
     icon: <InboxArrowDownIcon className={iconClasses} />,
     name: 'Attendance', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
   },
   {
     path: '/app/leads', // url
     icon: <InboxArrowDownIcon className={iconClasses} />,
     name: 'Projects', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
   },
   {
     path: '/app/transactions', // url
     icon: <CurrencyDollarIcon className={`${iconClasses} inline`} />,
     name: 'Salary', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
     submenu: [
       {
         path: '/app/transactions',
         icon: <CreditIcon className={submenuIconClasses} />,
         name: 'View Summary',
+        role: ['admin', 'User'],
+
       },
       {
         path: '/app/assign-salary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Assign Salary',
+        role: ['admin'],
+
       },
     ]
   },
@@ -70,21 +85,23 @@ const routes = [
     path: '/app/charts', // url
     icon: <ChartBarIcon className={iconClasses} />,
     name: 'Analytics', // name that appear in Sidebar
+    role: ['admin'],
+
   },
-  // {
-  //   path: '/app/integration', // url
-  //   icon: <BoltIcon className={iconClasses} />, 
-  //   name: 'Integration', // name that appear in Sidebar
-  // },
+
   {
     path: '/app/calendar', // url
     icon: <FaceFrownIcon className={`${iconClasses} inline`} />,
     name: 'Leaves', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
     submenu: [
       {
         path: '/app/new-leaves',
         icon: <CreditIcon className={submenuIconClasses} />,
         name: 'New Leaves',
+        role: ['admin'],
+
       },
       {
         path: '/app/application-leaves',
@@ -95,6 +112,8 @@ const routes = [
         path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',
+        role: ['admin'],
+
       },
     ]
   },
@@ -102,92 +121,40 @@ const routes = [
     path: '/app/calendar', // url
     icon: <CalendarDaysIcon className={iconClasses} />,
     name: 'Meeting Calendar', // name that appear in Sidebar
-  },
+    role: ['admin', 'User'],
 
+  },
   {
     path: '/app/integration', //no url needed as this has submenu
     icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
     name: 'Announcement', // name that appear in Sidebar
-    // submenu: [
-    //   {
-    //     path: '/login',
-    //     icon: <ArrowRightOnRectangleIcon className={submenuIconClasses} />,
-    //     name: 'Login',
-    //   },
-    //   {
-    //     path: '/register', //url
-    //     icon: <UserIcon className={submenuIconClasses} />, 
-    //     name: 'Register', // name that appear in Sidebar
-    //   },
-    //   {
-    //     path: '/forgot-password',
-    //     icon: <KeyIcon className={submenuIconClasses} />,
-    //     name: 'Forgot Password',
-    //   },
-    //   {
-    //     path: '/app/blank',
-    //     icon: <DocumentIcon className={submenuIconClasses} />,
-    //     name: 'Blank Page',
-    //   },
-    //   {
-    //     path: '/app/404',
-    //     icon: <ExclamationTriangleIcon className={submenuIconClasses} />,
-    //     name: '404',
-    //   },
-    // ]
+    role: ['admin'],
+
+
   },
   {
     path: '/app/chats', //no url needed as this has submenu
     icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
     name: 'Chat', // name that appear in Sidebar
-    // submenu: [
-    //   {
-    //     path: '/app/settings-profile', //url
-    //     icon: <UserIcon className={submenuIconClasses} />, 
-    //     name: 'Profile', // name that appear in Sidebar
-    //   },
-    //   {
-    //     path: '/app/settings-billing',
-    //     icon: <WalletIcon className={submenuIconClasses} />,
-    //     name: 'Billing',
-    //   },
-    //   {
-    //     path: '/app/settings-team', // url
-    //     icon: <UsersIcon className={submenuIconClasses} />, 
-    //     name: 'Team Members', // name that appear in Sidebar
-    //   },
-    // ]
+    role: ['admin', 'User'],
+
+
   },
   {
     path: '/app/noticeboard', //no url needed as this has submenu
     icon: <DocumentTextIcon className={`${iconClasses} inline`} />,
     name: 'Noticeboard', // name that appear in Sidebar
-    // submenu: [
-    //   {
-    //     path: '/app/getting-started', // url
-    //     icon: <DocumentTextIcon className={submenuIconClasses} />, 
-    //     name: 'Getting Started', // name that appear in Sidebar
-    //   },
-    //   {
-    //     path: '/app/features',
-    //     icon: <TableCellsIcon className={submenuIconClasses} />,
-    //     name: 'Features',
-    //   },
-    //   {
-    //     path: '/app/components',
-    //     icon: <CodeBracketSquareIcon className={submenuIconClasses} />,
-    //     name: 'Components',
-    //   }
-    // ]
-  },
+    role: ['admin', 'User'],
 
+
+  },
   {
     path: '/app/file-storage', // url
     icon: <CalendarDaysIcon className={iconClasses} />,
     name: 'File Storage', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
   },
-
-
 ]
 
 export default routes

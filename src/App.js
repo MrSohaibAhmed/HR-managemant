@@ -32,21 +32,21 @@ function App() {
 
   return (
     <>
-    <AppProvider>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/documentation" element={<Documentation />} />
+      <AppProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/documentation" element={<Documentation />} />
 
-          {/* Place new routes over this */}
-          <Route path="/app/*" element={<Layout />} />
+            {/* Place new routes over this */}
+            <Route path="/app/*" element={<Layout />} />
 
-          <Route path="*" element={<Navigate to={token ? "/login" : "/login"} replace />} />
+            <Route path="*" element={<Navigate to={token ? "/login" : "/login"} replace />} />
 
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
       </AppProvider>
     </>
   )

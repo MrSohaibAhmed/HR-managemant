@@ -46,9 +46,18 @@ function Login() {
         e.preventDefault();
         setErrorMessage("");
 
-        if (loginObj.employeeEmail.trim() === "") {
-            setErrorMessage("Email Id is required! (use any value)");
-            return;
+        if (loginObj.employeeEmail.trim() === "") return setErrorMessage("Email Id is required! (use any value)")
+        if (loginObj.password.trim() === "") return setErrorMessage("Password is required! (use any value)")
+        else {
+            const response = await login(loginObj)
+            console.log(response);
+            setLoading(true)
+            localStorage.setItem("role", response?.role)
+            localStorage.setItem("token", 1)
+
+            setRole(response?.role)
+            setLoading(false)
+            window.location.href = '/app/welcome'
         }
         if (loginObj.password.trim() === "") {
             setErrorMessage("Password is required! (use any value)");
