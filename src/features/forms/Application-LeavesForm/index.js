@@ -15,7 +15,8 @@ function ApplicationLeavesForm() {
     const [formData, setFormData] = useState({
         to: "",
         subject: "",
-        date: "",
+        toDate: "",
+        fromDate: "",
         body: "",
         userId: localStorage.getItem("userId")
     });
@@ -59,20 +60,20 @@ function ApplicationLeavesForm() {
                                     placeholder="Email"
                                     onChange={handleChange} />
                             </div>
-                            <div className="flex items-center border">
-                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
-                                    Date
+                            <div className="flex items-center border w-56">
+                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2 " htmlFor="date">
+                                  From
                                 </label>
 
                                 <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="date"
+                                    id="fromDate"
                                     type="date"
-                                    placeholder="Email"
                                     onChange={handleChange} />
 
                             </div>
 
                         </div>
+                        <div className="mb-4 flex justify-between items-center ">
                         <div className="mb-4 flex items-center max-w-xs border">
                             <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="subject">
                                 Subject
@@ -83,6 +84,19 @@ function ApplicationLeavesForm() {
                                 placeholder="Subject"
                                 onChange={handleChange} />
                         </div>
+
+                        <div className="flex items-center border w-56">
+                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
+                                  To 
+                                </label>
+
+                                <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="toDate"
+                                    type="date"
+                                    onChange={handleChange} />
+
+                            </div>
+                            </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="body">
                                 Body
