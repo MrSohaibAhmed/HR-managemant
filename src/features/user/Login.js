@@ -1,13 +1,13 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import LandingIntro from './LandingIntro'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
 import { login } from '../../hooks/useAuth'
-import { useContext } from 'react'
 import AppContext from '../../app/context/appContext'
 function Login() {
-    const { role, setRole } = useContext(AppContext)
+   const {setRole ,Role , isLoggedIn , setIsLoggedIn} =  useContext(AppContext);
+   console.log("is loggedin login=>", isLoggedIn);
     const INITIAL_LOGIN_OBJ = {
         password: "",
         employeeEmail: ""
@@ -50,14 +50,20 @@ function Login() {
         if (loginObj.password.trim() === "") return setErrorMessage("Password is required! (use any value)")
         else {
             const response = await login(loginObj)
-            debugger
+            // debugger
             console.log(response);
+            // console.log(response?.role);
             setLoading(true)
             localStorage.setItem("role", response?.role?.role)
             debugger
             localStorage.setItem("userId", response?.role?.userId)
             localStorage.setItem("token", 1)
+            debugger
+            console.log("setRole is" , Role);
             setRole(response?.role)
+            debugger
+            setIsLoggedIn(true)
+            console.log("islogin is" , isLoggedIn);
             setLoading(false)
             window.location.href = '/app/welcome'
         }

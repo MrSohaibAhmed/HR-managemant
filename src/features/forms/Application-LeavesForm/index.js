@@ -6,13 +6,16 @@ import { showNotification } from "../../common/headerSlice";
 import { useContext } from "react";
 import AppContext from "../../../app/context/appContext";
 function ApplicationLeavesForm() {
-    const { role } = useContext(AppContext);
-    console.log(role, "I am Context")
+    const { isLoggedIn } = useContext(AppContext);
+    
+    debugger
+    console.log(isLoggedIn, "I am Context")
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        toEmail: "",
-        Subject: "",
-        date: "",
+        to: "",
+        subject: "",
+        toDate: "",
+        fromDate: "",
         body: "",
         userId: localStorage.getItem("userId")
     });
@@ -38,7 +41,7 @@ function ApplicationLeavesForm() {
         <>
             <TitleCard title="Application for Leave" topMargin="mt-2">
                 <div className="w-full">
-                    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
+                    <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
                         <div className="mb-4 flex justify-between items-center ">
                             <div className="flex items-center border">
                                 <label className="block text-gray-700 text-sm font-bold  border-r px-2" htmlFor="to">
@@ -51,19 +54,19 @@ function ApplicationLeavesForm() {
                                     placeholder="Email"
                                     onChange={handleChange} />
                             </div>
-                            <div className="flex items-center border">
-                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
-                                    Date
+                            <div className="flex items-center border w-56">
+                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2 " htmlFor="date">
+                                  From
                                 </label>
 
                                 <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="date"
+                                    id="fromDate"
                                     type="date"
-                                    placeholder="Email"
                                     onChange={handleChange} />
 
                             </div>
                         </div>
+                        <div className="mb-4 flex justify-between items-center ">
                         <div className="mb-4 flex items-center max-w-xs border">
                             <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="Subject">
                                 Subject
@@ -74,6 +77,19 @@ function ApplicationLeavesForm() {
                                 placeholder="subject"
                                 onChange={handleChange} />
                         </div>
+
+                        <div className="flex items-center border w-56">
+                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
+                                  To 
+                                </label>
+
+                                <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="toDate"
+                                    type="date"
+                                    onChange={handleChange} />
+
+                            </div>
+                            </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="body">
                                 Body

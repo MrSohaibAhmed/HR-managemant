@@ -25,7 +25,7 @@ function AnnouncementForm() {
         <>
             <TitleCard title="Add Announcements" topMargin="mt-2">
                 <div className="w-full">
-                    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
+                    <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
                         <div className="mb-4 flex justify-between items-center ">
                             <div className="flex items-center border">
                                 <label className="block text-gray-700 text-sm font-bold px-2 border-r" htmlFor="to">
@@ -49,7 +49,7 @@ function AnnouncementForm() {
                             <textarea className="shadow appearance-none border rounded w-full py-6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="description"
                                 rows="4"
-                                placeholder="Write application here"
+                                placeholder="Write announcement here"
                                 onChange={handleChange}>
 
                             </textarea>
