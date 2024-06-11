@@ -35,3 +35,11 @@ export async function editApplication(updatedData, data) {
     debugger
     return await makeRequest('put', `EditApplications`, editdata);
 }
+
+export async function getApplicationByUserID(ApplicationId) {
+    return await makeRequest('get', `leave-applications/${ApplicationId}`);
+}
+
+export async function getNullApplications(ApplicationId) {
+    return await makeRequest('get', `getLeaveApplicationsWithNullStatus`);
+}

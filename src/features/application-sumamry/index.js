@@ -12,10 +12,9 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import EditIcon from "../../icons/edit"
 import ViewIcon from "../../icons/view"
-import { getEmployees, deleteEmployee } from "../../hooks/useEmployee"
 import ToogleInput from "../../components/Input/ToogleInput"
 import { useNavigate } from "react-router-dom"
-import Modal from "../../containers/Modal"
+import { getApplicationByUserID } from "../../hooks/useLeaves"
 const TopSideButtons = () => {
     const navigate = useNavigate()
 
@@ -33,18 +32,14 @@ const TopSideButtons = () => {
 
 function ApplicationSummary() {
     const navigate = useNavigate()
-    const [employees, setEmployees] = useState([]);
+    const [Applications, setApplications] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedLeadIndex, setSelectedLeadIndex] = useState(null);
     const dispatch = useDispatch()
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const employeesData = await getEmployees();
-                setEmployees(employeesData);
-            } catch (error) {
-
-            }
+            const response = await getApplicationByUserID(localStorage.getItem("userId"))
+            setApplications(response)
         };
 
         fetchData();
@@ -63,17 +58,7 @@ function ApplicationSummary() {
         setSelectedLeadIndex(entry._id);
         setShowModal(true);
     };
-    const employeeDelete = async (id) => {
-        try {
-            const employesAfterDelete = await deleteEmployee(id);
-            setEmployees(employesAfterDelete);
-            dispatch(showNotification({ message: "Employee Deleted Successfully", status: 1 }));
 
-        } catch (error) {
-            dispatch(showNotification({ message: "Error In Deleting Employee", status: 0 }));
-        }
-
-    }
     const editData = (data) => {
         navigate('/app/add-employees', { state: data });
     }
@@ -86,7 +71,6 @@ function ApplicationSummary() {
     return (
         <>
             <TitleCard title="Applications" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
-                <Modal open={showModal} setOpen={setShowModal} selectedLeadIndex={selectedLeadIndex} employeeDelete={employeeDelete} />
 
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
@@ -99,24 +83,19 @@ function ApplicationSummary() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Sick Leave</td>
-                                <td className="flex">02-05-2024</td>
-                                <td>
-                                    {/* <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
+                            {
+                                Applications.map((item) => <tr>
+                                    <td>{item?.subject}</td>
+                                    <td className="flex">{item?.date}</td>
+                                    <td>
+                                        {/* <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
                                      <button className="btn btn-square btn-ghost bg-red-600"><RejectIcon className="w-5 " /></button> */}
-                                    <span className="bg-green-600 p-1"> accepted</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>work at home</td>
-                                <td className="flex">02-05-2024</td>
-                                <td>
-                                    {/* <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
-                                     <button className="btn btn-square btn-ghost bg-red-600"><RejectIcon className="w-5 " /></button> */}
-                                    <span className="bg-red-600 p-1"> rejected</span>
-                                </td>
-                            </tr>
+                                        <span className="bg-green-600 p-1"> {item?.status}</span>
+                                    </td>
+                                </tr>)
+                            }
+
+
 
                         </tbody>
                     </table>

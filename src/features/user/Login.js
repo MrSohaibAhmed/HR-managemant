@@ -54,6 +54,7 @@ function Login() {
             console.log(response);
             setLoading(true)
             localStorage.setItem("role", response?.role?.role)
+            debugger
             localStorage.setItem("userId", response?.role?.userId)
             localStorage.setItem("token", 1)
             setRole(response?.role)

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom"
 import Modal from "../../containers/Modal"
 import AcceptIcon from "../../icons/acceptIcon"
 import RejectIcon from "../../icons/rejecticon"
+import { getNullApplications } from "../../hooks/useLeaves"
 const TopSideButtons = () => {
     const navigate = useNavigate()
 
@@ -33,8 +34,8 @@ function NewApplication() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const employeesData = await getEmployees();
-                setEmployees(employeesData);
+                const employeesData = await getNullApplications();
+                setEmployees(employeesData?.data);
             } catch (error) {
 
             }
@@ -42,6 +43,7 @@ function NewApplication() {
 
         fetchData();
     }, []);
+
 
 
     // const getDummyStatus = (index) => {
@@ -71,46 +73,45 @@ function NewApplication() {
         navigate('/app/add-employees', { state: data });
     }
 
-    
+
 
     return (
         <>
             <TitleCard title="New Application" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 <Modal open={showModal} setOpen={setShowModal} selectedLeadIndex={selectedLeadIndex} employeeDelete={employeeDelete} />
-                
-                    <div className="overflow-x-auto w-full">
-                        <table className="table w-full">
-                            <thead>
-                                <tr>
-                                    <th>Employee Name</th>
-                                    <th>Application</th>
-                                    <th>Actions</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                              
-                                    
-                                      
-                                            <tr>
-                                                
-                                                <td>Ali</td>
-                                                <td className="flex"><span className=" mr-2">Sick</span><ViewIcon className="w-5" /></td>
-                                                
-                                                <td>
-                                                    <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
-                                                    <button className="btn btn-square btn-ghost bg-red-600"><RejectIcon className="w-5 " /></button>
-                                                    {/* <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(k)}><ViewIcon className="w-5" /></button> */}
-                                                </td>
-                                            </tr>
-                                       
-                                   
-                              
-                            </tbody>
-                        </table>
-                    </div>
-                
-               
+
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Application</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {employees.map((item) => <tr>
+                                <td>{item?.employeeName}</td>
+                                <td className="flex"><span className=" mr-2">{item?.subject}</span><ViewIcon className="w-5" /></td>
+                                <td>
+                                    <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
+                                    <button className="btn btn-square btn-ghost bg-red-600"><RejectIcon className="w-5 " /></button>
+                                    {/* <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(k)}><ViewIcon className="w-5" /></button> */}
+                                </td>
+                            </tr>)
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
             </TitleCard>
         </>
     )

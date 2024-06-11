@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import { addApplication } from "../../../hooks/useLeaves";
@@ -11,8 +10,8 @@ function ApplicationLeavesForm() {
     console.log(role, "I am Context")
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        to: "",
-        subject: "",
+        toEmail: "",
+        Subject: "",
         date: "",
         body: "",
         userId: localStorage.getItem("userId")
@@ -24,14 +23,9 @@ function ApplicationLeavesForm() {
             const response = await addApplication(formData);
             console.log("Form Data is", formData);
             dispatch(showNotification({ message: "Application Submitted", status: 1 }));
-
-
         } catch (error) {
             dispatch(showNotification({ message: "Failed to Submit Application , Try Again", status: 1 }));
-
-
         }
-
     }
 
     const handleChange = (e) => {
@@ -48,11 +42,11 @@ function ApplicationLeavesForm() {
                         <div className="mb-4 flex justify-between items-center ">
                             <div className="flex items-center border">
                                 <label className="block text-gray-700 text-sm font-bold  border-r px-2" htmlFor="to">
-                                    To 
+                                    To
                                 </label>
 
                                 <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="to"
+                                    id="toEmail"
                                     type="email"
                                     placeholder="Email"
                                     onChange={handleChange} />
@@ -69,16 +63,15 @@ function ApplicationLeavesForm() {
                                     onChange={handleChange} />
 
                             </div>
-
                         </div>
                         <div className="mb-4 flex items-center max-w-xs border">
-                            <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="subject">
+                            <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="Subject">
                                 Subject
                             </label>
                             <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="subject"
+                                id="Subject"
                                 type="text"
-                                placeholder="Subject"
+                                placeholder="subject"
                                 onChange={handleChange} />
                         </div>
                         <div className="mb-4">
