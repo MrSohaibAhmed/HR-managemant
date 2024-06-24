@@ -75,8 +75,8 @@ function Employees() {
         navigate('/app/add-employees', { state: data });
     }
 
-    const showEmployeeDetail = () => {
-        navigate('/app/employee-detail')
+    const showEmployeeDetail = (data) => {
+        navigate('/app/employee-detail' , {state : data})
     }
 
 
@@ -123,7 +123,7 @@ function Employees() {
                                                 <td>
                                                     <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(l)}><TrashIcon className="w-5" /></button>
                                                     <button className="btn btn-square btn-ghost" onClick={() => editData(l)}><EditIcon className="w-5" /></button>
-                                                    <button className="btn btn-square btn-ghost" onClick={showEmployeeDetail}><ViewIcon className="w-5" /></button>
+                                                    <button className="btn btn-square btn-ghost" onClick={showEmployeeDetail(l)}><ViewIcon className="w-5" /></button>
                                                 </td>
                                             </tr>
                                         )

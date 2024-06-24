@@ -69,7 +69,7 @@ function EmployeeDetail() {
                 </div>
             </TitleCard>
             {/* Attenddence Detail */}
-           
+
             <TitleCard title="Attendence" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
@@ -100,7 +100,7 @@ function EmployeeDetail() {
                             ))}
                         </tbody>
                     </table> */}
-                     <MonthlyAttendenceDetail/>
+                    <MonthlyAttendenceDetail />
 
                 </div>
             </TitleCard>
