@@ -47,19 +47,19 @@ function EmployeeDetail() {
 
                         <tbody>
 
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
+                            <tr className="  hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Name</td>
                                 <td className="border border-gray-300 px-4 py-2">Sohaib</td>
                             </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
+                            <tr className=" hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Email</td>
                                 <td className="border border-gray-300 px-4 py-2">Sohaib@gmail.com</td>
                             </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
+                            <tr className="  hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Designation</td>
                                 <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
                             </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
+                            <tr className="   hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Joining Date</td>
                                 <td className="border border-gray-300 px-4 py-2">05-05-2022</td>
                             </tr>

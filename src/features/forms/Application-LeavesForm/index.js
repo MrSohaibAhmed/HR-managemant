@@ -43,22 +43,22 @@ function ApplicationLeavesForm() {
                     <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
                         <div className="mb-4 flex justify-between items-center ">
                             <div className="flex items-center border">
-                                <label className="block text-gray-700 text-sm font-bold  border-r px-2" htmlFor="to">
+                                <label className="block text-white-700 text-sm font-bold  border-r px-2" htmlFor="to">
                                     To
                                 </label>
 
-                                <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                     id="toEmail"
                                     type="email"
                                     placeholder="Email"
                                     onChange={handleChange} />
                             </div>
                             <div className="flex items-center border w-56">
-                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2 " htmlFor="date">
+                                <label className="block text-white-700 text-sm font-bold pc-2 border-r px-2 " htmlFor="date">
                                   From
                                 </label>
 
-                                <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input className="  w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                     id="fromDate"
                                     type="date"
                                     onChange={handleChange} />
@@ -67,10 +67,10 @@ function ApplicationLeavesForm() {
                         </div>
                         <div className="mb-4 flex justify-between items-center ">
                         <div className="mb-4 flex items-center max-w-xs border">
-                            <label className=" border-r block text-gray-700 text-sm font-bold px-2 " htmlFor="Subject">
+                            <label className=" border-r block text-white-700 text-sm font-bold px-2 " htmlFor="Subject">
                                 Subject
                             </label>
-                            <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                 id="Subject"
                                 type="text"
                                 placeholder="subject"
@@ -78,11 +78,11 @@ function ApplicationLeavesForm() {
                         </div>
 
                         <div className="flex items-center border w-56">
-                                <label className="block text-gray-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
+                                <label className="block text-white-700 text-sm font-bold pc-2 border-r px-2" htmlFor="date">
                                   To 
                                 </label>
 
-                                <input className="  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input className="  w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                     id="toDate"
                                     type="date"
                                     onChange={handleChange} />
@@ -90,10 +90,10 @@ function ApplicationLeavesForm() {
                             </div>
                             </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="body">
+                            <label className="block text-white-700 text-sm font-bold mb-2" htmlFor="body">
                                 Body
                             </label>
-                            <textarea className="shadow appearance-none border rounded w-full py-6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <textarea className="bg-transparent shadow appearance-none border rounded w-full py-6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="body"
                                 rows="4"
                                 placeholder="Write application here"

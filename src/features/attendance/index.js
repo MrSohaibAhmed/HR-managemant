@@ -44,7 +44,7 @@ function Attendance() {
             try {
                 const employeesData = await getEmployees();
                 setEmployees(employeesData);
-                debugger
+                // debugger
                 // Initialize attendance data with employee IDs
                 const initialAttendanceData = employeesData.map(employee => ({
                     userId: employee.userId,
@@ -111,7 +111,7 @@ function Attendance() {
         <>
             <TitleCard title="Attendance" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 <div>
-                    <input type="date" value={todayDate} />
+                    <input type="date" value={todayDate} className=" bg-transparent" />
                 </div>
                 <br />
                 {/* Leads List in table format loaded from slice after api call */}
@@ -182,6 +182,7 @@ function Attendance() {
                                             </td>
                                             <td>
                                                 <input
+                                                className="bg-transparent"
                                                     type="time"
                                                     value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
                                                     onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
@@ -190,6 +191,7 @@ function Attendance() {
                                             </td>
                                             <td>
                                                 <input
+                                                 className="bg-transparent"
                                                     type="time"
                                                     value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
                                                     onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
