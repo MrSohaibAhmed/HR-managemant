@@ -8,7 +8,6 @@ import AppContext from "../../../app/context/appContext";
 function ApplicationLeavesForm() {
     const { isLoggedIn } = useContext(AppContext);
     
-    debugger
     console.log(isLoggedIn, "I am Context")
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
@@ -31,7 +30,7 @@ function ApplicationLeavesForm() {
         }
     }
 
-    const handleChange = (e) => {
+    const   handleChange = (e) => {
         const { id, value } = e.target;
         setFormData({ ...formData, [id]: value });
     };

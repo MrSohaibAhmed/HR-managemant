@@ -32,6 +32,8 @@ const Noticeboard = lazy(() => import('../pages/protected/Noticeboard'))
 const Chats = lazy(() => import('../pages/protected/Chat'))
 const EmployeeDetail = lazy(() => import('../pages/protected/EmployeeDetail'))
 const FileStorage = lazy(() => import('../pages/protected/FileStorage'))
+const AttendanceSummary = lazy(() => import('../pages/protected/AttendanceSummary'))
+
 
 
 
@@ -157,7 +159,10 @@ const routes = [
     path: '/file-storage',
     component: FileStorage,
   },
-
+  {
+    path: '/attendance-summary',
+    component: AttendanceSummary,
+  },
 
 ]
 

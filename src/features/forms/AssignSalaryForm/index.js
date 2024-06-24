@@ -5,8 +5,12 @@ import TitleCard from "../../../components/Cards/TitleCard";
 import InputText from '../../../components/Input/InputText';
 import SelectBox from "../../../components/Input/SelectBox";
 import { getEmployees } from "../../../hooks/useEmployee";
+import { AssignSalary } from "../../../hooks/useSalary";
+import { showNotification } from "../../common/headerSlice";
+import { useNavigate } from "react-router-dom";
 
 function AssignSalaryForm() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [salaryData, setSalaryData] = useState({
@@ -40,10 +44,21 @@ function AssignSalaryForm() {
         }));
     };
 
-    const assignSalary = () => {
+    const assignSalary = async () => {
         console.log("clicked");
-        console.log("Employees:", salaryData.employees);
-        console.log("Salary:", salaryData.salary);
+        const ids = employees.filter((item) => item.employeeName == salaryData.employees);
+
+        const employeeId = ids[0].userId;
+        salaryData.employees = employeeId;
+        salaryData.userId = employeeId;
+        try {
+            const response = await AssignSalary(salaryData);
+            dispatch(showNotification({ message: "Salary Assigned ", status: 1 }));
+            navigate("/app/assign-salary")
+
+        } catch (error) {
+            dispatch(showNotification({ message: "Error in Assigning  Salary . Try Again ..", status: 0 }));
+        }
     }
 
 
@@ -54,10 +69,10 @@ function AssignSalaryForm() {
                     {/* <SelectBox labelTitle="Employees" options={["Test", "Test2", "Test3"]} value={options} updateFormValue={updateFormValue} updateType="employees" />
                     <InputText labelTitle="Salary in Rupees" value={value} updateFormValue={updateFormValue} updateType="salary" /> */}
 
-                    <SelectBox labelTitle="Employees" options={employees.map((employees)=> employees.employeeName)} value={salaryData.employees} updateFormValue={updateFormValue} updateType="employees" />
+                    <SelectBox labelTitle="Employees" options={employees.map((employees) => employees.employeeName)} value={salaryData.employees} updateFormValue={updateFormValue} updateType="employees" />
                     {/* Corrected value prop */}
-                     <InputText labelTitle="Salary in Rupees" value={20000} updateFormValue={updateFormValue} updateType="salary" /> 
-                    
+                    <InputText labelTitle="Salary in Rupees" value={20000} updateFormValue={updateFormValue} updateType="salary" />
+
 
 
                 </div>

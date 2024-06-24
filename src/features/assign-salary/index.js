@@ -96,7 +96,7 @@ function AssignSalary(){
             
             <TitleCard title="Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
             <div>
-                    <input type="date" value={todayDate} />
+                    {/* <input type="date" value={todayDate} /> */}
                 </div>
                 <br />
                 {/* Team Member list in table format loaded constant */}

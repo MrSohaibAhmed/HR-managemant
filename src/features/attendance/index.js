@@ -44,9 +44,10 @@ function Attendance() {
             try {
                 const employeesData = await getEmployees();
                 setEmployees(employeesData);
+                debugger
                 // Initialize attendance data with employee IDs
                 const initialAttendanceData = employeesData.map(employee => ({
-                    employeeId: employee._id,
+                    userId: employee.userId,
                     status: '',
                     checkIn: '',
                     checkOut: ''
@@ -76,10 +77,10 @@ function Attendance() {
     }
 
 
-    const handleAttendanceChange = (employeeId, field, value) => {
+    const handleAttendanceChange = (userId, field, value) => {
         setAttendanceData(prevData => {
             const updatedData = prevData.map(item => {
-                if (item.employeeId === employeeId) {
+                if (item.userId === userId) {
                     if (field === 'status' && value !== 'present') {
                         return { ...item, status: value, checkIn: '', checkOut: '' };
                     }
@@ -122,8 +123,8 @@ function Attendance() {
                                 <th>Present</th>
                                 <th>Absent</th>
                                 <th>Leave</th>
-                                <th>Check in</th>
-                                <th>Check out</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,10 +150,10 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l._id}`}
+                                                    name={`attendance-${l.userId}`}
                                                     value="present"
                                                     // checked={attendance[l.id] === 'present'}
-                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'present')}
+                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'present')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -160,10 +161,10 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l._id}`}
+                                                    name={`attendance-${l.userId}`}
                                                     value="absent"
                                                     // checked={attendance[l.id] === 'absent'}
-                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'absent')}
+                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'absent')}
                                                     className="form-radio"
                                                 />
                                             </td>
@@ -171,28 +172,28 @@ function Attendance() {
                                                 <input
                                                     style={{ width: "20px", height: "20px" }}
                                                     type="radio"
-                                                    name={`attendance-${l._id}`}
+                                                    name={`attendance-${l.userId}`}
                                                     value="leave"
                                                     // checked={attendance[l.id] === 'leave'}
-                                                    // onChange={() => handleAttendanceChange(l._id, 'leave')}
-                                                    onChange={() => handleAttendanceChange(l._id, 'status', 'leave')}
+                                                    // onChange={() => handleAttendanceChange(l.userId, 'leave')}
+                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'leave')}
                                                     className="form-radio"
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="time"
-                                                    value={attendanceData.find(item => item.employeeId === l._id)?.checkIn || ''}
-                                                    onChange={(e) => handleAttendanceChange(l._id, 'checkIn', e.target.value)}
-                                                    disabled={attendanceData.find(item => item.employeeId === l._id)?.status !== 'present'}
+                                                    value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
+                                                    onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
+                                                    disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="time"
-                                                    value={attendanceData.find(item => item.employeeId === l._id)?.checkOut || ''}
-                                                    onChange={(e) => handleAttendanceChange(l._id, 'checkOut', e.target.value)}
-                                                    disabled={attendanceData.find(item => item.employeeId === l._id)?.status !== 'present'}
+                                                    value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
+                                                    onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
+                                                    disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
                                                 />
                                             </td>
                                         </tr>

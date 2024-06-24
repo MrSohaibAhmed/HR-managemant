@@ -15,23 +15,23 @@ async function makeRequest(method, url, data = null) {
     }
 }
 
-export async function getEmployees() {
-    return await makeRequest('get', 'Getemployees');
+export async function getSalary() {
+    return await makeRequest('get', 'GetSalarys');
 }
 
-export async function addEmployee(employeeData) {
-    return await makeRequest('post', 'Addemployees', employeeData);
+export async function AssignSalary(SalaryData) {
+    return await makeRequest('post', 'assign-salary', SalaryData);
 }
 
-export async function deleteEmployee(employeeId) {
-    return await makeRequest('delete', `deleteEmployee/${employeeId}`);
+export async function deleteSalary(SalaryId) {
+    return await makeRequest('delete', `deleteSalary/${SalaryId}`);
 }
 
-export async function editEmployee(updatedData, data) {
+export async function editSalary(updatedData, data) {
     const editdata = {
         ...updatedData,
-        employeeId: data.userId
+        SalaryId: data._id
     }
     debugger
-    return await makeRequest('put', `Editemployees`, editdata);
+    return await makeRequest('put', `EditSalarys`, editdata);
 }

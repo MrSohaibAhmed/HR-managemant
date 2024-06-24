@@ -57,7 +57,7 @@ function Employees() {
     }
 
     const showDeleteModal = (entry) => {
-        setSelectedLeadIndex(entry._id);
+        setSelectedLeadIndex(entry.userId);
         setShowModal(true);
     };
     const employeeDelete = async (id) => {

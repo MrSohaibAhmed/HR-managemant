@@ -46,14 +46,6 @@ function NewApplication() {
 
 
 
-    // const getDummyStatus = (index) => {
-    //     if (index % 5 === 0) return <div className="badge">Active</div>
-    //     else if (index % 5 === 1) return <div className="badge badge-primary">Active</div>
-    //     else if (index % 5 === 2) return <div className="badge badge-secondary">Active</div>
-    //     else if (index % 5 === 3) return <div className="badge badge-accent">Active</div>
-    //     else return <div className="badge badge-ghost">Active</div>
-    // }
-
     const showDeleteModal = (entry) => {
         setSelectedLeadIndex(entry._id);
         setShowModal(true);
@@ -97,8 +89,8 @@ function NewApplication() {
                                 <td>{item?.employeeName}</td>
                                 <td className="flex"><span className=" mr-2">{item?.subject}</span><ViewIcon className="w-5" /></td>
                                 <td>
-                                    <button className="btn btn-square btn-ghost bg-green-600 mr-2"><AcceptIcon className="w-5 " /></button>
-                                    <button className="btn btn-square btn-ghost bg-red-600"><RejectIcon className="w-5 " /></button>
+                                    <button className="btn btn-square btn-ghost bg-teal-500 mr-2"><AcceptIcon className="w-5 " /></button>
+                                    <button className="btn btn-square btn-ghost  bg-red-900"><RejectIcon className="w-5 " /></button>
                                     {/* <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(k)}><ViewIcon className="w-5" /></button> */}
                                 </td>
                             </tr>)

@@ -7,7 +7,7 @@ import InputText from '../../../components/Input/InputText';
 import MultiSelect from "../../../components/Input/SelectedItem";
 import SelectBox from "../../../components/Input/SelectBox";
 import { getEmployees } from "../../../hooks/useEmployee";
-import { addProject , editProject } from "../../../hooks/useProjects";
+import { addProject, editProject } from "../../../hooks/useProjects";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function ProjectsForm() {
@@ -113,7 +113,12 @@ function ProjectsForm() {
                 navigate('/app/leads');
             }
         } else {
+
             try {
+
+                const ids = employees.filter((item) => formattedProjectData.teamMembers.includes(item.employeeName));
+                const userIds = ids.map((employee) => employee.userId);
+                formattedProjectData.teamMembers = userIds;
                 await addProject(formattedProjectData);
                 dispatch(showNotification({ message: "New Project Added", status: 1 }));
                 navigate('/app/leads');
@@ -121,11 +126,8 @@ function ProjectsForm() {
                 console.error("Error adding project:", error);
                 dispatch(showNotification({ message: "Error on Adding Project", status: 0 }));
                 navigate('/app/leads');
-
             }
         }
-
-
     };
 
     return (

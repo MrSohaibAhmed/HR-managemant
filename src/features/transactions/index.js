@@ -55,6 +55,8 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
 
 
 function Transactions(){
+    const [todayDate , setTodayDate] = useState();
+
 
 
     const [trans, setTrans] = useState(RECENT_TRANSACTIONS)
@@ -73,9 +75,20 @@ function Transactions(){
         let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {return t.email.toLowerCase().includes(value.toLowerCase()) ||  t.email.toLowerCase().includes(value.toLowerCase())})
         setTrans(filteredTransactions)
     }
+    useEffect(() => {
+        const today = new Date();
+
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const formattedToday = yyyy + '-' + mm + '-' + dd;
+        setTodayDate(formattedToday);
+    }, []);
 
     return(
         <>
+                            <input type="date" value={todayDate} />
+
             
             <TitleCard title="Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
 

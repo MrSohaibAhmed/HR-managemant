@@ -53,6 +53,13 @@ const routes = [
 
   },
   {
+    path: '/app/attendance-summary', // url
+    icon: <InboxArrowDownIcon className={iconClasses} />,
+    name: 'Attendance Summary', // name that appear in Sidebar
+    role: ['admin', 'User'],
+
+  },
+  {
     path: '/app/leads', // url
     icon: <InboxArrowDownIcon className={iconClasses} />,
     name: 'Projects', // name that appear in Sidebar
@@ -104,18 +111,18 @@ const routes = [
         role: ['admin'],
 
       },
-      
+
       {
         path: '/app/leaves-summary',
         icon: <MoneyIcon className={submenuIconClasses} />,
         name: 'Leaves Summary',
         role: ['admin'],
-        
+
 
       },
     ]
   },
- 
+
 
   {
     path: '/app/application-summary', // url
@@ -169,5 +176,10 @@ const routes = [
 ]
 
 export default routes
+
+
+
+
+
 
 
