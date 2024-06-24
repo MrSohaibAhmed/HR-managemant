@@ -1,5 +1,5 @@
 import moment from "moment"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { openModal } from "../common/modalSlice"
@@ -13,6 +13,7 @@ import { getEmployees, deleteEmployee } from "../../hooks/useEmployee"
 import ToogleInput from "../../components/Input/ToogleInput"
 import { useNavigate } from "react-router-dom"
 import Modal from "../../containers/Modal"
+import AppContext from "../../app/context/appContext"
 const TopSideButtons = () => {
     const navigate = useNavigate()
 
@@ -33,6 +34,7 @@ function Employees() {
     const [employees, setEmployees] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedLeadIndex, setSelectedLeadIndex] = useState(null);
+//    const {employees , setEmployees} = useContext(AppContext);
     const dispatch = useDispatch()
     useEffect(() => {
         const fetchData = async () => {
