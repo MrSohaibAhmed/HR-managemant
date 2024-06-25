@@ -43,3 +43,7 @@ export async function getAttendanceOfAllEmployees() {
 export async function getAttendanceForToday(date) {
     return await makeRequest('get', `check-attendanceMarkedForToday?date=${date}`);
 }
+
+export async function UpdateAttendace(AttendanceData) {
+    return await makeRequest('post', 'updateAttendance', AttendanceData);
+}

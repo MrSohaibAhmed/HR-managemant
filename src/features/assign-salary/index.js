@@ -135,7 +135,7 @@ function AssignSalary() {
                                             </div>
                                         </div>
                                     </td> */}
-                                            <td>{l.userId}</td>
+                                            <td>{l.employeeName}</td>
                                             {/**   <td>{l.location}</td>*/}
                                             <td>{l.salary}</td>
                                             {/* <td>1000</td>

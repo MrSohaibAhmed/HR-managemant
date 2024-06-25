@@ -9,7 +9,7 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import { getEmployees } from "../../hooks/useEmployee"
 import { addAttendance } from "../../hooks/useAttendance"
-import { getAttendanceForToday } from "../../hooks/useAttendance"
+import { getAttendanceForToday, UpdateAttendace } from "../../hooks/useAttendance"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -29,17 +29,13 @@ function Attendance() {
     const [employees, setEmployees] = useState([]);
     const [show, setIsShow] = useState(false);
     const [todayDate, setTodayDate] = useState('');
-
+    const [update, setUpdate] = useState(false)
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
     const [attendanceData, setAttendanceData] = useState([]);
     const date = new Date();
 
     const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-
-
-
-
     useEffect(() => {
         dispatch(getLeadsContent())
     }, [])
@@ -107,10 +103,29 @@ function Attendance() {
         });
     };
     const handleSave = async () => {
-        console.log("Collected attendance data:", attendanceData);
-        const attendaceResponse = await addAttendance(attendanceData);
-        dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
-        console.log(attendaceResponse);
+        if (!update) {
+            console.log("Collected attendance data:", attendanceData);
+            const attendaceResponse = await addAttendance(attendanceData);
+            dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
+            console.log(attendaceResponse);
+
+
+        } else {
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+            // Filter attendance data where status is 'present' and add date key
+            const presentAttendanceData = attendanceData.filter(item => item.status === 'present').map(item => ({
+                ...item,
+                date: formattedDate
+            }));
+            console.log("Collected attendance data:", presentAttendanceData);
+            const attendaceResponse = await UpdateAttendace(presentAttendanceData);
+            dispatch(showNotification({ message: "Attendance Updated For Today", status: 1 }));
+            console.log(attendaceResponse);
+            setIsShow(false)
+
+
+        }
     };
     useEffect(() => {
         const today = new Date();
@@ -121,13 +136,19 @@ function Attendance() {
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         setTodayDate(formattedToday);
     }, []);
-
+    const changeShow = () => {
+        setIsShow(!show)
+        setUpdate(true)
+    }
     return (
         <>
             <TitleCard title="Attendance" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 <div>
                     <input type="date" value={todayDate} className=" bg-transparent" />
                 </div>
+                {
+                    !show && <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4  py-2 px-4 border border-blue-700 rounded text-center" onClick={changeShow}>Edit</button>
+                }
                 <br />
                 {
                     show ?
@@ -225,10 +246,10 @@ function Attendance() {
                             <div className=" flex justify-end items-baseline pt-5">
                                 {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
                                 <button onClick={handleSave} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
-                                    Save
+                                    {update ? "Update" : "Save"}
                                 </button>
                             </div>
-                        </> :<h4 className=" font-bold text-lg text-center">Attendance Marked Already</h4>
+                        </> : <h4 className=" font-bold text-lg text-center">Attendance Marked Already</h4>
                 }
                 {/* Leads List in table format loaded from slice after api call */}
 

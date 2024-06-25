@@ -39,3 +39,10 @@ export async function editSalary(updatedData, data) {
 export async function getAllEmployeeSalary() {
     return await makeRequest('get', 'getallemployeessalaries');
 }
+
+export async function getAllEmployeeCalculatedSalary() {
+    return await makeRequest('get', 'process-salaries');
+}
+export async function paysalary(SalaryData) {
+    return await makeRequest('post', 'paysalary', SalaryData);
+}

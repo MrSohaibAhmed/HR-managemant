@@ -34,7 +34,7 @@ function Employees() {
     const [employees, setEmployees] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedLeadIndex, setSelectedLeadIndex] = useState(null);
-//    const {employees , setEmployees} = useContext(AppContext);
+    //    const {employees , setEmployees} = useContext(AppContext);
     const dispatch = useDispatch()
     useEffect(() => {
         const fetchData = async () => {
@@ -65,7 +65,7 @@ function Employees() {
     const employeeDelete = async (id) => {
         try {
             const employesAfterDelete = await deleteEmployee(id);
-            setEmployees(employesAfterDelete);
+            setEmployees(employesAfterDelete.employees);
             dispatch(showNotification({ message: "Employee Deleted Successfully", status: 1 }));
 
         } catch (error) {
@@ -79,7 +79,7 @@ function Employees() {
 
     const showEmployeeDetail = (data) => {
         // debugger
-        navigate('/app/employee-detail' , {state : data})
+        navigate('/app/employee-detail', { state: data })
     }
 
 
@@ -126,7 +126,7 @@ function Employees() {
                                                 <td>
                                                     <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(l)}><TrashIcon className="w-5" /></button>
                                                     <button className="btn btn-square btn-ghost" onClick={() => editData(l)}><EditIcon className="w-5" /></button>
-                                                    <button className="btn btn-square btn-ghost" onClick={()=>showEmployeeDetail(l)}><ViewIcon className="w-5" /></button>
+                                                    <button className="btn btn-square btn-ghost" onClick={() => showEmployeeDetail(l)}><ViewIcon className="w-5" /></button>
                                                 </td>
                                             </tr>
                                         )

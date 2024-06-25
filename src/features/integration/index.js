@@ -33,7 +33,7 @@ function Integration() {
         dispatch(showNotification({ message: `${integration.name} ${integration.isActive ? "disabled" : "enabled"}`, status: 1 }))
     }
 
-    const handleClick = ()=>{
+    const handleClick = () => {
         navigate('/app/add-announcement')
     }
 

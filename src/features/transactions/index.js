@@ -7,7 +7,8 @@ import { RECENT_TRANSACTIONS } from "../../utils/dummyData";
 import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import SearchBar from "../../components/Input/SearchBar";
-
+import { getAllEmployeeCalculatedSalary } from "../../hooks/useSalary";
+import { paysalary } from "../../hooks/useSalary";
 // const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 const TopSideButtons = ({ applySearch }) => {
   const [filterParam, setFilterParam] = useState("");
@@ -40,7 +41,7 @@ const TopSideButtons = ({ applySearch }) => {
         styleClass="mr-4"
         setSearchText={setSearchText}
       />
-    {/**   {filterParam != "" && (
+      {/**   {filterParam != "" && (
         <button
           onClick={() => removeAppliedFilter()}
           className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
@@ -77,16 +78,17 @@ const TopSideButtons = ({ applySearch }) => {
 };
 
 function Transactions() {
+  const dispatch = useDispatch();
   const [todayDate, setTodayDate] = useState();
-
-  const [trans, setTrans] = useState(RECENT_TRANSACTIONS);
+  const [transactions, setTransactions] = useState([]);
+  const [trans, setTrans] = useState(transactions);
 
   const removeFilter = () => {
-    setTrans(RECENT_TRANSACTIONS);
+    setTrans(transactions);
   };
 
   const applyFilter = (params) => {
-    let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {
+    let filteredTransactions = transactions.filter((t) => {
       return t.location == params;
     });
     setTrans(filteredTransactions);
@@ -94,7 +96,7 @@ function Transactions() {
 
   // Search according to name
   const applySearch = (value) => {
-    let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {
+    let filteredTransactions = transactions.filter((t) => {
       return (
         t.email.toLowerCase().includes(value.toLowerCase()) ||
         t.email.toLowerCase().includes(value.toLowerCase())
@@ -111,7 +113,33 @@ function Transactions() {
     const formattedToday = yyyy + "-" + mm + "-" + dd;
     setTodayDate(formattedToday);
   }, []);
+  const fetchData = async () => {
+    const res = await getAllEmployeeCalculatedSalary();
+    setTransactions(res);
+  }
+  useEffect(() => {
 
+    fetchData();
+  }, [])
+  const paySalary = async (item) => {
+    const currentDate = new Date(Date.now());
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+    const salaryData = {
+      userId: item.userId,
+      salary: item.salary,
+      date: formattedDate
+
+    }
+    const response = await paysalary(salaryData);
+    console.log(response);
+    fetchData();
+    dispatch(showNotification({ message: "Salary Paid", status: 1 }));
+
+  }
   return (
     <>
       <input className=" p-2 rounded-lg" type="date" value={todayDate} />
@@ -122,8 +150,6 @@ function Transactions() {
         TopSideButtons={
           <TopSideButtons
             applySearch={applySearch}
-            // applyFilter={applyFilter}
-            // removeFilter={removeFilter}
           />
         }
       >
@@ -134,7 +160,6 @@ function Transactions() {
               <tr>
                 <th>Name</th>
                 <th>Email Id</th>
-                {/**  <th>Location</th> */}
                 <th>Total Salary</th>
                 <th>Deduction</th>
                 <th>Remaining Salary</th>
@@ -143,7 +168,7 @@ function Transactions() {
               </tr>
             </thead>
             <tbody>
-              {trans.map((l, k) => {
+              {transactions.map((l, k) => {
                 return (
                   <tr key={k}>
                     <td>
@@ -154,19 +179,23 @@ function Transactions() {
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold">{l.name}</div>
+                          <div className="font-bold">{l.employeeName}</div>
                         </div>
                       </div>
                     </td>
-                    <td>{l.email}</td>
-                    {/**   <td>{l.location}</td>*/}
-                    <td>${l.amount}</td>
-                    <td>1000</td>
-                    <td>20000</td>
+                    <td>{l.employeeEmail}</td>
+                    <td>{l.salary || 'N/A'}</td>
+                    <td>{l.totalDeduction || 'N/A'}</td>
+                    <td>{l.remainingSalary || 'N/A'}</td>
                     <td>{moment(l.date).format("D MMM")}</td>
-                    <td>
-                    <span  className=" bg-green-800  text-white p-1 rounded-lg">paid</span>
-                    </td>
+                    {
+                      l.salleryStatus.status == "unpaid" ? <td>
+                        <button onClick={() => { paySalary(l) }} className=" bg-cyan-600  text-white p-1 rounded-lg cursor-pointer">Pay</button>
+                      </td> : <td>
+                        <span className=" bg-green-800  text-white p-1 rounded-lg">paid</span>
+                      </td>
+                    }
+
                   </tr>
                 );
               })}
