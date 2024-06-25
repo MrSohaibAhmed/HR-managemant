@@ -47,7 +47,7 @@ function ApplicationLeavesForm() {
                                     To
                                 </label>
 
-                                <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
+                                <input className=" w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                     id="toEmail"
                                     type="email"
                                     placeholder="Email"
@@ -70,7 +70,7 @@ function ApplicationLeavesForm() {
                             <label className=" border-r block text-white-700 text-sm font-bold px-2 " htmlFor="Subject">
                                 Subject
                             </label>
-                            <input className=" w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
+                            <input className=" w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent"
                                 id="Subject"
                                 type="text"
                                 placeholder="subject"
@@ -93,7 +93,7 @@ function ApplicationLeavesForm() {
                             <label className="block text-white-700 text-sm font-bold mb-2" htmlFor="body">
                                 Body
                             </label>
-                            <textarea className="bg-transparent shadow appearance-none border rounded w-full py-6 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <textarea className="bg-transparent shadow appearance-none border rounded w-full py-6 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="body"
                                 rows="4"
                                 placeholder="Write application here"

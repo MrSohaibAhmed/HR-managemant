@@ -41,6 +41,7 @@ function EmployeeDetail() {
         const fetchData = async () => {
             const resp = await getEmployeeDetail(data.userId)
             debugger
+            console.log("respone employee data is =>" , resp);
             setEmplaoyeeData(resp)
         }
         fetchData();
@@ -98,10 +99,10 @@ function EmployeeDetail() {
                     <table className="min-w-full border-collapse border border-gray-300">
                         <thead>
                             <tr>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Name</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Start Date</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">End Date</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Role</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Name</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Start Date</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">End Date</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Role</th>
 
                             </tr>
                         </thead>
@@ -127,14 +128,14 @@ function EmployeeDetail() {
             <TitleCard title="Salary Details" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
-                    <div className="pb-4"> <input type="date" /></div>
+                    
                     <table className="min-w-full border-collapse border border-gray-300">
                         <thead>
                             <tr>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Total Salary</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Deduction</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Remaining Salary</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Transaction Date</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Total Salary</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Deduction</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Remaining Salary</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-transparent text-start">Transaction Date</th>
 
                             </tr>
                         </thead>

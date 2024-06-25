@@ -36,8 +36,8 @@ function ProfileSettings(){
                 <div className="divider" ></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue}/>
+                   {/**  <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue}/>
+                     <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue}/> */}
                     <ToogleInput updateType="syncData" labelTitle="Sync Data" defaultValue={true} updateFormValue={updateFormValue}/>
                 </div>
 
