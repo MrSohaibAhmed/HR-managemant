@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom"
 import { getEmployeeDetail, getEmployees } from "../../hooks/useEmployee"
 import MonthlyAttendenceDetail from "./EmployeeAttendenceDetail";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../../app/context/appContext";
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -26,9 +27,7 @@ const TopSideButtons = () => {
 
 function EmployeeDetail() {
 
-
-
-    const [employeeData, setEmplaoyeeData] = useState([])
+    const [employeeData, setEmployeeData] = useState([])
     const location = useLocation();
     const { state: data } = location;
     console.log(data);
@@ -41,8 +40,8 @@ function EmployeeDetail() {
         const fetchData = async () => {
             const resp = await getEmployeeDetail(data.userId)
             debugger
-            console.log("respone employee data is =>" , resp);
-            setEmplaoyeeData(resp)
+            console.log("respone employee data is employess detail =>" , resp);
+            setEmployeeData(resp)
         }
         fetchData();
     }, [])
