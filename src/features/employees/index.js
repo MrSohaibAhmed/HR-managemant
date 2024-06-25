@@ -76,6 +76,7 @@ function Employees() {
     }
 
     const showEmployeeDetail = (data) => {
+        // debugger
         navigate('/app/employee-detail' , {state : data})
     }
 
@@ -123,7 +124,7 @@ function Employees() {
                                                 <td>
                                                     <button className="btn btn-square btn-ghost" onClick={() => showDeleteModal(l)}><TrashIcon className="w-5" /></button>
                                                     <button className="btn btn-square btn-ghost" onClick={() => editData(l)}><EditIcon className="w-5" /></button>
-                                                    <button className="btn btn-square btn-ghost" onClick={showEmployeeDetail(l)}><ViewIcon className="w-5" /></button>
+                                                    <button className="btn btn-square btn-ghost" onClick={()=>showEmployeeDetail(l)}><ViewIcon className="w-5" /></button>
                                                 </td>
                                             </tr>
                                         )

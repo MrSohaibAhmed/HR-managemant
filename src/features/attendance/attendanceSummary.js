@@ -6,12 +6,13 @@ import { addAttendance } from "../../hooks/useAttendance";
 import { showNotification } from "../common/headerSlice";
 import check from "../../images/check.png"
 import cross from "../../images/crossImg.jpg"
-
+import { getAttendanceOfAllEmployees } from "../../hooks/useAttendance";
 function AttendanceSummary() {
     const [employees, setEmployees] = useState([]);
     const [attendanceData, setAttendanceData] = useState([]);
     const [modal, setModal] = useState(false);
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -107,6 +108,14 @@ function AttendanceSummary() {
             </div>
         </div>
     );
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getAttendanceOfAllEmployees();
+            debugger
+            console.log(response)
+        }
+        fetchData();
+    }, [])
 
     return (
         <TitleCard title="Attendance" topMargin="mt-2">
