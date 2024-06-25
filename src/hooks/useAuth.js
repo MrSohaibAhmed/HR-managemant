@@ -35,3 +35,8 @@ export async function editEmployee(updatedData, data) {
     debugger
     return await makeRequest('put', `Editemployees`, editdata);
 }
+
+export async function getDashboardData(start, end) {
+    return await makeRequest('get', `getDashboardData?fromDate=${start}&toDate=${end}`);
+    // return await makeRequest('get', 'getdashboarddata');
+}

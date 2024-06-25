@@ -35,3 +35,7 @@ export async function editSalary(updatedData, data) {
     debugger
     return await makeRequest('put', `EditSalarys`, editdata);
 }
+
+export async function getAllEmployeeSalary() {
+    return await makeRequest('get', 'getallemployeessalaries');
+}

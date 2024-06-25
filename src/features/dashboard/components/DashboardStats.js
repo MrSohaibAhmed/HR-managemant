@@ -1,4 +1,5 @@
-function DashboardStats({title, icon, value, description, colorIndex}){
+function DashboardStats({title, icon, value, description, colorIndex , data}){
+    debugger
 
     const COLORS = ["primary", "primary"]
 
@@ -13,7 +14,7 @@ function DashboardStats({title, icon, value, description, colorIndex}){
             <div className="stat">
                 <div className={`stat-figure dark:text-slate-300 text-${COLORS[colorIndex%2]}`}>{icon}</div>
                 <div className="stat-title dark:text-slate-300">{title}</div>
-                <div className={`stat-value dark:text-slate-300 text-${COLORS[colorIndex%2]}`}>{value}</div>
+                <div className={`stat-value dark:text-slate-300 text-${COLORS[colorIndex%2]}`}>{data}</div>
                 <div className={"stat-desc  " + getDescStyle()}>{description}</div>
             </div>
         </div>

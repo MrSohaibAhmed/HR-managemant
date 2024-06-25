@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
@@ -14,8 +13,6 @@ function AttendanceSummary() {
     const [attendanceData, setAttendanceData] = useState([]);
     const [modal, setModal] = useState(false);
     const dispatch = useDispatch();
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,10 +30,8 @@ function AttendanceSummary() {
                 console.error("Error fetching employees:", error);
             }
         };
-
         fetchData();
     }, []);
-
     const handleAttendanceChange = (employeeId, field, value) => {
         setAttendanceData(prevData => {
             const updatedData = prevData.map(item => {
@@ -48,22 +43,18 @@ function AttendanceSummary() {
             return updatedData;
         });
     };
-
     const handleSave = async () => {
         console.log("Collected attendance data:", attendanceData);
         const attendanceResponse = await addAttendance(attendanceData);
         dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
         console.log(attendanceResponse);
     };
-
     const showModal = () => {
         setModal(true);
     };
-
     const closeModal = () => {
         setModal(false);
     };
-
     const renderEmployeeRow = (employee) => {
         return (
             <tr key={employee._id}>
@@ -87,7 +78,6 @@ function AttendanceSummary() {
             </tr>
         );
     };
-
     // const modalContent = (
     //     <div id="default-modal" tabIndex="-1" aria-hidden="true" className={`fixed top-0 right-0 left-0 bottom-0 z-50 overflow-y-auto bg-gray-200 bg-opacity-60 flex justify-center items-center`}>
     //         <div className="bg-white w-full max-w-2xl p-4 rounded-lg shadow-lg">
@@ -118,7 +108,6 @@ function AttendanceSummary() {
         }
         fetchData();
     }, [])
-
     return (
         <TitleCard title="Attendance" topMargin="mt-2">
             <div className="overflow-x-auto w-full">
@@ -142,9 +131,8 @@ function AttendanceSummary() {
                 </button>
             </div>
             {/* Modal rendering */}
-            {modal && <AttendenceModal closeModal = {closeModal}/> }
+            {modal && <AttendenceModal closeModal={closeModal} />}
         </TitleCard>
     );
 }
-
 export default AttendanceSummary;

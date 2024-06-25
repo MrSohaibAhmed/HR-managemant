@@ -39,3 +39,7 @@ export async function editAttendance(updatedData, data) {
 export async function getAttendanceOfAllEmployees() {
     return await makeRequest('get', 'getmonthlyattendanceofallemployes?month=6&year=2024');
 }
+
+export async function getAttendanceForToday(date) {
+    return await makeRequest('get', `check-attendanceMarkedForToday?date=${date}`);
+}
