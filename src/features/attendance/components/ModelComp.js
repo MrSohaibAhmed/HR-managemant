@@ -38,7 +38,7 @@ const AttendenceModal = ({ closeModal }) => {
         <div className="text-sm text-gray-700">
           <div className="flex justify-center">
             <span className=" font-bold"> Timesheet :</span>{" "}
-            <input type="date" value={todayDate} />
+            <input type="date" value={todayDate} className="bg-transparent"/>
           </div>
           <div className=" w-48 flex justify-center my-2 m-auto">
             <div className=" border-2  py-6 w-24 rounded-full ">
