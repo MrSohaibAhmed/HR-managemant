@@ -43,7 +43,7 @@ const getAttendanceData = () => {
   ];
 };
 
-function MonthlyAttendenceDetail() {
+function MonthlyAttendenceDetail({EmployeeAttendance}) {
   const [attendance, setAttendance] = useState([]);
 
   useEffect(() => {

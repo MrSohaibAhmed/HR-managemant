@@ -3,9 +3,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { useNavigate } from "react-router-dom"
-import { getEmployees } from "../../hooks/useEmployee"
+import { getEmployeeDetail, getEmployees } from "../../hooks/useEmployee"
 import MonthlyAttendenceDetail from "./EmployeeAttendenceDetail";
-
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -27,13 +28,23 @@ function EmployeeDetail() {
 
 
 
-
+    const [employeeData, setEmplaoyeeData] = useState([])
+    const location = useLocation();
+    const { state: data } = location;
+    console.log(data);
 
     const HandleButtonClick = () => {
         console.log("clicked");
     }
 
-
+    useEffect(() => {
+        const fetchData = async () => {
+            const resp = await getEmployeeDetail(data.userId)
+            debugger
+            setEmplaoyeeData(resp)
+        }
+        fetchData();
+    }, [])
 
     return (
         <>
@@ -49,19 +60,19 @@ function EmployeeDetail() {
 
                             <tr className="  hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Name</td>
-                                <td className="border border-gray-300 px-4 py-2">Sohaib</td>
+                                <td className="border border-gray-300 px-4 py-2">{employeeData?.employeeDetails?.[0]?.employeeName}</td>
                             </tr>
                             <tr className=" hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Email</td>
-                                <td className="border border-gray-300 px-4 py-2">Sohaib@gmail.com</td>
+                                <td className="border border-gray-300 px-4 py-2">{employeeData?.employeeDetails?.[0]?.employeeEmail}</td>
                             </tr>
                             <tr className="  hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Designation</td>
-                                <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
+                                <td className="border border-gray-300 px-4 py-2">{employeeData?.employeeDetails?.[0]?.designation}</td>
                             </tr>
                             <tr className="   hover:bg-gray-200">
                                 <td className="border border-gray-300 px-4 py-2 font-bold">Joining Date</td>
-                                <td className="border border-gray-300 px-4 py-2">05-05-2022</td>
+                                <td className="border border-gray-300 px-4 py-2">{employeeData?.employeeDetails?.[0]?.joiningDate}</td>
                             </tr>
 
                         </tbody>
@@ -74,33 +85,7 @@ function EmployeeDetail() {
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
 
-                    {/* <table className="min-w-full border-collapse border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Date</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-start">Status</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((record, index) => (
-                                <tr key={index} className="even:bg-gray-50 hover:bg-gray-200">
-                                    <td className="border border-gray-300 px-4 py-2">{record.date}</td>
-                                    <td className="border border-gray-300 px-4 py-2 ">
-                                        <span className={`${record.status === "Present"
-                                            ? "bg-green-500 p-2"
-                                            : record.status === "Absent"
-                                                ? "bg-red-600 p-2"
-                                                : record.status === "Leave" ? "bg-orange-500 p-2" : ""
-                                            }`}>{record.status}
-                                        </span>
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table> */}
-                    <MonthlyAttendenceDetail />
+                    <MonthlyAttendenceDetail EmployeeAttendance={employeeData?.Attendance} />
 
                 </div>
             </TitleCard>
@@ -121,28 +106,18 @@ function EmployeeDetail() {
                             </tr>
                         </thead>
                         <tbody>
+                            {
+                                employeeData?.Projects?.map((item) => <tr className="even:bg-gray-50 hover:bg-gray-200">
+                                    <td className="border border-gray-300 px-4 py-2">{item?.projectName}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{item?.startingDate}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{item?.deadline}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{employeeData?.employeeDetails?.[0]?.designation}</td>
 
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Lamina App</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">12-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
+                                </tr>)
+                            }
 
-                            </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Fusion App</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">12-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
 
-                            </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">HR Management System</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">12-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">MERN Stack</td>
 
-                            </tr>
 
                         </tbody>
                     </table>
@@ -164,28 +139,19 @@ function EmployeeDetail() {
                             </tr>
                         </thead>
                         <tbody>
+                            {
+                                employeeData?.sallery?.map((item) => <tr className="even:bg-gray-50 hover:bg-gray-200">
+                                    <td className="border border-gray-300 px-4 py-2">{item?.salary}</td>
+                                    <td className="border border-gray-300 px-4 py-2">2000</td>
+                                    <td className="border border-gray-300 px-4 py-2">40000</td>
+                                    <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
 
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">900000</td>
-                                <td className="border border-gray-300 px-4 py-2">2000</td>
-                                <td className="border border-gray-300 px-4 py-2">40000</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
+                                </tr>)
 
-                            </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">Fusion App</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">12-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">Frontend Engineer</td>
+                            }
 
-                            </tr>
-                            <tr className="even:bg-gray-50 hover:bg-gray-200">
-                                <td className="border border-gray-300 px-4 py-2">HR Management System</td>
-                                <td className="border border-gray-300 px-4 py-2">01-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">12-05-2024</td>
-                                <td className="border border-gray-300 px-4 py-2">MERN Stack</td>
 
-                            </tr>
+
 
                         </tbody>
                     </table>

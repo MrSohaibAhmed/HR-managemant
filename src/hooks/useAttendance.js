@@ -35,3 +35,7 @@ export async function editAttendance(updatedData, data) {
     debugger
     return await makeRequest('put', `EditAttendances`, editdata);
 }
+
+export async function getAttendanceOfAllEmployees() {
+    return await makeRequest('get', 'getmonthlyattendanceofallemployes?month=6&year=2024');
+}

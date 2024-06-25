@@ -4,37 +4,40 @@ import TitleCard from "../../components/Cards/TitleCard";
 import { getEmployees } from "../../hooks/useEmployee";
 import { addAttendance } from "../../hooks/useAttendance";
 import { showNotification } from "../common/headerSlice";
-import check from "../../images/check.png";
-import cross from "../../images/crossImg.jpg";
-import crossimg from "../../images/cross.jpg";
-import AttendenceModal from "./components/ModelComp";
-
+import check from "../../images/check.png"
+import cross from "../../images/crossImg.jpg"
+import { getAttendanceOfAllEmployees } from "../../hooks/useAttendance";
 function AttendanceSummary() {
   const [employees, setEmployees] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const employeesData = await getEmployees();
-        setEmployees(employeesData);
-        // Initialize attendance data with employee IDs
-        const initialAttendanceData = employeesData.map((employee) => ({
-          employeeId: employee._id,
-          status: "present",
-          checkIn: "",
-          checkOut: "",
-        }));
-        setAttendanceData(initialAttendanceData);
-      } catch (error) {
-        console.error("Error fetching employees:", error);
-      }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const employeesData = await getEmployees();
+                setEmployees(employeesData);
+                // Initialize attendance data with employee IDs
+                const initialAttendanceData = employeesData.map(employee => ({
+                    employeeId: employee._id,
+                    status: 'present',
+                    checkIn: '',
+                    checkOut: ''
+                }));
+                setAttendanceData(initialAttendanceData);
+            } catch (error) {
+                console.error("Error fetching employees:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     };
 
-    fetchData();
-  }, []);
+  
 
   const handleAttendanceChange = (employeeId, field, value) => {
     setAttendanceData((prevData) => {
@@ -54,8 +57,14 @@ function AttendanceSummary() {
     dispatch(
       showNotification({ message: "Attendance Marked For Today", status: 1 })
     );
-    console.log(attendanceResponse);
-  };
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getAttendanceOfAllEmployees();
+            debugger
+            console.log(response)
+        }
+        fetchData();
+    }, [])
 
   const showModal = () => {
     setModal(true);
