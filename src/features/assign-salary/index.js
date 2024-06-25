@@ -8,8 +8,8 @@ import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon'
 import SearchBar from "../../components/Input/SearchBar"
 import { useNavigate } from "react-router-dom"
-
-const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
+import { getAllEmployeeSalary } from "../../hooks/useSalary"
+const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
     const [filterParam, setFilterParam] = useState("")
     const [searchText, setSearchText] = useState("")
@@ -31,16 +31,16 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
     }
 
     useEffect(() => {
-        if(searchText == ""){
+        if (searchText == "") {
             removeAppliedFilter()
-        }else{
+        } else {
             applySearch(searchText)
         }
     }, [searchText])
 
-    return(
+    return (
         <div className="inline-block float-right">
-             <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => clickHanlder()}>Add New</button>
+            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => clickHanlder()}>Add New</button>
             {/* <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText}/> */}
             {/* {filterParam != "" && <button onClick={() => removeAppliedFilter()} className="btn btn-xs mr-2 btn-active btn-ghost normal-case">{filterParam}<XMarkIcon className="w-4 ml-2"/></button>} */}
             {/* <div className="dropdown dropdown-bottom dropdown-end">
@@ -60,24 +60,24 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
 }
 
 
-function AssignSalary(){
+function AssignSalary() {
 
-
+    const [salary, setAllSalary] = useState([])
     const [trans, setTrans] = useState(RECENT_TRANSACTIONS);
-    const [todayDate , setTodayDate] = useState();
+    const [todayDate, setTodayDate] = useState();
 
     const removeFilter = () => {
         setTrans(RECENT_TRANSACTIONS)
     }
 
     const applyFilter = (params) => {
-        let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {return t.location == params})
+        let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => { return t.location == params })
         setTrans(filteredTransactions)
     }
 
     // Search according to name
     const applySearch = (value) => {
-        let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {return t.email.toLowerCase().includes(value.toLowerCase()) ||  t.email.toLowerCase().includes(value.toLowerCase())})
+        let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => { return t.email.toLowerCase().includes(value.toLowerCase()) || t.email.toLowerCase().includes(value.toLowerCase()) })
         setTrans(filteredTransactions)
     }
 
@@ -90,31 +90,40 @@ function AssignSalary(){
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         setTodayDate(formattedToday);
     }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getAllEmployeeSalary();
+            setAllSalary(res);
+            debugger
+            console.log(res)
+        }
+        fetchData()
+    }, [])
 
-    return(
+    return (
         <>
-            
-            <TitleCard title="Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
-            <div>
+
+            <TitleCard title="Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} />}>
+                <div>
                     {/* <input type="date" value={todayDate} /> */}
                 </div>
                 <br />
                 {/* Team Member list in table format loaded constant */}
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Salary in Rupees</th>
-                      
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            trans.map((l, k) => {
-                                return(
-                                    <tr key={k}>
-                                    {/* <td>
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Salary in Rupees</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                salary?.map((l, k) => {
+                                    return (
+                                        <tr key={k}>
+                                            {/* <td>
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
                                                 <div className="mask mask-circle w-12 h-12">
@@ -126,19 +135,19 @@ function AssignSalary(){
                                             </div>
                                         </div>
                                     </td> */}
-                                    <td>{l.name}</td>
-                                 {/**   <td>{l.location}</td>*/} 
-                                    <td>{l.amount}</td>
-                                    {/* <td>1000</td>
+                                            <td>{l.userId}</td>
+                                            {/**   <td>{l.location}</td>*/}
+                                            <td>{l.salary}</td>
+                                            {/* <td>1000</td>
                                     <td>20000</td>
                                     <td>{moment(l.date).format("D MMM")}</td> */}
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
-            </div>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </TitleCard>
         </>
     )

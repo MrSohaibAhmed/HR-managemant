@@ -9,6 +9,7 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import { getEmployees } from "../../hooks/useEmployee"
 import { addAttendance } from "../../hooks/useAttendance"
+import { getAttendanceForToday } from "../../hooks/useAttendance"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -26,16 +27,32 @@ const TopSideButtons = () => {
 
 function Attendance() {
     const [employees, setEmployees] = useState([]);
-
+    const [show, setIsShow] = useState(false);
     const [todayDate, setTodayDate] = useState('');
 
     const { leads } = useSelector(state => state.lead)
     const dispatch = useDispatch()
     const [attendanceData, setAttendanceData] = useState([]);
+    const date = new Date();
+
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+
 
 
     useEffect(() => {
         dispatch(getLeadsContent())
+    }, [])
+    useEffect(() => {
+        const check = async () => {
+            const data = await getAttendanceForToday(formattedDate);
+            if (data.exists == true) {
+                setIsShow(false);
+            } else {
+                setIsShow(true)
+            }
+        }
+        check();
     }, [])
 
 
@@ -44,8 +61,6 @@ function Attendance() {
             try {
                 const employeesData = await getEmployees();
                 setEmployees(employeesData);
-                // debugger
-                // Initialize attendance data with employee IDs
                 const initialAttendanceData = employeesData.map(employee => ({
                     userId: employee.userId,
                     status: '',
@@ -114,103 +129,109 @@ function Attendance() {
                     <input type="date" value={todayDate} className=" bg-transparent" />
                 </div>
                 <br />
-                {/* Leads List in table format loaded from slice after api call */}
-                <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Present</th>
-                                <th>Absent</th>
-                                <th>Leave</th>
-                                <th>Check In</th>
-                                <th>Check Out</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                employees.map((l, k) => {
-                                    return (
-                                        <tr key={k}>
-                                            <td>
-                                                <div className="flex items-center space-x-3">
-                                                    <div className="avatar">
-                                                        <div className="mask mask-squircle w-12 h-12">
-                                                            <img src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg" alt="pic" />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-bold">{l.employeeName}</div>
-                                                        {/* <div className="text-sm opacity-50">{l.last_name}</div> */}
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td className="py-2 px-4  ">
-                                                <input
-                                                    style={{ width: "20px", height: "20px" }}
-                                                    type="radio"
-                                                    name={`attendance-${l.userId}`}
-                                                    value="present"
-                                                    // checked={attendance[l.id] === 'present'}
-                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'present')}
-                                                    className="form-radio"
-                                                />
-                                            </td>
-                                            <td className="py-2 px-4  ">
-                                                <input
-                                                    style={{ width: "20px", height: "20px" }}
-                                                    type="radio"
-                                                    name={`attendance-${l.userId}`}
-                                                    value="absent"
-                                                    // checked={attendance[l.id] === 'absent'}
-                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'absent')}
-                                                    className="form-radio"
-                                                />
-                                            </td>
-                                            <td className="py-2 px-4 ">
-                                                <input
-                                                    style={{ width: "20px", height: "20px" }}
-                                                    type="radio"
-                                                    name={`attendance-${l.userId}`}
-                                                    value="leave"
-                                                    // checked={attendance[l.id] === 'leave'}
-                                                    // onChange={() => handleAttendanceChange(l.userId, 'leave')}
-                                                    onChange={() => handleAttendanceChange(l.userId, 'status', 'leave')}
-                                                    className="form-radio"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                className="bg-transparent"
-                                                    type="time"
-                                                    value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
-                                                    onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
-                                                    disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                 className="bg-transparent"
-                                                    type="time"
-                                                    value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
-                                                    onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
-                                                    disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
-                                                />
-                                            </td>
+                {
+                    show ?
+                        <>
+                            <div className="overflow-x-auto w-full">
+                                <table className="table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Present</th>
+                                            <th>Absent</th>
+                                            <th>Leave</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
                                         </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div className=" flex justify-end items-baseline pt-5">
-                    {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
-                    <button onClick={handleSave} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
-                        Save
-                    </button>
-                </div>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            employees.map((l, k) => {
+                                                return (
+                                                    <tr key={k}>
+                                                        <td>
+                                                            <div className="flex items-center space-x-3">
+                                                                <div className="avatar">
+                                                                    <div className="mask mask-squircle w-12 h-12">
+                                                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg" alt="pic" />
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div className="font-bold">{l.employeeName}</div>
+                                                                    {/* <div className="text-sm opacity-50">{l.last_name}</div> */}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td className="py-2 px-4  ">
+                                                            <input
+                                                                style={{ width: "20px", height: "20px" }}
+                                                                type="radio"
+                                                                name={`attendance-${l.userId}`}
+                                                                value="present"
+                                                                // checked={attendance[l.id] === 'present'}
+                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'present')}
+                                                                className="form-radio"
+                                                            />
+                                                        </td>
+                                                        <td className="py-2 px-4  ">
+                                                            <input
+                                                                style={{ width: "20px", height: "20px" }}
+                                                                type="radio"
+                                                                name={`attendance-${l.userId}`}
+                                                                value="absent"
+                                                                // checked={attendance[l.id] === 'absent'}
+                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'absent')}
+                                                                className="form-radio"
+                                                            />
+                                                        </td>
+                                                        <td className="py-2 px-4 ">
+                                                            <input
+                                                                style={{ width: "20px", height: "20px" }}
+                                                                type="radio"
+                                                                name={`attendance-${l.userId}`}
+                                                                value="leave"
+                                                                // checked={attendance[l.id] === 'leave'}
+                                                                // onChange={() => handleAttendanceChange(l.userId, 'leave')}
+                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'leave')}
+                                                                className="form-radio"
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                className="bg-transparent"
+                                                                type="time"
+                                                                value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
+                                                                onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
+                                                                disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                className="bg-transparent"
+                                                                type="time"
+                                                                value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
+                                                                onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
+                                                                disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className=" flex justify-end items-baseline pt-5">
+                                {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
+                                <button onClick={handleSave} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
+                                    Save
+                                </button>
+                            </div>
+                        </> :<h4 className=" font-bold text-lg text-center">Attendance Marked Already</h4>
+                }
+                {/* Leads List in table format loaded from slice after api call */}
+
             </TitleCard>
         </>
     )
