@@ -72,6 +72,7 @@ function AttendanceSummary() {
                 </td>
                 {[...Array(31).keys()].map(day => (
                     <td key={day} onClick={showModal}>
+                        th
                         <img src={check} height={200} width={200} />
                     </td>
                 ))}
@@ -103,7 +104,7 @@ function AttendanceSummary() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAttendanceOfAllEmployees();
-            debugger
+            //debugger
             console.log(response)
         }
         fetchData();

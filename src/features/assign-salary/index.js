@@ -94,7 +94,7 @@ function AssignSalary() {
         const fetchData = async () => {
             const res = await getAllEmployeeSalary();
             setAllSalary(res);
-            debugger
+            //debugger
             console.log(res)
         }
         fetchData()

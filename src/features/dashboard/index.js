@@ -16,10 +16,10 @@ import DoughnutChart from './components/DoughnutChart'
 import { getDashboardData } from '../../hooks/useAuth'
 
 const statsData = [
-    { title: "Total Employess", value: "20", icon: <UserGroupIcon className='w-8 h-8' />, description: "" },
-    { title: "Total Projects", value: "30", icon: <CreditCardIcon className='w-8 h-8' />, description: "" },
-    { title: "In Progrss Projects", value: "20", icon: <CircleStackIcon className='w-8 h-8' />, description: "" },
-    { title: "Total Leave", value: "5", icon: <UsersIcon className='w-8 h-8' />, description: "" },
+    { title: "Total Employess", value: "20", icon: <UserGroupIcon className='w-8 h-8' />, description: "", url: "/app/employees" },
+    { title: "Total Projects", value: "30", icon: <CreditCardIcon className='w-8 h-8' />, description: "", url: "/app/leads" },
+    { title: "In Progrss Projects", value: "20", icon: <CircleStackIcon className='w-8 h-8' />, description: "", url: "" },
+    { title: "Total Leave", value: "5", icon: <UsersIcon className='w-8 h-8' />, description: "", url: "" },
 ]
 
 
@@ -94,10 +94,10 @@ function Dashboard() {
         // Helper function to format date as yyyy-MM-dd
 
         const fetchData = async () => {
-            debugger
-            const res = await getDashboardData(newRange.start, newRange.end);
+
+            const res = await getDashboardData(formattedStartDate, formattedEndDate);
             setDashboardData(res)
-            debugger
+
             console.log(res);
         }
         fetchData();

@@ -98,29 +98,38 @@ function Transactions() {
   const applySearch = (value) => {
     let filteredTransactions = transactions.filter((t) => {
       return (
-        t.email.toLowerCase().includes(value.toLowerCase()) ||
-        t.email.toLowerCase().includes(value.toLowerCase())
+        t.employeeName.toLowerCase().includes(value.toLowerCase()) ||
+        t.employeeEmail.toLowerCase().includes(value.toLowerCase())
       );
     });
-    setTrans(filteredTransactions);
+    setTransactions(filteredTransactions);
   };
   useEffect(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const formattedToday = `${yyyy}-${mm}`;
+    setTodayDate(formattedToday);
+  }, []);
+  const fetchData = async () => {
+    console.log(todayDate)
+    const dateParts = todayDate.split("-");
+
+    // Extract the month part (index 1 after splitting by "-")
+    const month = dateParts[1];
+    //debugger
     const today = new Date();
 
     const dd = String(today.getDate()).padStart(2, "0");
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
-    const formattedToday = yyyy + "-" + mm + "-" + dd;
-    setTodayDate(formattedToday);
-  }, []);
-  const fetchData = async () => {
-    const res = await getAllEmployeeCalculatedSalary();
+    const res = await getAllEmployeeCalculatedSalary(month);
     setTransactions(res);
   }
   useEffect(() => {
 
     fetchData();
-  }, [])
+  }, [todayDate])
   const paySalary = async (item) => {
     const currentDate = new Date(Date.now());
     const year = currentDate.getFullYear();
@@ -140,9 +149,31 @@ function Transactions() {
     dispatch(showNotification({ message: "Salary Paid", status: 1 }));
 
   }
+  const calculateTotalSalary = () => {
+    let totalSalary = 0;
+    transactions.forEach((transaction) => {
+      if (transaction.salary) {
+        totalSalary += transaction.salary;
+      }
+    });
+    return totalSalary;
+  };
+  const payAll = () => {
+    transactions.forEach(item => {
+      paySalary(item);
+    })
+    fetchData();
+    dispatch(showNotification({ message: "All Salary Paid", status: 1 }));
+  }
   return (
     <>
-      <input className=" p-2 rounded-lg" type="date" value={todayDate} />
+      <input
+        className="p-2 rounded-lg"
+        type="month"
+        value={todayDate}
+        onChange={(e) => setTodayDate(e.target.value)}
+      />
+
 
       <TitleCard
         title="Salary"
@@ -153,6 +184,10 @@ function Transactions() {
           />
         }
       >
+        <button onClick={payAll} className="btn btn-primary px-4">Pay All</button>
+        <br />
+        <br />
+
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
@@ -175,7 +210,7 @@ function Transactions() {
                       <div className="flex items-center space-x-3">
                         <div className="avatar">
                           <div className="mask mask-circle w-12 h-12">
-                            <img src={l.avatar} alt="Avatar" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzZDsmvcZd2WHxj5KZlfmUrTqZGohTBTxHzw&s" alt="Avatar" />
                           </div>
                         </div>
                         <div>
@@ -185,21 +220,31 @@ function Transactions() {
                     </td>
                     <td>{l.employeeEmail}</td>
                     <td>{l.salary || 'N/A'}</td>
-                    <td>{l.totalDeduction || 'N/A'}</td>
-                    <td>{l.remainingSalary || 'N/A'}</td>
-                    <td>{moment(l.date).format("D MMM")}</td>
-                    {
-                      l.salleryStatus.status == "unpaid" ? <td>
-                        <button onClick={() => { paySalary(l) }} className=" bg-cyan-600  text-white p-1 rounded-lg cursor-pointer">Pay</button>
-                      </td> : <td>
-                        <span className=" bg-green-800  text-white p-1 rounded-lg">paid</span>
+                    <td>{Math.floor(l.totalDeduction) || 'N/A'}</td>
+                    <td>{Math.floor(l.remainingSalary) || 'N/A'}</td>
+                    <td>{l.salleryStatus?.date ? moment(l.salleryStatus.date).format("YYYY-MM-DD") : 'N/A'}</td>
+                    {l.salleryStatus.status === "unpaid" ? (
+                      <td>
+                        <button disabled={l.salary == null} onClick={() => { paySalary(l) }} className="bg-cyan-600 text-white rounded-lg cursor-pointer p-3">Pay</button>
                       </td>
-                    }
-
+                    ) : (
+                      <td>
+                        <span className="bg-green-800 text-white rounded-lg p-3">paid</span>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
+              {/* Total Salary Row */}
+              <tr>
+                <td colSpan="5" className="text-right font-bold">Total Salary:</td>
+                <td className="font-bold">
+                  {transactions.reduce((acc, curr) => acc + (curr.salary || 0), 0)}
+                </td>
+                <td></td> {/* Empty cell for the last column in the table */}
+              </tr>
             </tbody>
+
           </table>
         </div>
       </TitleCard>

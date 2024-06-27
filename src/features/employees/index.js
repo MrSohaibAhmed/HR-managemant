@@ -78,7 +78,7 @@ function Employees() {
     }
 
     const showEmployeeDetail = (data) => {
-        // debugger
+        // //debugger
         navigate('/app/employee-detail', { state: data })
     }
 

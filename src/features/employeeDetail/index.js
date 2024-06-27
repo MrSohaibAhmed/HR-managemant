@@ -40,7 +40,7 @@ function EmployeeDetail() {
     useEffect(() => {
         const fetchData = async () => {
             const resp = await getEmployeeDetail(data.userId)
-            debugger
+            //debugger
             console.log("respone employee data is =>" , resp);
             setEmplaoyeeData(resp)
         }

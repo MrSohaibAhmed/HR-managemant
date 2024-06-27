@@ -50,18 +50,18 @@ function Login() {
         if (loginObj.password.trim() === "") return setErrorMessage("Password is required! (use any value)")
         else {
             const response = await login(loginObj)
-            // debugger
+            // //debugger
             console.log(response);
             // console.log(response?.role);
             setLoading(true)
             localStorage.setItem("role", response?.role?.role)
-            debugger
+            //debugger
             localStorage.setItem("userId", response?.role?.userId)
             localStorage.setItem("token", 1)
-            debugger
+            //debugger
             console.log("setRole is" , Role);
             setRole(response?.role)
-            debugger
+            //debugger
             setIsLoggedIn(true)
             console.log("islogin is" , isLoggedIn);
             setLoading(false)
@@ -74,12 +74,12 @@ function Login() {
 
         setLoading(true);
         try {
-            debugger
+            //debugger
             const response = await login(loginObj);
-            debugger
+            //debugger
             setErrorMessage("Login failed. Please check your credentials.");
             setLoading(false);
-            debugger
+            //debugger
             // if(response){
             //     setShowError(false)
             // }

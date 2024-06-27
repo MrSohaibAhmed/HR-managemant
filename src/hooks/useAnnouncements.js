@@ -32,6 +32,6 @@ export async function editannouncements(updatedData, data) {
         ...updatedData,
         announcementsId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `Editannouncementss`, editdata);
 }

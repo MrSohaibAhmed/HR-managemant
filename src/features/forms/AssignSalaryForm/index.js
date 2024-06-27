@@ -38,7 +38,7 @@ function AssignSalaryForm() {
     const updateFormValue = ({ updateType, value }) => {
         console.log("selected value =>>", value);
         console.log("update type =>", updateType);
-        debugger
+        //debugger
         setSalaryData(prevData => ({
             ...prevData,
             [updateType]: value
@@ -48,7 +48,7 @@ function AssignSalaryForm() {
     const assignSalary = async () => {
         console.log("clicked");
         const ids = employees.filter((item) => item.employeeName == salaryData.employees);
-        debugger
+        //debugger
 
         const employeeId = ids[0].userId;
         salaryData.employees = employeeId;

@@ -32,7 +32,7 @@ export async function editAttendance(updatedData, data) {
         ...updatedData,
         AttendanceId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `EditAttendances`, editdata);
 }
 
@@ -46,4 +46,8 @@ export async function getAttendanceForToday(date) {
 
 export async function UpdateAttendace(AttendanceData) {
     return await makeRequest('post', 'updateAttendance', AttendanceData);
+}
+
+export async function getAttendanceForTodayDate(date) {
+    return await makeRequest('get', `getAttendanceByDate?date=${date}`);
 }

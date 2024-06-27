@@ -9,7 +9,7 @@ import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
 import { getEmployees } from "../../hooks/useEmployee"
 import { addAttendance } from "../../hooks/useAttendance"
-import { getAttendanceForToday, UpdateAttendace } from "../../hooks/useAttendance"
+import { getAttendanceForToday, UpdateAttendace, getAttendanceForTodayDate } from "../../hooks/useAttendance"
 const TopSideButtons = () => {
 
     const dispatch = useDispatch()
@@ -89,6 +89,7 @@ function Attendance() {
 
 
     const handleAttendanceChange = (userId, field, value) => {
+        //debugger
         setAttendanceData(prevData => {
             const updatedData = prevData.map(item => {
                 if (item.userId === userId) {
@@ -102,31 +103,75 @@ function Attendance() {
             return updatedData;
         });
     };
+    // const handleSave = async () => {
+    //     if (!update) {
+    //         console.log("Collected attendance data:", attendanceData);
+    //         const attendaceResponse = await addAttendance(attendanceData);
+    //         dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
+    //         console.log(attendaceResponse);
+    //     } else {
+    //         const currentDate = new Date();
+    //         const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+    //         // Filter attendance data where status is 'present' and add date key
+    //         const presentAttendanceData = attendanceData.filter(item => item.status === 'present').map(item => ({
+    //             ...item,
+    //             date: formattedDate
+    //         }));
+    //         console.log("Collected attendance data:", presentAttendanceData);
+    //         const attendaceResponse = await UpdateAttendace(presentAttendanceData);
+    //         dispatch(showNotification({ message: "Attendance Updated For Today", status: 1 }));
+    //         console.log(attendaceResponse);
+    //         setIsShow(false)
+
+
+    //     }
+    // };
     const handleSave = async () => {
         if (!update) {
+            // Adding new attendance records for today
             console.log("Collected attendance data:", attendanceData);
             const attendaceResponse = await addAttendance(attendanceData);
             dispatch(showNotification({ message: "Attendance Marked For Today", status: 1 }));
             console.log(attendaceResponse);
-
-
         } else {
+            // Updating existing attendance records for today
             const currentDate = new Date();
             const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
-            // Filter attendance data where status is 'present' and add date key
-            const presentAttendanceData = attendanceData.filter(item => item.status === 'present').map(item => ({
-                ...item,
-                date: formattedDate
-            }));
-            console.log("Collected attendance data:", presentAttendanceData);
-            const attendaceResponse = await UpdateAttendace(presentAttendanceData);
-            dispatch(showNotification({ message: "Attendance Updated For Today", status: 1 }));
-            console.log(attendaceResponse);
-            setIsShow(false)
 
+            // Filter attendance data where status is 'present' and both checkIn and checkOut have changed
+            const modifiedAttendanceData = attendanceData.reduce((accumulator, item) => {
+                if (item.status === 'present' && (item.checkIn !== '' || item.checkOut !== '')) {
+                    // Check if both checkIn and checkOut have changed
+                    if (item.checkIn !== item.originalCheckIn || item.checkOut !== item.originalCheckOut) {
+                        //debugger
+                        accumulator.push({
+                            userId: item.userId,
+                            status: item.status,
+                            checkIn: item.checkIn,
+                            checkOut: item.checkOut,
+                            date: formattedDate
+                        });
+                    }
+                }
+                return accumulator;
+            }, []);
 
+            console.log("Modified attendance data to update:", modifiedAttendanceData);
+
+            if (modifiedAttendanceData.length > 0) {
+                // Call your update function here with modifiedAttendanceData
+                const attendaceResponse = await UpdateAttendace(modifiedAttendanceData);
+                dispatch(showNotification({ message: "Attendance Updated For Today", status: 1 }));
+                console.log(attendaceResponse);
+            } else {
+                console.log("No updates to send.");
+                setIsShow(false); // You might want to handle UI state here accordingly
+            }
         }
     };
+
+
+
     useEffect(() => {
         const today = new Date();
 
@@ -136,10 +181,50 @@ function Attendance() {
         const formattedToday = yyyy + '-' + mm + '-' + dd;
         setTodayDate(formattedToday);
     }, []);
-    const changeShow = () => {
-        setIsShow(!show)
-        setUpdate(true)
-    }
+    const changeShow = async () => {
+        setIsShow(!show);
+        setUpdate(true);
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        const formattedToday = `${yyyy}-${mm}-${dd}`;
+        setTodayDate(formattedToday);
+
+        try {
+            const res = await getAttendanceForTodayDate(formattedToday);
+            console.log(res.records);
+
+            // Update attendanceData state with fetched data
+            const updatedAttendanceData = employees.map(emp => {
+                const foundRecord = res.records.find(record => record.userId === emp.userId);
+                if (foundRecord) {
+                    return {
+                        userId: foundRecord.userId,
+                        status: foundRecord.status,
+                        checkIn: foundRecord.checkIn,
+                        originalCheckIn: foundRecord.checkIn,
+                        originalCheckOut: foundRecord.checkOut,
+                        checkOut: foundRecord.checkOut,
+
+                    };
+                } else {
+                    return {
+                        userId: emp.userId,
+                        status: '',
+                        checkIn: '',
+                        checkOut: '',
+                        
+                    };
+                }
+            });
+
+            setAttendanceData(updatedAttendanceData);
+        } catch (error) {
+            console.error('Error fetching attendance:', error);
+        }
+    };
+
     return (
         <>
             <TitleCard title="Attendance" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
@@ -166,93 +251,91 @@ function Attendance() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            employees.map((l, k) => {
-                                                return (
-                                                    <tr key={k}>
-                                                        <td>
-                                                            <div className="flex items-center space-x-3">
-                                                                <div className="avatar">
-                                                                    <div className="mask mask-squircle w-12 h-12">
-                                                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg" alt="pic" />
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-                                                                    <div className="font-bold">{l.employeeName}</div>
-                                                                    {/* <div className="text-sm opacity-50">{l.last_name}</div> */}
-                                                                </div>
+                                        {employees.map((l, k) => (
+                                            <tr key={k}>
+                                                <td>
+                                                    <div className="flex items-center space-x-3">
+                                                        <div className="avatar">
+                                                            <div className="mask mask-squircle w-12 h-12">
+                                                                <img
+                                                                    src="https://static.vecteezy.com/system/resources/thumbnails/011/961/865/small/programmer-icon-line-color-illustration-vector.jpg"
+                                                                    alt="pic"
+                                                                />
                                                             </div>
-                                                        </td>
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-bold">{l.employeeName}</div>
+                                                            {/* <div className="text-sm opacity-50">{l.last_name}</div> */}
+                                                        </div>
+                                                    </div>
+                                                </td>
 
-                                                        <td className="py-2 px-4  ">
-                                                            <input
-                                                                style={{ width: "20px", height: "20px" }}
-                                                                type="radio"
-                                                                name={`attendance-${l.userId}`}
-                                                                value="present"
-                                                                // checked={attendance[l.id] === 'present'}
-                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'present')}
-                                                                className="form-radio"
-                                                            />
-                                                        </td>
-                                                        <td className="py-2 px-4  ">
-                                                            <input
-                                                                style={{ width: "20px", height: "20px" }}
-                                                                type="radio"
-                                                                name={`attendance-${l.userId}`}
-                                                                value="absent"
-                                                                // checked={attendance[l.id] === 'absent'}
-                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'absent')}
-                                                                className="form-radio"
-                                                            />
-                                                        </td>
-                                                        <td className="py-2 px-4 ">
-                                                            <input
-                                                                style={{ width: "20px", height: "20px" }}
-                                                                type="radio"
-                                                                name={`attendance-${l.userId}`}
-                                                                value="leave"
-                                                                // checked={attendance[l.id] === 'leave'}
-                                                                // onChange={() => handleAttendanceChange(l.userId, 'leave')}
-                                                                onChange={() => handleAttendanceChange(l.userId, 'status', 'leave')}
-                                                                className="form-radio"
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                className="bg-transparent"
-                                                                type="time"
-                                                                value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
-                                                                onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
-                                                                disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                className="bg-transparent"
-                                                                type="time"
-                                                                value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
-                                                                onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
-                                                                disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                                                <td className="py-2 px-4  ">
+                                                    <input
+                                                        style={{ width: '20px', height: '20px' }}
+                                                        type="radio"
+                                                        name={`attendance-${l.userId}`}
+                                                        value="present"
+                                                        checked={attendanceData.find(item => item.userId === l.userId)?.status === 'present'}
+                                                        onChange={() => handleAttendanceChange(l.userId, 'status', 'present')}
+                                                        className="form-radio"
+                                                    />
+                                                </td>
+                                                <td className="py-2 px-4  ">
+                                                    <input
+                                                        style={{ width: '20px', height: '20px' }}
+                                                        type="radio"
+                                                        name={`attendance-${l.userId}`}
+                                                        value="absent"
+                                                        checked={attendanceData.find(item => item.userId === l.userId)?.status === 'absent'}
+                                                        onChange={() => handleAttendanceChange(l.userId, 'status', 'absent')}
+                                                        className="form-radio"
+                                                    />
+                                                </td>
+                                                <td className="py-2 px-4 ">
+                                                    <input
+                                                        style={{ width: '20px', height: '20px' }}
+                                                        type="radio"
+                                                        name={`attendance-${l.userId}`}
+                                                        value="leave"
+                                                        checked={attendanceData.find(item => item.userId === l.userId)?.status === 'leave'}
+                                                        onChange={() => handleAttendanceChange(l.userId, 'status', 'leave')}
+                                                        className="form-radio"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        className="bg-transparent"
+                                                        type="time"
+                                                        value={attendanceData.find(item => item.userId === l.userId)?.checkIn || ''}
+                                                        onChange={(e) => handleAttendanceChange(l.userId, 'checkIn', e.target.value)}
+                                                        disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        className="bg-transparent"
+                                                        type="time"
+                                                        value={attendanceData.find(item => item.userId === l.userId)?.checkOut || ''}
+                                                        onChange={(e) => handleAttendanceChange(l.userId, 'checkOut', e.target.value)}
+                                                        disabled={attendanceData.find(item => item.userId === l.userId)?.status !== 'present'}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
-                            <div className=" flex justify-end items-baseline pt-5">
-                                {/* <button className="btn px-6 btn-sm normal-case btn-primary" >Save</button> */}
-                                <button onClick={handleSave} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded">
-                                    {update ? "Update" : "Save"}
+                            <div className="flex justify-end items-baseline pt-5">
+                                <button
+                                    onClick={handleSave}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 border border-blue-700 rounded"
+                                >
+                                    {update ? 'Update' : 'Save'}
                                 </button>
                             </div>
                         </> : <h4 className=" font-bold text-lg text-center">Attendance Marked Already</h4>
                 }
-                {/* Leads List in table format loaded from slice after api call */}
-
             </TitleCard>
         </>
     )

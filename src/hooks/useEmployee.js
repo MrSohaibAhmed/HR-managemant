@@ -30,9 +30,9 @@ export async function deleteEmployee(employeeId) {
 export async function editEmployee(updatedData, data) {
     const editdata = {
         ...updatedData,
-        employeeId: data.userId
+        userId: data.userId
     }
-    debugger
+    //debugger
     return await makeRequest('put', `Editemployees`, editdata);
 }
 

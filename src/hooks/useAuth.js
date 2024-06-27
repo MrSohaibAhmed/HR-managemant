@@ -32,7 +32,7 @@ export async function editEmployee(updatedData, data) {
         ...updatedData,
         employeeId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `Editemployees`, editdata);
 }
 

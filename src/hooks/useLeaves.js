@@ -32,7 +32,7 @@ export async function editApplication(updatedData, data) {
         ...updatedData,
         ApplicationId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `EditApplications`, editdata);
 }
 

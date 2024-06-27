@@ -32,6 +32,6 @@ export async function editProject(updatedData, data) {
         ...updatedData,
         projectId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `editProject`, editdata);
 }

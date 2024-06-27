@@ -32,7 +32,7 @@ export async function editSalary(updatedData, data) {
         ...updatedData,
         SalaryId: data._id
     }
-    debugger
+    //debugger
     return await makeRequest('put', `EditSalarys`, editdata);
 }
 
@@ -40,9 +40,12 @@ export async function getAllEmployeeSalary() {
     return await makeRequest('get', 'getallemployeessalaries');
 }
 
-export async function getAllEmployeeCalculatedSalary() {
-    return await makeRequest('get', 'process-salaries');
+export async function getAllEmployeeCalculatedSalary(month = 6) {
+    return await makeRequest('get', `process-salaries?month=${month}`);
 }
 export async function paysalary(SalaryData) {
     return await makeRequest('post', 'paysalary', SalaryData);
+}
+export async function paySalaryToAll(SalaryData) {
+    return await makeRequest('post', 'paysalaryAll', SalaryData);
 }
