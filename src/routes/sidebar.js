@@ -41,15 +41,15 @@ const routes = [
   {
     path: '/app/employees', // url
     icon: <UserGroupIcon className={iconClasses} />,
-    name: 'Employees', // name that appear in Sidebar
+    name: 'Employees', 
     role: ['admin',],
 
   },
   {
     path: '/app/attendance', // url
     icon: <InboxArrowDownIcon className={iconClasses} />,
-    name: 'Attendance', // name that appear in Sidebar
-    role: ['admin', 'User'],
+    name: 'Attendance', 
+    role: ['admin'],
 
   },
   {
@@ -70,7 +70,7 @@ const routes = [
     path: '/app/transactions', // url
     icon: <CurrencyDollarIcon className={`${iconClasses} inline`} />,
     name: 'Salary', // name that appear in Sidebar
-    role: ['admin', 'User'],
+    role: ['admin'],
 
     submenu: [
       {
@@ -90,9 +90,15 @@ const routes = [
     ]
   },
   {
+    path: '/app/my-salary', // url
+    icon: <CurrencyDollarIcon className={`${iconClasses} inline`} />,
+    name: 'My Salary', 
+    role: ['User'],
+  },
+  {
     path: '/app/charts', // url
     icon: <ChartBarIcon className={iconClasses} />,
-    name: 'Analytics', // name that appear in Sidebar
+    name: 'Analytics', 
     role: ['admin'],
 
   },
@@ -100,7 +106,7 @@ const routes = [
   {
     path: '/app/calendar', // url
     icon: <FaceFrownIcon className={`${iconClasses} inline`} />,
-    name: 'Leaves', // name that appear in Sidebar
+    name: 'Leaves', 
     role: ['admin', 'User'],
 
     submenu: [
@@ -127,7 +133,7 @@ const routes = [
   {
     path: '/app/application-summary', // url
     icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
-    name: 'Application', // name that appear in Sidebar
+    name: 'Application', 
     role: ['admin', 'User'],
   },
 
@@ -138,14 +144,14 @@ const routes = [
   {
     path: '/app/calendar', // url
     icon: <CalendarDaysIcon className={iconClasses} />,
-    name: 'Meeting Calendar', // name that appear in Sidebar
+    name: 'Meeting Calendar', 
     role: ['admin', 'User'],
 
   },
   {
     path: '/app/integration', //no url needed as this has submenu
     icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
-    name: 'Announcement', // name that appear in Sidebar
+    name: 'Announcement', 
     role: ['admin'],
 
 
@@ -153,7 +159,7 @@ const routes = [
   {
     path: '/app/chats', //no url needed as this has submenu
     icon: <EnvelopeIcon className={`${iconClasses} inline`} />,
-    name: 'Chat', // name that appear in Sidebar
+    name: 'Chat', 
     role: ['admin', 'User'],
 
 
@@ -161,7 +167,7 @@ const routes = [
   {
     path: '/app/noticeboard', //no url needed as this has submenu
     icon: <DocumentTextIcon className={`${iconClasses} inline`} />,
-    name: 'Noticeboard', // name that appear in Sidebar
+    name: 'Noticeboard', 
     role: ['admin', 'User'],
 
 
@@ -169,7 +175,7 @@ const routes = [
   {
     path: '/app/file-storage', // url
     icon: <CalendarDaysIcon className={iconClasses} />,
-    name: 'File Storage', // name that appear in Sidebar
+    name: 'File Storage', 
     role: ['admin', 'User'],
 
   },

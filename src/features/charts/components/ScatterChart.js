@@ -45,9 +45,10 @@ import {
         };
   
       return(
-          <TitleCard title={"No of Projects Running"}>
-                  <Scatter options={options} data={data} />
-          </TitleCard>
+        <></>
+          // <TitleCard title={"No of Projects Running"}>
+          //         <Scatter options={options} data={data} />
+          // </TitleCard>
       )
   }
   

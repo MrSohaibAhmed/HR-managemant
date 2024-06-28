@@ -33,6 +33,7 @@ const Chats = lazy(() => import('../pages/protected/Chat'))
 const EmployeeDetail = lazy(() => import('../pages/protected/EmployeeDetail'))
 const FileStorage = lazy(() => import('../pages/protected/FileStorage'))
 const AttendanceSummary = lazy(() => import('../pages/protected/AttendanceSummary'))
+const MySalary = lazy(() => import('../pages/protected/MySalary'))
 
 
 
@@ -162,6 +163,10 @@ const routes = [
   {
     path: '/attendance-summary',
     component: AttendanceSummary,
+  },
+  {
+    path: '/my-salary',
+    component: MySalary,
   },
 
 ]

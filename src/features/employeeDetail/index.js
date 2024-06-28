@@ -41,7 +41,7 @@ function EmployeeDetail() {
         const fetchData = async () => {
             const resp = await getEmployeeDetail(data.userId)
             //debugger
-            console.log("respone employee data is =>" , resp);
+            console.log("respone employee data is =>", resp);
             setEmplaoyeeData(resp)
         }
         fetchData();
@@ -52,10 +52,10 @@ function EmployeeDetail() {
 
             <TitleCard title="Employee Detail" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
-                <div className="overflow-x-auto w-full">
+                <div className=" w-full border-spacing-1 rounded-lg">
 
 
-                    <table className="min-w-full border-collapse border border-gray-300">
+                    <table className="min-w-full border-collapse border border-gray-300 ">
 
                         <tbody>
 
@@ -128,7 +128,7 @@ function EmployeeDetail() {
             <TitleCard title="Salary Details" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
                 {/* Leads List in table format loaded from slice after api call */}
                 <div className="overflow-x-auto w-full">
-                    
+
                     <table className="min-w-full border-collapse border border-gray-300">
                         <thead>
                             <tr>

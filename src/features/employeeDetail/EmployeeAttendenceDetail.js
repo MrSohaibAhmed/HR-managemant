@@ -137,7 +137,7 @@ function MonthlyAttendanceDetail({ EmployeeAttendance }) {
 
   const renderDays = () => {
     const days = [];
-    
+
     // Get current year and month
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -155,13 +155,13 @@ function MonthlyAttendanceDetail({ EmployeeAttendance }) {
     // Render days with attendance data
     for (let day = 1; day <= daysInCurrentMonth; day++) {
       const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-      
+
       // Filter attendance records for the current day
       const records = attendance.filter((record) => {
         // Convert record date to yyyy-mm-dd format
         const recordDate = new Date(record.date);
         const recordDateStr = `${recordDate.getFullYear()}-${(recordDate.getMonth() + 1).toString().padStart(2, '0')}-${recordDate.getDate().toString().padStart(2, '0')}`;
-        
+
         // Compare formatted dates
         return recordDateStr === dateStr;
       });
@@ -174,7 +174,7 @@ function MonthlyAttendanceDetail({ EmployeeAttendance }) {
 
       // Prepare element for the current day
       const dayElement = (
-        <div key={day} className={`border border-gray-300 h-15 flex flex-col items-center justify-center ${getStatusColor(statusToDisplay)}`}>
+        <div key={day} className={`border border-gray-300  rounded-xl h-15 flex flex-col items-center justify-center ${getStatusColor(statusToDisplay)}`}>
           <span>{day}</span>
           <span>{statusToDisplay}</span>
         </div>
