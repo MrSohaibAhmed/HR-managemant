@@ -6,16 +6,8 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { openModal } from "../common/modalSlice"
-// import { deleteLead, getLeadsContent } from "./leadSlice"
-import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../utils/globalConstantUtil'
-import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
-import { showNotification } from '../common/headerSlice'
-import EditIcon from "../../icons/edit"
-import ViewIcon from "../../icons/view"
-import ToogleInput from "../../components/Input/ToogleInput"
 import { useNavigate } from "react-router-dom"
-import { getApplicationByUserID } from "../../hooks/useLeaves"
-import { mySalary } from "../../hooks/useSalary"
+import { mySalary, mySalaryDetails } from "../../hooks/useSalary"
 const TopSideButtons = () => {
     const navigate = useNavigate()
 
@@ -34,6 +26,7 @@ const TopSideButtons = () => {
 function MySalary() {
     const navigate = useNavigate()
     const [Salary, setSalary] = useState({});
+    const [SalaryDetails, setSalaryDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedLeadIndex, setSelectedLeadIndex] = useState(null);
     const dispatch = useDispatch()
@@ -45,6 +38,13 @@ function MySalary() {
 
         fetchData();
     }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await mySalaryDetails(localStorage.getItem("userId"))
+            setSalaryDetails(response)
+        };
+        fetchData();
+    }, [])
 
 
     const getDummyStatus = (index) => {
@@ -71,35 +71,41 @@ function MySalary() {
 
     return (
         <>
-            <TitleCard title="My Salary" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+            <TitleCard title="My Salary" topMargin="mt-2" >
 
                 <div className="overflow-x-auto w-full">
                     <div className="mb-4 font-bold text-2xl">
-                        <h3>Salary : {Salary?.salaryRecord?.salary}</h3>
+                        <h3>Salary :<span className=" font-medium"> {Salary?.salaryRecord?.salary}</span></h3>
                     </div>
                     <table className="table w-full">
                         <thead>
                             <tr>
+                                <th>Month</th>
                                 <th>Salary</th>
-                                <th>Date</th>
+                                <th>Deduction</th>
+                                <th>Absents</th>
                                 <th>Status</th>
+
 
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {
-                                Salary.map((item) => <tr>
-                                    <td>{item?.subject}</td>
-                                    <td className="flex">{item?.date}</td>
+                            {
+                                SalaryDetails.map((item) => <tr>
+                                    <td>{item?.month}-{item?.year}</td>
+                                    <td>{item?.salary}</td>
                                     <td>
-                               
-                                        <span className="bg-green-600 p-1"> {item?.status}</span>
+
+                                        {item?.totalDeduction}
+                                    </td>
+                                    <td >{item?.absentCount}</td>
+                                    <td>
+                                        <span className={`inline-block py-2 px-4 rounded-full text-sm font-semibold ${item?.salleryStatus?.status === 'paid' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                                            {item?.salleryStatus?.status === 'paid' ? 'Paid' : 'Unpaid'}
+                                        </span>
                                     </td>
                                 </tr>)
-                            } */}
-
-
-
+                            }
                         </tbody>
                     </table>
                 </div>

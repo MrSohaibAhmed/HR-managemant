@@ -52,3 +52,6 @@ export async function paySalaryToAll(SalaryData) {
 export async function mySalary(userid) {
     return await makeRequest('get', `salarybyuserid?userId=${userid}`);
 }
+export async function mySalaryDetails(userid) {
+    return await makeRequest('get', `getSalaryDetailsByUserId?userId=${userid}`);
+}

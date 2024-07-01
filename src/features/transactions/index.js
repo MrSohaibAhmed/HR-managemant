@@ -112,19 +112,21 @@ function Transactions() {
     setTodayDate(formattedToday);
   }, []);
   const fetchData = async () => {
-    console.log(todayDate)
-    const dateParts = todayDate.split("-");
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const formattedToday = `${yyyy}-${mm}`;
+    console.log(mm)
+    // console.log(todayDate)
+    // debugger
+    // const dateParts = todayDate.split("-");
 
     // Extract the month part (index 1 after splitting by "-")
-    const month = dateParts[1];
+    // const month = dateParts[1];
     //debugger
-    const today = new Date();
 
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear();
-    const res = await getAllEmployeeCalculatedSalary(month);
-    setTransactions(res);
+    const res = await getAllEmployeeCalculatedSalary(mm);
+    setTransactions(res?.results);
   }
   useEffect(() => {
 
@@ -203,7 +205,7 @@ function Transactions() {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((l, k) => {
+              {transactions?.map((l, k) => {
                 return (
                   <tr key={k}>
                     <td>

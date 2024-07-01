@@ -51,3 +51,7 @@ export async function UpdateAttendace(AttendanceData) {
 export async function getAttendanceForTodayDate(date) {
     return await makeRequest('get', `getAttendanceByDate?date=${date}`);
 }
+
+export async function getAttendanceForEmployeeWithMonth(userid, month, year) {
+    return await makeRequest('get', `getmonthlyatendanceofemployee/${userid}?month=${month}&year=${year}`);
+}
